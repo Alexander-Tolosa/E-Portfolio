@@ -13,8 +13,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Dynamic Intro Welcome Screen */}
-      <IntroScreen onComplete={() => setIntroCompleted(true)} />
+      {!introCompleted && <IntroScreen onComplete={() => setIntroCompleted(true)} />}
 
       {/* Main landing container */}
       <motion.div

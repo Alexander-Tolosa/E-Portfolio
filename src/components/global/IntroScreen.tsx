@@ -65,6 +65,7 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
     
     const timer = setTimeout(() => {
       setIsMounted(false);
+      document.body.style.overflow = "unset";
     }, 2800); // Display duration
 
     return () => {
