@@ -8,7 +8,16 @@ import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
 
 export function About() {
+  const visibleCategories = content.skills.filter((cat) => cat.skills.length > 0);
   const [activeTab, setActiveTab] = useState(0);
+
+  const getShortName = (name: string) => {
+    if (name === "Devops & Cloud") return "DevOps";
+    if (name === "AI & Machine Learning") return "AI / ML";
+    if (name === "CMS & No-Code") return "CMS";
+    if (name === "Developer Tools") return "Tools";
+    return name;
+  };
 
   return (
     <section id="about" className="py-24 relative overflow-hidden">
@@ -33,55 +42,59 @@ export function About() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Technical Skill Matrix */}
             <div className="lg:col-span-7 flex flex-col gap-8">
-              <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                <span className="text-accent-indigo">⌨️</span>
-                Technical Skill Matrix
+              <h3 className="text-2xl font-bold text-white">
+                Technical Skills
               </h3>
 
-              <Card animate={false} className="p-6">
-                {/* Category Tab Buttons */}
-                <div className="flex flex-wrap gap-2 mb-8 bg-white/5 p-1 rounded-xl border border-white/5">
-                  {content.skills.map((category, idx) => (
+              <Card animate={false} className="p-6 md:p-8">
+                {/* Category Selection Tabs on Top */}
+                <div className="flex flex-row gap-1 mb-8 bg-white/5 p-1 rounded-xl border border-white/5">
+                  {visibleCategories.map((category, idx) => (
                     <button
                       key={category.name}
                       onClick={() => setActiveTab(idx)}
-                      className={`flex-1 text-xs font-semibold px-4 py-2.5 rounded-lg transition-all cursor-pointer ${
+                      className={`flex-1 text-[9px] md:text-xs font-semibold px-1 md:px-3 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                         activeTab === idx
                           ? "bg-gradient-to-r from-accent-blue to-accent-indigo text-white shadow-md"
                           : "text-brand-text-muted hover:text-white hover:bg-white/5"
                       }`}
                     >
-                      {category.name.split(" ")[0]}
+                      {getShortName(category.name)}
                     </button>
                   ))}
                 </div>
 
-                {/* Skills Progress Grid */}
-                <div className="space-y-6">
-                  {content.skills[activeTab].skills.map((skill, sIdx) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between items-center text-sm font-semibold">
-                        <span className="text-white/80">{skill.name}</span>
-                        <span className="text-accent-blue">{skill.level}%</span>
-                      </div>
-                      {/* Progress Track */}
-                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, ease: "easeOut", delay: sIdx * 0.05 }}
-                          className="h-full bg-gradient-to-r from-accent-blue to-accent-indigo rounded-full"
-                        />
-                      </div>
-                    </div>
+                {/* Grid of Tech Stack Badges */}
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                >
+                  {visibleCategories[activeTab]?.skills.map((skill, idx) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: idx * 0.05 }}
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/8 transition-all duration-300 group cursor-default"
+                    >
+                      {/* Premium Bullet Indicator */}
+                      <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-accent-blue to-accent-indigo group-hover:scale-125 transition-transform duration-300 shrink-0" />
+                      <span className="text-base font-semibold text-white/95 group-hover:text-white transition-colors">
+                        {skill.name}
+                      </span>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </Card>
             </div>
 
             {/* Profile Picture */}
-            <div className="lg:col-span-5 flex justify-center">
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}

@@ -63,43 +63,68 @@ export const content: PortfolioContent = {
   },
   skills: [
     {
-      name: "Frontend Technologies",
+      name: "Frontend",
       skills: [
-        { name: "React / Next.js", level: 92, icon: "React" },
-        { name: "TypeScript", level: 90, icon: "TypeScript" },
-        { name: "Tailwind CSS", level: 95, icon: "Tailwind" },
-        { name: "Framer Motion", level: 85, icon: "Framer" },
-        { name: "Redux / Zustand", level: 88, icon: "State" },
+        { name: "JavaScript", level: 100, icon: "" },
+        { name: "TypeScript", level: 100, icon: "" },
+        { name: "React", level: 100, icon: "" },
+        { name: "Next.js", level: 100, icon: "" },
+        { name: "Tailwind CSS", level: 100, icon: "" },
+        { name: "Vite", level: 100, icon: "" },
       ],
     },
     {
-      name: "Backend & Database",
+      name: "Backend",
       skills: [
-        { name: "Node.js / Express", level: 90, icon: "Node" },
-        { name: "NestJS", level: 80, icon: "Nest" },
-        { name: "Python / FastAPI", level: 85, icon: "Python" },
-        { name: "PostgreSQL / MongoDB", level: 87, icon: "Database" },
-        { name: "GraphQL / REST APIs", level: 90, icon: "API" },
+        { name: "Python", level: 100, icon: "" },
+        { name: "Java", level: 100, icon: "" },
+        { name: "Spring Boot", level: 100, icon: "" },
+        { name: "PostgreSQL", level: 100, icon: "" },
+        { name: "MySQL", level: 100, icon: "" },
       ],
     },
     {
-      name: "DevOps & Tools",
+      name: "Devops & Cloud",
       skills: [
-        { name: "Docker", level: 83, icon: "Docker" },
-        { name: "Git / GitHub Actions", level: 88, icon: "Git" },
-        { name: "AWS (S3, EC2, Lambda)", level: 78, icon: "AWS" },
-        { name: "Linux / Bash", level: 80, icon: "Linux" },
-        { name: "Vercel / Netlify", level: 92, icon: "Deploy" },
+        { name: "GitHub Actions", level: 100, icon: "" },
+      ],
+    },
+    {
+      name: "AI & Machine Learning",
+      skills: [
+        { name: "Anthropic", level: 100, icon: "" },
+      ],
+    },
+    {
+      name: "Security & Identity",
+      skills: [],
+    },
+    {
+      name: "CMS & No-Code",
+      skills: [
+        { name: "WordPress", level: 100, icon: "" },
+      ],
+    },
+    {
+      name: "Developer Tools",
+      skills: [
+        { name: "Git", level: 100, icon: "" },
+        { name: "GitHub", level: 100, icon: "" },
+        { name: "Discord", level: 100, icon: "" },
+        { name: "Teams", level: 100, icon: "" },
+        { name: "Viber", level: 100, icon: "" },
+        { name: "Antigravity", level: 100, icon: "" },
+        { name: "VS Code", level: 100, icon: "" },
       ],
     },
   ],
   projects: [
     {
       id: "silim-cafe",
-      title: "Silim Cafe Hub",
+      title: "Silim Café",
       category: "Full-Stack Web App",
       shortDescription: "A comprehensive digital ecosystem for a premium cafe including table reservations, online ordering, and AI chatbot support.",
-      description: "Silim Cafe Hub is a bespoke full-stack ecommerce and utility platform designed to solve operational bottlenecks for modern coffee shops. The system integrates seamless online table booking, an interactive digital menu with dynamic ordering, checkout pipelines, and an automated customer outreach chatbot.",
+      description: "Silim Caf is a bespoke full-stack ecommerce and utility platform designed to solve operational bottlenecks for modern coffee shops. The system integrates seamless online table booking, an interactive digital menu with dynamic ordering, checkout pipelines, and an automated customer outreach chatbot.",
       role: "Lead Full-Stack Architect",
       timeline: "3 Months (2026)",
       client: "Silim Cafe Co.",
