@@ -110,7 +110,7 @@ export function Hero() {
           {/* Heading */}
           <motion.h1
             variants={itemVariants}
-            className="text-5xl sm:text-7xl md:text-8xl font-semibold tracking-tight text-shine mb-8 py-1"
+            className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-shine mb-8 py-1 whitespace-nowrap"
           >
             {content.personalInfo.name}
           </motion.h1>
@@ -125,7 +125,7 @@ export function Hero() {
                 key={skill}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`relative px-4 py-2 text-sm sm:text-base font-semibold tracking-widest uppercase cursor-default transition-all duration-300 ${
+                className={`relative px-4 py-2 text-base sm:text-lg md:text-xl font-bold tracking-widest uppercase cursor-default transition-all duration-300 ${
                   hoveredIndex === null
                     ? "text-white/60 filter-none"
                     : hoveredIndex === idx
@@ -139,17 +139,17 @@ export function Hero() {
                 {hoveredIndex === idx && (
                   <motion.div
                     layoutId="brackets"
-                    className="absolute -inset-x-3 -inset-y-1 pointer-events-none"
+                    className="absolute -inset-x-4 -inset-y-1.5 pointer-events-none"
                     transition={{ type: "spring", stiffness: 350, damping: 25 }}
                   >
                     {/* Top-Left */}
-                    <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-accent-cyan rounded-tl-sm" />
+                    <span className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-accent-cyan rounded-tl-sm" />
                     {/* Top-Right */}
-                    <span className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-accent-cyan rounded-tr-sm" />
+                    <span className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-accent-cyan rounded-tr-sm" />
                     {/* Bottom-Left */}
-                    <span className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-accent-cyan rounded-bl-sm" />
+                    <span className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-accent-cyan rounded-bl-sm" />
                     {/* Bottom-Right */}
-                    <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-accent-cyan rounded-br-sm" />
+                    <span className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-accent-cyan rounded-br-sm" />
                   </motion.div>
                 )}
               </div>
