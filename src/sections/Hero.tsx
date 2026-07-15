@@ -195,6 +195,19 @@ export function Hero() {
           />
         </div>
       </div>
+
+      {/* Availability indicator bottom-left */}
+      <div className="absolute bottom-8 left-6 md:left-8 flex items-center gap-2.5 px-4 py-2 rounded-full glass border border-white/5 backdrop-blur-md select-none z-20">
+        <span className="relative flex h-2 w-2">
+          {/* Fading ring layer */}
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span>
+          {/* Core glowing dot */}
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-emerald shadow-[0_0_8px_#10b981]"></span>
+        </span>
+        <span className="text-[10px] uppercase tracking-widest font-semibold text-white/80">
+          Available For Work
+        </span>
+      </div>
     </section>
   );
 }
