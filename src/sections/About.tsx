@@ -53,7 +53,7 @@ export function About() {
                     <button
                       key={category.name}
                       onClick={() => setActiveTab(idx)}
-                      className={`flex-1 text-[9px] md:text-xs font-semibold px-1 md:px-3 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                      className={`flex-1 text-[9px] md:text-xs font-mono font-semibold px-1 md:px-3 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                         activeTab === idx
                           ? "bg-gradient-to-r from-accent-blue to-accent-indigo text-white shadow-md"
                           : "text-brand-text-muted hover:text-white hover:bg-white/5"
@@ -64,13 +64,13 @@ export function About() {
                   ))}
                 </div>
 
-                {/* Grid of Tech Stack Badges */}
+                {/* Wrapping Flow of Tech Stack Badges */}
                 <motion.div
                   key={activeTab}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                  className="flex flex-wrap justify-center gap-3"
                 >
                   {visibleCategories[activeTab]?.skills.map((skill, idx) => (
                     <motion.div
@@ -79,12 +79,10 @@ export function About() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: idx * 0.05 }}
-                      whileHover={{ scale: 1.03, y: -2 }}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/8 transition-all duration-300 group cursor-default"
+                      whileHover={{ scale: 1.05, y: -1 }}
+                      className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-white/3 border border-white/10 hover:border-white/20 hover:bg-white/6 transition-all duration-300 group cursor-default"
                     >
-                      {/* Premium Bullet Indicator */}
-                      <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-accent-blue to-accent-indigo group-hover:scale-125 transition-transform duration-300 shrink-0" />
-                      <span className="text-base font-semibold text-white/95 group-hover:text-white transition-colors">
+                      <span className="text-xs md:text-sm font-mono font-medium text-white/70 group-hover:text-white transition-colors text-center">
                         {skill.name}
                       </span>
                     </motion.div>
