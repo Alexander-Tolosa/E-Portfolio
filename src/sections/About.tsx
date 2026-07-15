@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar, CheckCircle } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
+import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
 
 export function About() {
   const [activeTab, setActiveTab] = useState(0);
@@ -86,18 +87,23 @@ export function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="relative group w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/10 bg-brand-card shadow-2xl"
+                className="w-full max-w-sm"
               >
-                <img
-                  src="/assets/images/profile_avatar.jpg"
-                  alt="Alexander Tolosa Portrait"
-                  className="w-full h-auto object-cover aspect-[4/5] object-center rounded-[2rem] transition-transform duration-500 group-hover:scale-105"
-                />
-                
-                {/* Glassmorphism Badge */}
-                <div className="absolute top-5 right-5 px-4 py-1.5 rounded-full glass border border-white/10 text-xs font-semibold text-white tracking-widest uppercase backdrop-blur-md">
-                  Alexander
-                </div>
+                <DirectionalTilt className="relative group w-full rounded-[2rem] border border-white/10 bg-brand-card">
+                  <img
+                    src="/assets/images/profile_avatar.jpg"
+                    alt="Alexander Tolosa Portrait"
+                    className="w-full h-auto object-cover aspect-[4/5] object-center rounded-[2rem] transition-transform duration-500 group-hover:scale-105"
+                  />
+                  
+                  {/* Glassmorphism Badge */}
+                  <div 
+                    style={{ transform: "translateZ(30px)" }}
+                    className="absolute top-5 right-5 px-4 py-1.5 rounded-full glass border border-white/10 text-xs font-semibold text-white tracking-widest uppercase backdrop-blur-md"
+                  >
+                    Alexander
+                  </div>
+                </DirectionalTilt>
               </motion.div>
             </div>
           </div>
