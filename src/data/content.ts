@@ -116,6 +116,8 @@ export const content: PortfolioContent = {
         { name: "Viber", level: 100, icon: "" },
         { name: "Antigravity", level: 100, icon: "" },
         { name: "VS Code", level: 100, icon: "" },
+        { name: "Supabase", level: 100, icon: "" },
+        { name: "Vercel", level: 100, icon: "" },
       ],
     },
   ],

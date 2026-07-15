@@ -41,14 +41,27 @@ export function About() {
           {/* Technical Skill Matrix & Photo Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Technical Skill Matrix */}
-            <div className="lg:col-span-7 flex flex-col gap-8">
-              <h3 className="text-2xl font-bold text-white">
-                Technical Skills
-              </h3>
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <Card animate={false} className="p-6 md:p-8 relative overflow-visible">
+                {/* Decorative Corner Brackets */}
+                <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/20 pointer-events-none" />
+                <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/20 pointer-events-none" />
 
-              <Card animate={false} className="p-6 md:p-8">
+                {/* Introduction Header and Bio */}
+                <div className="mb-6">
+                  <p className="text-sm text-brand-text-muted leading-relaxed">
+                    Started creating mobile applications using Flutter, FlutterFlow, and Firebase and eventually switched to Web Development using NextJS, React, and Tailwind
+                  </p>
+                </div>
+
+                <div className="mb-4">
+                  <h5 className="text-xs font-bold text-accent-blue uppercase tracking-wider">
+                    Skillset & tools
+                  </h5>
+                </div>
+
                 {/* Category Selection Tabs on Top */}
-                <div className="flex flex-row gap-1 mb-8 bg-white/5 p-1 rounded-xl border border-white/5">
+                <div className="flex flex-row gap-1 mb-6 bg-white/5 p-1 rounded-xl border border-white/5">
                   {visibleCategories.map((category, idx) => (
                     <button
                       key={category.name}
@@ -70,7 +83,7 @@ export function About() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="flex flex-wrap justify-center gap-3"
+                  className="flex flex-wrap justify-center gap-2.5"
                 >
                   {visibleCategories[activeTab]?.skills.map((skill, idx) => (
                     <motion.div
@@ -80,9 +93,9 @@ export function About() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: idx * 0.05 }}
                       whileHover={{ scale: 1.05, y: -1 }}
-                      className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-white/3 border border-white/10 hover:border-white/20 hover:bg-white/6 transition-all duration-300 group cursor-default"
+                      className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/3 border border-white/10 hover:border-white/20 hover:bg-white/6 transition-all duration-300 group cursor-default"
                     >
-                      <span className="text-xs md:text-sm font-mono font-medium text-white/70 group-hover:text-white transition-colors text-center">
+                      <span className="text-xs md:text-sm font-mono font-medium text-white/80 group-hover:text-white transition-colors text-center">
                         {skill.name}
                       </span>
                     </motion.div>
