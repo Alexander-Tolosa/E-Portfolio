@@ -104,6 +104,7 @@ export const content: PortfolioContent = {
       name: "CMS & No-Code",
       skills: [
         { name: "WordPress", level: 100, icon: "" },
+
       ],
     },
     {
@@ -118,6 +119,7 @@ export const content: PortfolioContent = {
         { name: "VS Code", level: 100, icon: "" },
         { name: "Supabase", level: 100, icon: "" },
         { name: "Vercel", level: 100, icon: "" },
+        { name: "Canva", level: 100, icon: "" },
       ],
     },
   ],
