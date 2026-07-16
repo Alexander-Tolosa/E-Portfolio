@@ -135,3 +135,12 @@ body {
   background-clip: text;
   animation: text-shine 5s linear infinite;
 }
+
+@keyframes letter-bounce {
+  0%, 100% {
+    top: 0;
+  }
+  50% {
+    top: -6px;
+  }
+}

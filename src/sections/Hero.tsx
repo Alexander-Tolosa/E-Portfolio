@@ -112,7 +112,18 @@ export function Hero() {
             variants={itemVariants}
             className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-shine mb-8 py-1 whitespace-nowrap"
           >
-            {content.personalInfo.name}
+            {content.personalInfo.name.split("").map((char, index) => (
+              <span
+                key={index}
+                className="relative"
+                style={{
+                  animation: "letter-bounce 1.4s ease-in-out infinite",
+                  animationDelay: `${index * 0.06}s`,
+                }}
+              >
+                {char}
+              </span>
+            ))}
           </motion.h1>
 
           {/* Top 3 Skills / Roles Row with Target Brackets and Blur Parallax Hover Effect */}
