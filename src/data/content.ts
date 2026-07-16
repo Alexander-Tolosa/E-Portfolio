@@ -30,6 +30,15 @@ export interface Experience {
   description: string[];
 }
 
+export interface Education {
+  id: string;
+  degree: string;
+  institution: string;
+  location: string;
+  period: string;
+  description: string[];
+}
+
 export interface PortfolioContent {
   personalInfo: {
     name: string;
@@ -46,6 +55,7 @@ export interface PortfolioContent {
   skills: SkillCategory[];
   projects: Project[];
   experiences: Experience[];
+  education: Education[];
 }
 
 export const content: PortfolioContent = {
@@ -179,26 +189,56 @@ export const content: PortfolioContent = {
   experiences: [
     {
       id: "exp-1",
-      role: "Senior Full-Stack Developer",
-      company: "Innovate Tech Labs",
-      location: "Manila, Philippines",
-      period: "2024 - Present",
+      role: "Front-End Developer",
+      company: "Cascade Development Group (CDG)",
+      location: "Iloilo City, Philippines",
+      period: "2026 – Present",
       description: [
-        "Architected and deployed scalable Next.js client portals, boosting customer retention by 15%.",
-        "Lead a team of 4 frontend engineers, defining development standards, UI design systems, and CI/CD pipelines.",
-        "Optimized slow backend database query layouts, cutting API response times by up to 250ms."
+        "IT solutions startup delivering web development, database architecture, and technical consulting to clients across the Visayas — collaborating with a team across the full business lifecycle from scoping to deployment."
       ],
     },
     {
       id: "exp-2",
-      role: "Software Engineer",
-      company: "CoreSolutions Inc.",
-      location: "Manila, Philippines",
-      period: "2022 - 2024",
+      role: "Front-End Developer & UI/UX Design",
+      company: "PharmaTrack — University of San Agustin, Pharmacy Department",
+      location: "Iloilo City, Philippines",
+      period: "2026",
       description: [
-        "Implemented RESTful web APIs and microservices using Node.js and Express, integrated with MongoDB.",
-        "Developed responsive user-interfaces using React, Redux, and Tailwind CSS following pixel-perfect design comps.",
-        "Created unit test suites covering 80%+ of core business logics, reducing deployment rollbacks."
+        "Designed some user experience from scratch, mapping out intuitive dashboard layouts, and translated those high-fidelity designs into a responsive frontend.",
+        "Focused on state management and building clean, accessible UI components for fast-paced clinical environments."
+      ],
+    }
+  ],
+  education: [
+    {
+      id: "edu-1",
+      degree: "Bachelor of Science in Information Technology",
+      institution: "University of San Agustin",
+      location: "Iloilo, Philippines",
+      period: "2024 - Present",
+      description: [
+        "College - Third Year",
+        "Graphic Designer — CAS (College of Arts & Sciences Organization)"
+      ],
+    },
+    {
+      id: "edu-2",
+      degree: "Senior High School",
+      institution: "University of San Agustin Main",
+      location: "Iloilo, Philippines",
+      period: "Sept 2023 - May 2024",
+      description: [
+        "SHS Grade 11 - Grade 12"
+      ],
+    },
+    {
+      id: "edu-3",
+      degree: "Junior High School",
+      institution: "BED University of San Agustin",
+      location: "Iloilo, Philippines",
+      period: "Sept 2019 - May 2022",
+      description: [
+        "Grade 8 - Grade 10"
       ],
     }
   ],

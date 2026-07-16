@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle } from "lucide-react";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
@@ -132,61 +132,122 @@ export function About() {
             </div>
           </div>
 
-          {/* Work Experience */}
-          <div className="flex flex-col gap-8">
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <Briefcase className="text-accent-blue" size={24} />
-              Work Experience
-            </h3>
-            
-            {/* Timeline Container */}
-            <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-white/10 before:rounded-full">
-              {content.experiences.map((exp, idx) => (
-                <motion.div
-                  key={exp.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="relative pl-10 group"
-                >
-                  {/* Timeline Node Icon */}
-                  <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
-                  
-                  <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                      <div>
-                        <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">
-                          {exp.role}
-                        </h4>
-                        <p className="text-sm font-semibold text-white/70">
-                          {exp.company}
-                        </p>
-                      </div>
-                      <div className="flex flex-col sm:items-end gap-1">
-                        <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted">
-                          <Calendar size={12} />
-                          {exp.period}
-                        </span>
-                        <span className="inline-flex items-center gap-1 text-xs text-white/40">
-                          <MapPin size={12} />
-                          {exp.location}
-                        </span>
-                      </div>
-                    </div>
+          {/* Experience & Education Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Work Experience */}
+            <div className="flex flex-col gap-8">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <Briefcase className="text-accent-blue" size={24} />
+                Experience
+              </h3>
+              
+              {/* Timeline Container */}
+              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-white/10 before:rounded-full">
+                {content.experiences.map((exp, idx) => (
+                  <motion.div
+                    key={exp.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="relative pl-10 group"
+                  >
+                    {/* Timeline Node Icon */}
+                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
                     
-                    {/* Experience Bullet Points */}
-                    <ul className="space-y-2 text-brand-text-muted text-sm">
-                      {exp.description.map((bullet, bIdx) => (
-                        <li key={bIdx} className="flex items-start gap-2">
-                          <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </Card>
-                </motion.div>
-              ))}
+                    <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                        <div>
+                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">
+                            {exp.role}
+                          </h4>
+                          <p className="text-sm font-semibold text-white/70">
+                            {exp.company}
+                          </p>
+                        </div>
+                        <div className="flex flex-col sm:items-end gap-1">
+                          <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted">
+                            <Calendar size={12} />
+                            {exp.period}
+                          </span>
+                          <span className="inline-flex items-center gap-1 text-xs text-white/40">
+                            <MapPin size={12} />
+                            {exp.location}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Experience Bullet Points */}
+                      <ul className="space-y-2 text-brand-text-muted text-sm">
+                        {exp.description.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex items-start gap-2">
+                            <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="flex flex-col gap-8">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <GraduationCap className="text-accent-blue" size={24} />
+                Education
+              </h3>
+              
+              {/* Timeline Container */}
+              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-white/10 before:rounded-full">
+                {content.education.map((edu, idx) => (
+                  <motion.div
+                    key={edu.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="relative pl-10 group"
+                  >
+                    {/* Timeline Node Icon */}
+                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
+                    
+                    <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                        <div>
+                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">
+                            {edu.degree}
+                          </h4>
+                          <p className="text-sm font-semibold text-white/70">
+                            {edu.institution}
+                          </p>
+                        </div>
+                        <div className="flex flex-col sm:items-end gap-1">
+                          <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted">
+                            <Calendar size={12} />
+                            {edu.period}
+                          </span>
+                          <span className="inline-flex items-center gap-1 text-xs text-white/40">
+                            <MapPin size={12} />
+                            {edu.location}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Education Bullet Points */}
+                      <ul className="space-y-2 text-brand-text-muted text-sm">
+                        {edu.description.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex items-start gap-2">
+                            <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
