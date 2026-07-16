@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap } from "lucide-react";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
@@ -248,6 +248,52 @@ export function About() {
                   </motion.div>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Certifications */}
+          <div className="flex flex-col gap-8">
+            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <Award className="text-accent-blue" size={24} />
+              Certifications
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {content.certifications?.map((cert, idx) => (
+                <motion.div
+                  key={cert.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="h-full"
+                >
+                  <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex justify-between items-start gap-4 mb-2">
+                        <h4 className="text-lg font-bold text-white transition-colors">
+                          {cert.title}
+                        </h4>
+                        <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted whitespace-nowrap">
+                          <Calendar size={12} />
+                          {cert.date}
+                        </span>
+                      </div>
+                      <p className="text-sm font-semibold text-white/70 mb-3">
+                        {cert.issuer}
+                      </p>
+                      <ul className="space-y-2 text-brand-text-muted text-sm">
+                        {cert.description.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex items-start gap-2">
+                            <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>

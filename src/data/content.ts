@@ -39,6 +39,15 @@ export interface Education {
   description: string[];
 }
 
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialUrl?: string;
+  description: string[];
+}
+
 export interface PortfolioContent {
   personalInfo: {
     name: string;
@@ -56,6 +65,7 @@ export interface PortfolioContent {
   projects: Project[];
   experiences: Experience[];
   education: Education[];
+  certifications: Certification[];
 }
 
 export const content: PortfolioContent = {
@@ -242,4 +252,24 @@ export const content: PortfolioContent = {
       ],
     }
   ],
+  certifications: [
+    {
+      id: "cert-1",
+      title: "Responsive Web Design Certificate",
+      issuer: "freeCodeCamp",
+      date: "2024",
+      description: [
+        "Completed 300+ hours of curriculum covering HTML5, CSS3, responsive design principles, and UI layouts."
+      ]
+    },
+    {
+      id: "cert-2",
+      title: "UX/UI Design Foundations",
+      issuer: "Interaction Design Foundation (IxDF)",
+      date: "2025",
+      description: [
+        "Learned key principles of user experience, prototyping, accessibility standards, and interface layout best practices."
+      ]
+    }
+  ]
 };
