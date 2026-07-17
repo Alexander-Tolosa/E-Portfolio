@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award } from "lucide-react";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
@@ -282,15 +282,30 @@ export function About() {
                       <p className="text-sm font-semibold text-white/70 mb-3">
                         {cert.issuer}
                       </p>
-                      <ul className="space-y-2 text-brand-text-muted text-sm">
-                        {cert.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {cert.description && cert.description.length > 0 && (
+                        <ul className="space-y-2 text-brand-text-muted text-sm">
+                          {cert.description.map((bullet, bIdx) => (
+                            <li key={bIdx} className="flex items-start gap-2">
+                              <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
+                    {cert.credentialUrl && (
+                      <div className="mt-4 pt-3 border-t border-white/5 flex justify-end">
+                        <a
+                          href={cert.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-blue hover:text-accent-indigo transition-colors"
+                        >
+                          Verify Credential
+                          <ExternalLink size={12} />
+                        </a>
+                      </div>
+                    )}
                   </Card>
                 </motion.div>
               ))}
