@@ -7,6 +7,7 @@ import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Projects } from "@/sections/Projects";
 import { Contact } from "@/sections/Contact";
+import { GithubStreak } from "@/sections/GithubStreak";
 
 export default function Home() {
   const [introCompleted, setIntroCompleted] = useState(false);
@@ -30,6 +31,7 @@ export default function Home() {
         <Hero />
         <About />
         <Projects />
+        <GithubStreak />
         <Contact />
       </motion.div>
     </>
