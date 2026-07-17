@@ -45,6 +45,7 @@ export interface Certification {
   issuer: string;
   date: string;
   credentialUrl?: string;
+  logo?: string;
   description: string[];
 }
 
@@ -259,6 +260,7 @@ export const content: PortfolioContent = {
       issuer: "Anthropic",
       date: "Jul 2026",
       credentialUrl: "https://verify.skilljar.com/c/xapqd4xsgmxf",
+      logo: "/assets/images/anthropic_logo.png",
       description: []
     },
     {
@@ -267,6 +269,7 @@ export const content: PortfolioContent = {
       issuer: "Anthropic",
       date: "Jun 2026",
       credentialUrl: "https://verify.skilljar.com/c/7nc4w3u543cx",
+      logo: "/assets/images/anthropic_logo.png",
       description: []
     },
     {
@@ -275,6 +278,7 @@ export const content: PortfolioContent = {
       issuer: "Anthropic",
       date: "Jun 2026",
       credentialUrl: "https://verify.skilljar.com/c/7i8zf7mmfpvb",
+      logo: "/assets/images/anthropic_logo.png",
       description: []
     },
     {
@@ -283,6 +287,7 @@ export const content: PortfolioContent = {
       issuer: "Udacity",
       date: "Mar 2026",
       credentialUrl: "https://www.udacity.com/certificate/e/0d3421a6-2cb9-11f1-a14f-875e605f5b98",
+      logo: "/assets/images/udacity_logo.png",
       description: []
     }
   ]

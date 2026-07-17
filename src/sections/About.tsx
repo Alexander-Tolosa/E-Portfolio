@@ -270,20 +270,33 @@ export function About() {
                 >
                   <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors h-full flex flex-col justify-between">
                     <div>
-                      <div className="flex justify-between items-start gap-4 mb-2">
-                        <h4 className="text-lg font-bold text-white transition-colors">
-                          {cert.title}
-                        </h4>
-                        <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted whitespace-nowrap">
-                          <Calendar size={12} />
-                          {cert.date}
-                        </span>
+                      <div className="flex items-start gap-4 mb-4">
+                        {cert.logo && (
+                          <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                            <img
+                              src={cert.logo}
+                              alt={`${cert.issuer} logo`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-start gap-2">
+                            <h4 className="text-base font-bold text-white transition-colors line-clamp-2">
+                              {cert.title}
+                            </h4>
+                            <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted whitespace-nowrap mt-0.5 shrink-0">
+                              <Calendar size={12} />
+                              {cert.date}
+                            </span>
+                          </div>
+                          <p className="text-sm font-semibold text-white/70 mt-1">
+                            {cert.issuer}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-sm font-semibold text-white/70 mb-3">
-                        {cert.issuer}
-                      </p>
                       {cert.description && cert.description.length > 0 && (
-                        <ul className="space-y-2 text-brand-text-muted text-sm">
+                        <ul className="space-y-2 text-brand-text-muted text-sm mt-3">
                           {cert.description.map((bullet, bIdx) => (
                             <li key={bIdx} className="flex items-start gap-2">
                               <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
