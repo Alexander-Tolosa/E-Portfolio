@@ -91,12 +91,12 @@ export function GithubStreak() {
           </a>
         </div>
 
-        <Card animate={false} className="p-8 border border-white/5 bg-white/[0.01] hover:border-white/10 transition-colors relative overflow-hidden">
+        <Card animate={false} className="p-8 border border-white/5 bg-white/[0.01] hover:border-white/10 transition-colors relative overflow-visible">
           {/* Subtle background glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/[0.02] rounded-full blur-[80px] pointer-events-none" />
 
           {/* Middle: Contribution Grid */}
-          <div className="w-full overflow-x-auto pb-4 mb-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+          <div className="w-full overflow-x-auto pt-12 pb-4 mb-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
             {/* The standard grid height is 7 cells (for 7 days).
                 Each column is a week.
                 We center the circles in a fixed-size container cell to make alignment perfect. */}
@@ -108,8 +108,8 @@ export function GithubStreak() {
                 >
                   <div className={`${getDotStyles(day.level)} transition-all duration-300 group-hover/cell:scale-125`} />
                   
-                  {/* Tooltip on hover */}
-                  <div className="absolute bottom-full mb-2 hidden group-hover/cell:block z-20 bg-brand-dark/95 border border-white/10 px-2 py-1 rounded text-[10px] text-white whitespace-nowrap pointer-events-none shadow-lg">
+                  {/* Tooltip on hover - enlarged and styled */}
+                  <div className="absolute bottom-full mb-3.5 hidden group-hover/cell:block z-20 bg-brand-dark/95 border border-white/15 px-3 py-1.5 rounded-lg text-xs font-semibold text-white whitespace-nowrap pointer-events-none shadow-xl shadow-black/50">
                     {day.count} {day.count === 1 ? "contribution" : "contributions"} on {new Date(day.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                   </div>
                 </div>
