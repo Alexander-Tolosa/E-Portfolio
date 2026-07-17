@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const username = "Alexander-Tolosa";
   const url = `https://github.com/users/${username}/contributions`;
   
   try {
-    const res = await fetch(url, {
-      next: { revalidate: 300 }
+    const res = await fetch(`${url}?_=${Date.now()}`, {
+      cache: "no-store"
     });
     
     if (!res.ok) {

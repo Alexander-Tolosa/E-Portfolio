@@ -100,7 +100,7 @@ export function GithubStreak() {
             {/* The standard grid height is 7 cells (for 7 days).
                 Each column is a week.
                 We center the circles in a fixed-size container cell to make alignment perfect. */}
-            <div className="grid grid-flow-col grid-rows-7 gap-[3px] min-w-[790px] h-[115px] items-center justify-items-center mx-auto">
+            <div className="grid grid-flow-col grid-rows-7 gap-[3px] min-w-[880px] h-[115px] items-center justify-items-center mx-auto px-12">
               {data.days.map((day) => (
                 <div
                   key={day.date}
