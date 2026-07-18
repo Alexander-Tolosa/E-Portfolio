@@ -96,12 +96,12 @@ export function GithubStreak() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/[0.02] rounded-full blur-[80px] pointer-events-none" />
 
           {/* Middle: Contribution Grid */}
-          <div className="w-full overflow-x-auto pt-12 pb-4 mb-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+          <div className="w-full overflow-x-auto pt-14 pb-4 mb-6 no-scrollbar">
             {/* The standard grid height is 7 cells (for 7 days).
                 Each column is a week.
                 We center the circles in a fixed-size container cell to make alignment perfect. */}
             <div className="grid grid-flow-col grid-rows-7 gap-[3px] min-w-[880px] h-[115px] items-center justify-items-center mx-auto px-12">
-              {data.days.map((day) => (
+              {data.days.map((day, idx) => (
                 <div
                   key={day.date}
                   className="w-3 h-3 flex items-center justify-center relative group/cell"
@@ -109,7 +109,9 @@ export function GithubStreak() {
                   <div className={`${getDotStyles(day.level)} transition-all duration-300 group-hover/cell:scale-125`} />
                   
                   {/* Tooltip on hover - enlarged and styled */}
-                  <div className="absolute bottom-full mb-3.5 hidden group-hover/cell:block z-20 bg-brand-dark/95 border border-white/15 px-3 py-1.5 rounded-lg text-xs font-semibold text-white whitespace-nowrap pointer-events-none shadow-xl shadow-black/50">
+                  <div className={`absolute bottom-full mb-3.5 hidden group-hover/cell:block z-20 bg-brand-dark/95 border border-white/15 px-3 py-1.5 rounded-lg text-xs font-semibold text-white whitespace-nowrap pointer-events-none shadow-xl shadow-black/50 ${
+                    idx < 14 ? "left-0" : idx >= data.days.length - 14 ? "right-0" : "left-1/2 -translate-x-1/2"
+                  }`}>
                     {day.count} {day.count === 1 ? "contribution" : "contributions"} on {new Date(day.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                   </div>
                 </div>
