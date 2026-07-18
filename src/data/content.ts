@@ -165,6 +165,23 @@ export const content: PortfolioContent = {
       image: "/assets/images/pharmatrack_mockup.png",
       githubUrl: "https://github.com/JustineSalinas/pharmatrack",
     },
+    {
+      id: "silim-cafe",
+      title: "Silim Café",
+      category: "Web App",
+      shortDescription: "A comprehensive digital ecosystem for a premium cafe including third-party online ordering app and AI chatbot support.",
+      description: "Silim Café is a web application designed as a virtual storefront for a local specialty coffee shop with an interactive signature menu showcase, localized map routing, and authentic customer testimonials. It seamlessly bridges user engagement with utility by offering direct social media integration and a dedicated checkout funnel via its official Foodpanda delivery partnership.",
+      role: "Lead Full-Stack Architect",
+      timeline: "2026",
+      client: "Silim Cafe Co.",
+      techStack: ["Next.js", "Tailwind CSS", "TypeScript", "Node.js", "Express", "MongoDB", "Framer Motion", "Socket.io"],
+      challenges: "Integrating a conversational chatbot helper that updates users dynamically on open and close hours, store location, menu items and third party app.",
+      solutions: "I Created this app to ensure the customers able to find out their business and a API connected to enable third party app directly into a foodapp delivery.",
+      results: "Because the café is located at the end of a quiet street away from high foot traffic, the website acts as its digital storefront.",
+      image: "/assets/images/silim_cafe_mockup.png",
+      githubUrl: "https://github.com/Alexander-Tolosa/Silim-Cafe",
+      liveUrl: "#",
+    },
   ],
   experiences: [
     {
