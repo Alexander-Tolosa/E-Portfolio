@@ -178,7 +178,7 @@ export const content: PortfolioContent = {
       challenges: "Integrating a conversational chatbot helper that updates users dynamically on open and close hours, store location, menu items and third party app.",
       solutions: "I Created this app to ensure the customers able to find out their business and a API connected to enable third party app directly into a foodapp delivery.",
       results: "Because the café is located at the end of a quiet street away from high foot traffic, the website acts as its digital storefront.",
-      image: "/assets/images/silim_cafe_mockup.png",
+      image: "/assets/images/silim_cafe_cover.png",
       githubUrl: "https://github.com/Alexander-Tolosa/Silim-Cafe",
       liveUrl: "#",
     },
