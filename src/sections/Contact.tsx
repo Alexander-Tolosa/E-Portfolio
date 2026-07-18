@@ -94,7 +94,7 @@ export function Contact() {
                   <div>
                     <span className="block text-xs text-brand-text-muted uppercase tracking-wider">Location</span>
                     <span className="text-sm font-semibold text-white">
-                      Manila, Philippines
+                      Iloilo, Philippines
                     </span>
                   </div>
                 </div>

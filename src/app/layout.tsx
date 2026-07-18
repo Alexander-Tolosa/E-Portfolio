@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "Alexander Tolosa",
     "Software Engineer",
     "Full-Stack Developer",
-    "Manila Philippines",
+    "Iloilo Philippines",
     "Portfolio",
     "React",
     "Next.js",

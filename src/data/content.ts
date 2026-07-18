@@ -79,7 +79,7 @@ export const content: PortfolioContent = {
     socials: {
       github: "https://github.com/Alexander-Tolosa",
       linkedin: "https://linkedin.com/in/alexander-tolosa",
-      email: "mailto:alexandertolosa.dev@gmail.com",
+      email: "mailto:alexandertolosa45@gmail.com",
     },
   },
   skills: [
