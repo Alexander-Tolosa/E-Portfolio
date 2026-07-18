@@ -33,11 +33,35 @@ export function Contact() {
 
     setStatus("submitting");
     
-    // Simulate API fetch delay
-    setTimeout(() => {
-      setStatus("success");
-      setForm({ name: "", email: "", subject: "", message: "" });
-    }, 1500);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "",
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          from_name: `${form.name} (Portfolio Contact Form)`,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        console.error("Web3Forms submission failed:", result);
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      setStatus("error");
+    }
   };
 
   return (
@@ -136,6 +160,12 @@ export function Contact() {
                     onSubmit={handleSubmit}
                     className="space-y-5"
                   >
+                    {status === "error" && (
+                      <div className="p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-2 animate-pulse-slow">
+                        <AlertCircle size={16} className="shrink-0" />
+                        <span>Failed to send message. Please ensure your access key is set or try again later.</span>
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       {/* Name field */}
                       <div className="space-y-2">
