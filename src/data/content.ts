@@ -162,7 +162,7 @@ export const content: PortfolioContent = {
       challenges: "Ensuring scanning facilitators can record student check-ins at venues with poor network connectivity without losing original scan timestamps or producing double check-in states.",
       solutions: "Implemented an offline-first scanning mechanism that queues scan data in IndexedDB when the server is unreachable and auto-syncs on reconnect, retaining actual check-in timestamps. Designed a responsive dashboard for managing event rules.",
       results: "Eliminated manual roll-call overhead, automated email alerts for absence, and generated accurate Excel/PDF reports, successfully serving the department's student body.",
-      image: "/assets/images/pharmatrack_mockup.png",
+      image: "/assets/images/pharmatrack_cover.jpg",
       githubUrl: "https://github.com/JustineSalinas/pharmatrack",
     },
     {
