@@ -60,6 +60,8 @@ export interface PortfolioContent {
       github: string;
       linkedin: string;
       email: string;
+      instagram: string;
+      facebook: string;
     };
   };
   skills: SkillCategory[];
@@ -80,6 +82,8 @@ export const content: PortfolioContent = {
       github: "https://github.com/Alexander-Tolosa",
       linkedin: "https://www.linkedin.com/in/alexander-michael-tolosa-a598b93b3/",
       email: "mailto:alexandertolosa45@gmail.com",
+      instagram: "https://www.instagram.com/lex.zuhnder/",
+      facebook: "https://www.facebook.com/alexandermichaelstolosa11",
     },
   },
   skills: [
