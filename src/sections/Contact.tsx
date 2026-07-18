@@ -102,7 +102,7 @@ export function Contact() {
             </div>
             
             <div className="text-xs text-white/20 border-t border-white/5 pt-6 hidden lg:block">
-              Designed & engineered with deep precision.
+              Designed with deep precision.
             </div>
           </div>
 
