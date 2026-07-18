@@ -78,7 +78,7 @@ export const content: PortfolioContent = {
     resumeUrl: "/resume.pdf",
     socials: {
       github: "https://github.com/Alexander-Tolosa",
-      linkedin: "https://linkedin.com/in/alexander-tolosa",
+      linkedin: "https://www.linkedin.com/in/alexander-michael-tolosa-a598b93b3/",
       email: "mailto:alexandertolosa45@gmail.com",
     },
   },

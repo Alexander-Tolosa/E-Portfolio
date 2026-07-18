@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { content } from "@/data/content";
 
 const GithubIcon = ({ size = 26 }: { size?: number }) => (
   <svg
@@ -127,15 +128,28 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
               transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
               className="flex items-center justify-center gap-6 mb-8 text-white/50"
             >
-              <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-blue hover:border-accent-blue/30 transition-all duration-300">
+              <a
+                href={content.personalInfo.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-blue hover:border-accent-blue/30 transition-all duration-300"
+              >
                 <GithubIcon size={20} />
-              </div>
-              <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-indigo hover:border-accent-indigo/30 transition-all duration-300">
+              </a>
+              <a
+                href={content.personalInfo.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-indigo hover:border-accent-indigo/30 transition-all duration-300"
+              >
                 <LinkedinIcon size={20} />
-              </div>
-              <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-cyan hover:border-accent-cyan/30 transition-all duration-300">
+              </a>
+              <a
+                href="#"
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-cyan hover:border-accent-cyan/30 transition-all duration-300"
+              >
                 <GlobeIcon size={20} />
-              </div>
+              </a>
             </motion.div>
 
             <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
