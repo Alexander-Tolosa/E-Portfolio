@@ -41,12 +41,22 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     <Card className="h-full flex flex-col justify-between" delay={index * 0.1}>
       <div>
         {/* Project Thumbnail Image / Placeholder */}
-        <div className={`w-full h-48 rounded-xl bg-gradient-to-br ${placeholderGradient} border border-white/5 relative overflow-hidden mb-6 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300`}>
+        <div className="w-full h-48 rounded-xl border border-white/5 relative overflow-hidden mb-6 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
+          {project.image ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={project.image}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-90 transition-opacity"
+            />
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-br ${placeholderGradient}`} />
+          )}
           {/* Animated decorative grid lines */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:14px_24px]" />
           
           {/* Centralized text indicator */}
-          <span className="text-sm font-semibold text-white/40 group-hover:text-white/60 transition-colors uppercase tracking-widest relative z-10">
+          <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors uppercase tracking-widest relative z-10 bg-brand-dark/60 backdrop-blur-sm px-3.5 py-1 rounded-full border border-white/5">
             {project.category}
           </span>
           

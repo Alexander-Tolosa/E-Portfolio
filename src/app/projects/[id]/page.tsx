@@ -76,6 +76,19 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           </p>
         </div>
 
+        {/* Project Cover Image */}
+        {project.image && (
+          <div className="w-full h-[300px] md:h-[450px] rounded-2xl overflow-hidden border border-white/5 mb-16 relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent pointer-events-none" />
+          </div>
+        )}
+
         {/* Project Metadata Grid Card */}
         <div className="glass rounded-2xl p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 border border-white/5">
           <div>
