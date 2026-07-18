@@ -55,10 +55,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {/* Animated decorative grid lines */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:14px_24px]" />
           
-          {/* Centralized text indicator */}
-          <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors uppercase tracking-widest relative z-10 bg-brand-dark/60 backdrop-blur-sm px-3.5 py-1 rounded-full border border-white/5">
-            {project.category}
-          </span>
           
           {/* Soft center light source */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-accent-indigo/10 rounded-full blur-2xl group-hover:bg-accent-blue/15 transition-colors" />
