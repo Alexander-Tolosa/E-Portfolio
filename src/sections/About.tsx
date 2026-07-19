@@ -50,7 +50,7 @@ export function About() {
                 {/* Introduction Header and Bio */}
                 <div className="mb-6">
                   <p className="text-sm text-brand-text-muted leading-relaxed">
-                    Started creating mobile applications using Flutter, FlutterFlow, and Firebase and eventually switched to Web Development using NextJS, React, and Tailwind
+                    I&apos;m a Front-End Developer and UI/UX Designer, Using my experience from Cascade Development Group and projects turning complex ideas into clean, easy-to-use screens that work perfectly.
                   </p>
                 </div>
 
