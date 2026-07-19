@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { IntroScreen } from "@/components/global/IntroScreen";
 import { Hero } from "@/sections/Hero";
@@ -10,15 +10,26 @@ import { Contact } from "@/sections/Contact";
 import { GithubStreak } from "@/sections/GithubStreak";
 
 export default function Home() {
-  const [introCompleted, setIntroCompleted] = useState(false);
+  const [introCompleted, setIntroCompleted] = useState(() => {
+    // Skip intro if it has already been shown this session
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("introShown") === "true";
+    }
+    return false;
+  });
+
+  const handleIntroComplete = () => {
+    sessionStorage.setItem("introShown", "true");
+    setIntroCompleted(true);
+  };
 
   return (
     <>
-      {!introCompleted && <IntroScreen onComplete={() => setIntroCompleted(true)} />}
+      {!introCompleted && <IntroScreen onComplete={handleIntroComplete} />}
 
       {/* Main landing container */}
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
+        initial={introCompleted ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
         animate={{ opacity: introCompleted ? 1 : 0, y: introCompleted ? 0 : 15 }}
         transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
         className="relative"

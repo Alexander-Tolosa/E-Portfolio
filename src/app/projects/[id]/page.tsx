@@ -55,7 +55,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Back Button */}
         <Link
-          href="/"
+          href="/#hero"
           className="inline-flex items-center gap-2 text-sm font-semibold text-brand-text-muted hover:text-white mb-10 transition-colors group cursor-pointer"
         >
           <ArrowLeft size={16} className="transform group-hover:-translate-x-1 transition-transform" />
