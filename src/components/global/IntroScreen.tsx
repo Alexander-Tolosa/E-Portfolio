@@ -104,7 +104,7 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
     show: { scaleX: 1, transition: { delay: 1.3, duration: 0.7, ease: "easeInOut" as const } },
   };
 
-  const welcomeText = "eo-seo o-se-yo to my portfolio";
+  const welcomeText = "어서 오세요 to my portfolio";
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
