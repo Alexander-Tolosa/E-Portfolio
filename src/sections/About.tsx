@@ -2,14 +2,16 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink } from "lucide-react";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
+import { CertificatesModal } from "@/components/ui/CertificatesModal";
 
 export function About() {
   const visibleCategories = content.skills.filter((cat) => cat.skills.length > 0);
   const [activeTab, setActiveTab] = useState(0);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
 
   const getShortName = (name: string) => {
     if (name === "Devops & Cloud") return "DevOps";
@@ -252,80 +254,105 @@ export function About() {
           </div>
 
           {/* Certifications */}
-          <div className="flex flex-col gap-8">
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          <div className="flex flex-col gap-6">
+            <h3 className="text-2xl font-bold text-white flex items-center gap-2">
               <Award className="text-accent-blue" size={24} />
               Certifications
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {content.certifications?.map((cert, idx) => (
-                <motion.div
-                  key={cert.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="h-full"
-                >
-                  <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors h-full flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-start gap-4 mb-4">
-                        {cert.logo && (
-                          <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                            <img
-                              src={cert.logo}
-                              alt={`${cert.issuer} logo`}
-                              className="w-full h-full object-cover"
-                            />
+            {content.certifications && content.certifications.length > 0 && (
+              <div className="flex flex-col gap-6">
+                {/* 4 Certificates Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {content.certifications.map((cert, idx) => (
+                    <motion.div
+                      key={cert.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: idx * 0.1 }}
+                      className="h-full"
+                    >
+                      <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors h-full flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-start gap-4 mb-4">
+                            {cert.logo && (
+                              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                <img
+                                  src={cert.logo}
+                                  alt={`${cert.issuer} logo`}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex justify-between items-start gap-2">
+                                <h4 className="text-base font-bold text-white transition-colors line-clamp-2">
+                                  {cert.title}
+                                </h4>
+                                <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted whitespace-nowrap mt-0.5 shrink-0">
+                                  <Calendar size={12} />
+                                  {cert.date}
+                                </span>
+                              </div>
+                              <p className="text-sm font-semibold text-white/70 mt-1">
+                                {cert.issuer}
+                              </p>
+                            </div>
+                          </div>
+                          {cert.description && cert.description.length > 0 && (
+                            <ul className="space-y-2 text-brand-text-muted text-sm mt-3">
+                              {cert.description.map((bullet, bIdx) => (
+                                <li key={bIdx} className="flex items-start gap-2">
+                                  <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                                  <span>{bullet}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                        {cert.credentialUrl && (
+                          <div className="mt-4 pt-3 border-t border-white/5 flex justify-end">
+                            <a
+                              href={cert.credentialUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-blue hover:text-accent-indigo transition-colors"
+                            >
+                              Verify Credential
+                              <ExternalLink size={12} />
+                            </a>
                           </div>
                         )}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex justify-between items-start gap-2">
-                            <h4 className="text-base font-bold text-white transition-colors line-clamp-2">
-                              {cert.title}
-                            </h4>
-                            <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted whitespace-nowrap mt-0.5 shrink-0">
-                              <Calendar size={12} />
-                              {cert.date}
-                            </span>
-                          </div>
-                          <p className="text-sm font-semibold text-white/70 mt-1">
-                            {cert.issuer}
-                          </p>
-                        </div>
-                      </div>
-                      {cert.description && cert.description.length > 0 && (
-                        <ul className="space-y-2 text-brand-text-muted text-sm mt-3">
-                          {cert.description.map((bullet, bIdx) => (
-                            <li key={bIdx} className="flex items-start gap-2">
-                              <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                    {cert.credentialUrl && (
-                      <div className="mt-4 pt-3 border-t border-white/5 flex justify-end">
-                        <a
-                          href={cert.credentialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-blue hover:text-accent-indigo transition-colors"
-                        >
-                          Verify Credential
-                          <ExternalLink size={12} />
-                        </a>
-                      </div>
-                    )}
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Below Right: See All Button */}
+                <div className="flex justify-end pt-2">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setIsCertModalOpen(true)}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-accent-blue/15 to-accent-indigo/15 hover:from-accent-blue/25 hover:to-accent-indigo/25 border border-accent-blue/30 hover:border-accent-blue/50 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-accent-blue/10 group"
+                  >
+                    <span>See All ({content.certifications.length})</span>
+                    <ArrowRight size={14} className="text-accent-blue transition-transform group-hover:translate-x-1" />
+                  </motion.button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Certificates Modal */}
+      <CertificatesModal
+        isOpen={isCertModalOpen}
+        onClose={() => setIsCertModalOpen(false)}
+        certifications={content.certifications || []}
+      />
     </section>
   );
 }
