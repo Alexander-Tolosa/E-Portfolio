@@ -241,6 +241,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-5",
+      title: "Certificate of Completion: AI Capabilities and Limitations",
+      issuer: "Anthropic",
+      date: "Jul 2026",
+      credentialUrl: "https://verify.skilljar.com/c/9wzioy8w7xjs",
+      logo: "/assets/images/anthropic_logo.png",
+      description: []
+    },
+    {
       id: "cert-1",
       title: "Certificate of Completion: AI Fluency Framework & Foundations",
       issuer: "Anthropic",

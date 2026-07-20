@@ -262,9 +262,9 @@ export function About() {
             
             {content.certifications && content.certifications.length > 0 && (
               <div className="flex flex-col gap-6">
-                {/* 4 Certificates Grid */}
+                {/* 4 Featured Certificates Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {content.certifications.map((cert, idx) => (
+                  {content.certifications.slice(0, 4).map((cert, idx) => (
                     <motion.div
                       key={cert.id}
                       initial={{ opacity: 0, y: 20 }}
