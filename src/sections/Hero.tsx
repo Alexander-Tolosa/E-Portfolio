@@ -42,7 +42,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden"
+      className="relative min-h-[100dvh] flex flex-col justify-center items-center pt-24 pb-16 overflow-hidden"
     >
       {/* Dynamic Cursor Spotlight Tracking */}
       <motion.div
@@ -63,7 +63,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute top-1/4 left-1/4 w-[35rem] h-[35rem] bg-accent-blue/12 rounded-full blur-[110px] pointer-events-none z-0"
+        className="absolute top-1/4 left-1/4 w-[20rem] sm:w-[35rem] h-[20rem] sm:h-[35rem] bg-accent-blue/12 rounded-full blur-[110px] pointer-events-none z-0"
       />
       <motion.div
         animate={{
@@ -75,7 +75,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute bottom-1/4 right-1/4 w-[38rem] h-[38rem] bg-accent-purple/8 rounded-full blur-[130px] pointer-events-none z-0"
+        className="absolute bottom-1/4 right-1/4 w-[22rem] sm:w-[38rem] h-[22rem] sm:h-[38rem] bg-accent-purple/8 rounded-full blur-[130px] pointer-events-none z-0"
       />
       <motion.div
         animate={{
@@ -87,7 +87,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute top-1/2 left-2/3 w-[28rem] h-[28rem] bg-accent-cyan/6 rounded-full blur-[95px] pointer-events-none z-0"
+        className="absolute top-1/2 left-2/3 w-[18rem] sm:w-[28rem] h-[18rem] sm:h-[28rem] bg-accent-cyan/6 rounded-full blur-[95px] pointer-events-none z-0"
       />
       
       {/* Decorative moving grid pattern with parallax mouse tracking */}
@@ -100,7 +100,7 @@ export function Hero() {
         transition={{ type: "spring", stiffness: 80, damping: 25 }}
       />
 
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center relative z-10 my-auto">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -110,18 +110,18 @@ export function Hero() {
           {/* Heading */}
           <motion.h1
             variants={itemVariants}
-            className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-shine mb-8 py-1 whitespace-nowrap"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-shine mb-6 sm:mb-8 py-1 max-w-full sm:whitespace-nowrap"
           >
             {content.personalInfo.name.split("").map((char, index) => (
               <span
                 key={index}
-                className="relative"
+                className="relative inline-block"
                 style={{
                   animation: "letter-bounce 1.4s ease-in-out infinite",
                   animationDelay: `${index * 0.06}s`,
                 }}
               >
-                {char}
+                {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </motion.h1>
@@ -129,14 +129,14 @@ export function Hero() {
           {/* Top 3 Skills / Roles Row with Target Brackets and Blur Parallax Hover Effect */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center justify-center gap-10 sm:gap-14 md:gap-20 py-4 relative z-20 select-none"
+            className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-14 md:gap-20 py-2 sm:py-4 relative z-20 select-none max-w-full"
           >
             {skills.map((skill, idx) => (
               <div
                 key={skill}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`relative px-4 py-2 text-base sm:text-lg md:text-xl font-bold tracking-widest uppercase cursor-default transition-all duration-300 ${
+                className={`relative px-2.5 sm:px-4 py-1 sm:py-2 text-xs sm:text-lg md:text-xl font-bold tracking-wider sm:tracking-widest uppercase cursor-default transition-all duration-300 ${
                   hoveredIndex === null
                     ? "text-white/60 filter-none"
                     : hoveredIndex === idx
@@ -150,17 +150,17 @@ export function Hero() {
                 {hoveredIndex === idx && (
                   <motion.div
                     layoutId="brackets"
-                    className="absolute -inset-x-4 -inset-y-1.5 pointer-events-none"
+                    className="absolute -inset-x-2 sm:-inset-x-4 -inset-y-1 sm:-inset-y-1.5 pointer-events-none"
                     transition={{ type: "spring", stiffness: 350, damping: 25 }}
                   >
                     {/* Top-Left */}
-                    <span className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-accent-cyan rounded-tl-sm" />
+                    <span className="absolute top-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-l-2 border-accent-cyan rounded-tl-sm" />
                     {/* Top-Right */}
-                    <span className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-accent-cyan rounded-tr-sm" />
+                    <span className="absolute top-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-r-2 border-accent-cyan rounded-tr-sm" />
                     {/* Bottom-Left */}
-                    <span className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-accent-cyan rounded-bl-sm" />
+                    <span className="absolute bottom-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-l-2 border-accent-cyan rounded-bl-sm" />
                     {/* Bottom-Right */}
-                    <span className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-accent-cyan rounded-br-sm" />
+                    <span className="absolute bottom-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-r-2 border-accent-cyan rounded-br-sm" />
                   </motion.div>
                 )}
               </div>
@@ -195,9 +195,9 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Scroll indicator banner */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity pointer-events-none">
-        <span className="text-[10px] uppercase tracking-widest text-brand-text-muted">Scroll Down</span>
+      {/* Scroll indicator banner - hidden on mobile to prevent layout collision */}
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity pointer-events-none z-20">
+        <span className="text-[10px] sm:text-xs uppercase tracking-widest text-brand-text-muted">Scroll Down</span>
         <div className="w-5 h-8 rounded-full border-2 border-brand-text-muted p-1 flex justify-center">
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -208,14 +208,14 @@ export function Hero() {
       </div>
 
       {/* Availability indicator bottom-left */}
-      <div className="absolute bottom-8 left-6 md:left-8 flex items-center gap-2.5 select-none z-20">
-        <span className="relative flex h-2 w-2">
+      <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 flex items-center gap-2.5 select-none z-20">
+        <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
           {/* Fading ring layer */}
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span>
           {/* Core glowing dot */}
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-emerald shadow-[0_0_8px_#10b981]"></span>
+          <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-accent-emerald shadow-[0_0_8px_#10b981]"></span>
         </span>
-        <span className="text-[10px] uppercase tracking-widest font-semibold text-white/80">
+        <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-white/80">
           Available For Work
         </span>
       </div>
