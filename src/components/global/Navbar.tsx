@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { content } from "@/data/content";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 
 export function Navbar() {
@@ -93,17 +92,6 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Call to action (Direct Email Link) */}
-          <div className="hidden md:block">
-            <a
-              href={content.personalInfo.socials.email}
-              className="inline-flex items-center gap-1 text-sm font-semibold px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white transition-all cursor-pointer"
-            >
-              {"Let's Talk"}
-              <ArrowUpRight size={16} className="opacity-60" />
-            </a>
-          </div>
-
           {/* Mobile menu Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -143,17 +131,6 @@ export function Navbar() {
                   {item.label}
                 </motion.a>
               ))}
-              
-              <motion.a
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navItems.length * 0.05 }}
-                href={content.personalInfo.socials.email}
-                className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-blue to-accent-indigo text-white font-semibold shadow-lg text-lg"
-              >
-                {"Let's Talk"}
-                <ArrowUpRight size={20} />
-              </motion.a>
             </nav>
           </motion.div>
         )}
