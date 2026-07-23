@@ -158,22 +158,23 @@ export function About() {
                     <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
                     
                     <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                      <div className="flex flex-col gap-1.5 mb-4">
                         <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">
+                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors leading-snug">
                             {exp.role}
                           </h4>
-                          <p className="text-sm font-semibold text-white/70">
+                          <p className="text-sm font-semibold text-white/70 mt-0.5">
                             {exp.company}
                           </p>
                         </div>
-                        <div className="flex flex-col sm:items-end gap-1">
-                          <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted">
-                            <Calendar size={12} />
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
+                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
+                            <Calendar size={13} className="text-accent-blue shrink-0" />
                             {exp.period}
                           </span>
-                          <span className="inline-flex items-center gap-1 text-xs text-white/40">
-                            <MapPin size={12} />
+                          <span className="text-white/20 hidden sm:inline">•</span>
+                          <span className="inline-flex items-center gap-1.5 text-white/50 font-medium whitespace-nowrap">
+                            <MapPin size={13} className="text-accent-blue shrink-0" />
                             {exp.location}
                           </span>
                         </div>
@@ -216,22 +217,23 @@ export function About() {
                     <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
                     
                     <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                      <div className="flex flex-col gap-1.5 mb-4">
                         <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">
+                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors leading-snug">
                             {edu.degree}
                           </h4>
-                          <p className="text-sm font-semibold text-white/70">
+                          <p className="text-sm font-semibold text-white/70 mt-0.5">
                             {edu.institution}
                           </p>
                         </div>
-                        <div className="flex flex-col sm:items-end gap-1">
-                          <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted">
-                            <Calendar size={12} />
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
+                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
+                            <Calendar size={13} className="text-accent-blue shrink-0" />
                             {edu.period}
                           </span>
-                          <span className="inline-flex items-center gap-1 text-xs text-white/40">
-                            <MapPin size={12} />
+                          <span className="text-white/20 hidden sm:inline">•</span>
+                          <span className="inline-flex items-center gap-1.5 text-white/50 font-medium whitespace-nowrap">
+                            <MapPin size={13} className="text-accent-blue shrink-0" />
                             {edu.location}
                           </span>
                         </div>
