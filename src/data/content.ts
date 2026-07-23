@@ -191,7 +191,7 @@ export const content: PortfolioContent = {
       location: "Iloilo City, Philippines",
       period: "2026 – Present",
       description: [
-        "IT solutions startup delivering web development, database architecture, and technical consulting to clients across the Visayas — collaborating with a team across the full business lifecycle from scoping to deployment."
+        "IT solutions startup delivering web development, database architecture, and technical consulting to clients across the Visayas collaborating with a team across the full business lifecycle from scoping to deployment."
       ],
     },
     {
