@@ -67,13 +67,13 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
             {/* Modal Header */}
             <div className="p-6 md:p-8 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/[0.02]">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center text-accent-blue shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
                   <Award size={26} />
                 </div>
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
                     Certifications & Achievements
-                    <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-accent-blue/20 text-accent-blue border border-accent-blue/30">
+                    <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                       {certifications.length} Total
                     </span>
                   </h3>
@@ -92,31 +92,32 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
                     placeholder="Search certificates..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-text-muted focus:outline-none focus:border-accent-blue/50 transition-colors"
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-text-muted focus:outline-none focus:border-white/40 transition-colors"
                   />
                 </div>
 
                 {/* Close Button */}
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-text-muted hover:text-white border border-white/10 transition-colors cursor-pointer shrink-0"
-                  aria-label="Close Modal"
+                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-text-muted hover:text-white transition-colors cursor-pointer"
+                  aria-label="Close modal"
                 >
                   <X size={20} />
                 </button>
               </div>
             </div>
 
-            {/* Modal Body - Scrollable Certificate Grid */}
-            <div className="p-6 md:p-8 overflow-y-auto flex-1 custom-scrollbar">
+            {/* Modal Body */}
+            <div className="p-6 md:p-8 overflow-y-auto max-h-[60vh] space-y-6">
               {filteredCerts.length === 0 ? (
-                <div className="text-center py-12 text-brand-text-muted">
-                  <p className="text-base font-semibold">No certifications match &quot;{searchTerm}&quot;</p>
+                <div className="text-center py-12">
+                  <Award size={48} className="mx-auto text-brand-text-muted/40 mb-3" />
+                  <p className="text-sm text-brand-text-muted">No certificates found matching &quot;{searchTerm}&quot;</p>
                   <button
                     onClick={() => setSearchTerm("")}
-                    className="mt-3 text-xs text-accent-blue hover:underline cursor-pointer"
+                    className="mt-3 text-xs font-semibold text-white hover:underline"
                   >
-                    Clear search filter
+                    Clear Search
                   </button>
                 </div>
               ) : (
@@ -127,7 +128,7 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: idx * 0.05 }}
-                      className="bg-white/[0.03] border border-white/10 hover:border-accent-blue/40 rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:shadow-accent-blue/5 group"
+                      className="bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:shadow-white/5 group"
                     >
                       <div>
                         <div className="flex items-start gap-4 mb-4">
@@ -142,7 +143,7 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
                           )}
                           <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-start gap-2">
-                              <h4 className="text-base font-bold text-white group-hover:text-accent-blue transition-colors line-clamp-2">
+                              <h4 className="text-base font-bold text-white group-hover:text-zinc-300 transition-colors line-clamp-2">
                                 {cert.title}
                               </h4>
                             </div>
@@ -162,7 +163,7 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
                           <ul className="space-y-2 text-brand-text-muted text-sm mt-3 pt-3 border-t border-white/5">
                             {cert.description.map((bullet, bIdx) => (
                               <li key={bIdx} className="flex items-start gap-2">
-                                <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                                <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
                                 <span>{bullet}</span>
                               </li>
                             ))}
@@ -176,7 +177,7 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
                             href={cert.credentialUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-blue hover:text-accent-indigo transition-colors"
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-zinc-300 transition-colors"
                           >
                             Verify Credential
                             <ExternalLink size={12} />

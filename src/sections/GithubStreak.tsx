@@ -84,7 +84,7 @@ export function GithubStreak() {
             href={`https://github.com/${data.username}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-sm uppercase tracking-widest text-white hover:text-accent-cyan transition-colors flex items-center gap-1.5"
+            className="font-mono text-sm uppercase tracking-widest text-white hover:text-zinc-300 transition-colors flex items-center gap-1.5"
           >
             @{data.username.toUpperCase()}
             <ExternalLink size={14} />

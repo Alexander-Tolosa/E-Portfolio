@@ -29,11 +29,11 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  // Simple random color schemes to display if a project screenshot fails/is loading
+  // Simple grayscale color schemes to display if a project screenshot fails/is loading
   const gradients = [
-    "from-accent-blue/20 to-accent-indigo/20",
-    "from-accent-indigo/20 to-accent-purple/20",
-    "from-accent-purple/20 to-accent-cyan/20",
+    "from-white/10 to-white/5",
+    "from-zinc-800/80 to-zinc-900/80",
+    "from-white/15 to-zinc-800/50",
   ];
   const placeholderGradient = gradients[index % gradients.length];
 
@@ -57,12 +57,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           
           
           {/* Soft center light source */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-accent-indigo/10 rounded-full blur-2xl group-hover:bg-accent-blue/15 transition-colors" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-colors" />
         </div>
 
         {/* Project Content */}
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-accent-cyan">
+          <span className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
             {project.category}
           </span>
           <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
 
-        <h3 className="text-xl font-bold mb-3 text-white group-hover:text-accent-blue transition-colors duration-200">
+        <h3 className="text-xl font-bold mb-3 text-white group-hover:text-zinc-300 transition-colors duration-200">
           {project.title}
         </h3>
         
@@ -121,7 +121,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Action Link to Case Study */}
         <Link
           href={`/projects/${project.id}`}
-          className="inline-flex items-center text-sm font-semibold text-accent-blue hover:text-accent-indigo transition-colors group/link cursor-pointer"
+          className="inline-flex items-center text-sm font-semibold text-white hover:text-zinc-300 transition-colors group/link cursor-pointer"
         >
           View Case Study
           <ArrowRight

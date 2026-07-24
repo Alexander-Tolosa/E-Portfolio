@@ -63,8 +63,8 @@ export function Navbar() {
             onClick={(e) => handleScrollClick(e, "hero")}
             className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5 cursor-pointer group"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-accent-blue group-hover:bg-accent-cyan transition-colors" />
-            KIMZSEN<span className="text-accent-blue font-light">.Dev</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-white group-hover:bg-zinc-300 transition-colors" />
+            KIMZSEN<span className="text-zinc-400 font-light">.Dev</span>
           </Link>
 
           {/* Desktop Nav Items */}
@@ -76,7 +76,7 @@ export function Navbar() {
                 onClick={(e) => handleScrollClick(e, item.id)}
                 className={`text-sm font-medium transition-all cursor-pointer relative py-1.5 ${
                   activeSection === item.id
-                    ? "text-accent-blue"
+                    ? "text-white"
                     : "text-brand-text-muted hover:text-white"
                 }`}
               >
@@ -84,7 +84,7 @@ export function Navbar() {
                 {activeSection === item.id && (
                   <motion.span
                     layoutId="activeIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-blue to-accent-indigo"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-white to-zinc-400"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -124,7 +124,7 @@ export function Navbar() {
                   onClick={(e) => handleScrollClick(e, item.id)}
                   className={`text-2xl font-bold tracking-tight ${
                     activeSection === item.id
-                      ? "text-accent-blue"
+                      ? "text-white"
                       : "text-brand-text-muted"
                   }`}
                 >

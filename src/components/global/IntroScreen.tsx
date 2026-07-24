@@ -132,7 +132,7 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
                 href={content.personalInfo.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-blue hover:border-accent-blue/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300"
               >
                 <GithubIcon size={20} />
               </a>
@@ -140,13 +140,13 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
                 href={content.personalInfo.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-indigo hover:border-accent-indigo/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300"
               >
                 <LinkedinIcon size={20} />
               </a>
               <a
                 href="#"
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-accent-cyan hover:border-accent-cyan/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300"
               >
                 <GlobeIcon size={20} />
               </a>
@@ -159,7 +159,7 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
                     <motion.span
                       key={charIdx}
                       variants={characterVariants}
-                      className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-indigo to-accent-purple py-2"
+                      className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 py-2"
                     >
                       {char}
                     </motion.span>
@@ -171,7 +171,7 @@ export function IntroScreen({ onComplete }: { onComplete: () => void }) {
             {/* Glowing line divider */}
             <motion.div
               variants={lineVariants}
-              className="h-[2px] w-36 bg-gradient-to-r from-accent-blue via-accent-indigo to-accent-purple mx-auto origin-center rounded shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+              className="h-[2px] w-36 bg-gradient-to-r from-white via-zinc-300 to-zinc-400 mx-auto origin-center rounded shadow-[0_0_10px_rgba(255,255,255,0.4)]"
             />
           </motion.div>
 

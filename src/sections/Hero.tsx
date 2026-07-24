@@ -48,7 +48,7 @@ export function Hero() {
       <motion.div
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 opacity-60"
         animate={{
-          background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(99, 102, 241, 0.12), transparent 80%)`,
+          background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.08), transparent 80%)`,
         }}
       />
 
@@ -63,7 +63,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute top-1/4 left-1/4 w-[20rem] sm:w-[35rem] h-[20rem] sm:h-[35rem] bg-accent-blue/12 rounded-full blur-[110px] pointer-events-none z-0"
+        className="absolute top-1/4 left-1/4 w-[20rem] sm:w-[35rem] h-[20rem] sm:h-[35rem] bg-white/8 rounded-full blur-[110px] pointer-events-none z-0"
       />
       <motion.div
         animate={{
@@ -75,7 +75,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute bottom-1/4 right-1/4 w-[22rem] sm:w-[38rem] h-[22rem] sm:h-[38rem] bg-accent-purple/8 rounded-full blur-[130px] pointer-events-none z-0"
+        className="absolute bottom-1/4 right-1/4 w-[22rem] sm:w-[38rem] h-[22rem] sm:h-[38rem] bg-white/5 rounded-full blur-[130px] pointer-events-none z-0"
       />
       <motion.div
         animate={{
@@ -87,7 +87,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute top-1/2 left-2/3 w-[18rem] sm:w-[28rem] h-[18rem] sm:h-[28rem] bg-accent-cyan/6 rounded-full blur-[95px] pointer-events-none z-0"
+        className="absolute top-1/2 left-2/3 w-[18rem] sm:w-[28rem] h-[18rem] sm:h-[28rem] bg-white/5 rounded-full blur-[95px] pointer-events-none z-0"
       />
       
       {/* Decorative moving grid pattern with parallax mouse tracking */}
@@ -146,7 +146,7 @@ export function Hero() {
               >
                 {skill}
                 
-                {/* Cyan Target scope corner brackets on hover */}
+                {/* White Target scope corner brackets on hover */}
                 {hoveredIndex === idx && (
                   <motion.div
                     layoutId="brackets"
@@ -154,13 +154,13 @@ export function Hero() {
                     transition={{ type: "spring", stiffness: 350, damping: 25 }}
                   >
                     {/* Top-Left */}
-                    <span className="absolute top-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-l-2 border-accent-cyan rounded-tl-sm" />
+                    <span className="absolute top-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-l-2 border-white rounded-tl-sm" />
                     {/* Top-Right */}
-                    <span className="absolute top-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-r-2 border-accent-cyan rounded-tr-sm" />
+                    <span className="absolute top-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-r-2 border-white rounded-tr-sm" />
                     {/* Bottom-Left */}
-                    <span className="absolute bottom-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-l-2 border-accent-cyan rounded-bl-sm" />
+                    <span className="absolute bottom-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-l-2 border-white rounded-bl-sm" />
                     {/* Bottom-Right */}
-                    <span className="absolute bottom-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-r-2 border-accent-cyan rounded-br-sm" />
+                    <span className="absolute bottom-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-r-2 border-white rounded-br-sm" />
                   </motion.div>
                 )}
               </div>
@@ -202,7 +202,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-1.5 h-1.5 bg-accent-blue rounded-full"
+            className="w-1.5 h-1.5 bg-white rounded-full"
           />
         </div>
       </div>
@@ -211,9 +211,9 @@ export function Hero() {
       <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 flex items-center gap-2.5 select-none z-20">
         <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
           {/* Fading ring layer */}
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
           {/* Core glowing dot */}
-          <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-accent-emerald shadow-[0_0_8px_#10b981]"></span>
+          <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-white shadow-[0_0_8px_#ffffff]"></span>
         </span>
         <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-white/80">
           Available For Work

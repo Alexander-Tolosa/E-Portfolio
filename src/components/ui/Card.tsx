@@ -17,7 +17,7 @@ export function Card({ children, className = "", animate = true, delay = 0 }: Ca
     return (
       <div className={containerClasses}>
         {/* Subtle glowing mesh in background */}
-        <div className="absolute -inset-px bg-gradient-to-r from-transparent via-accent-indigo/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+        <div className="absolute -inset-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
         {children}
       </div>
     );
@@ -32,7 +32,7 @@ export function Card({ children, className = "", animate = true, delay = 0 }: Ca
       className={containerClasses}
     >
       {/* Subtle glowing mesh in background */}
-      <div className="absolute -inset-px bg-gradient-to-r from-transparent via-accent-indigo/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+      <div className="absolute -inset-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
       {children}
     </motion.div>
   );

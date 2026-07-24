@@ -24,18 +24,18 @@ export function About() {
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       {/* Background radial glow */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-accent-indigo/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-6">
         {/* Section Heading */}
         <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-accent-blue px-3 py-1 rounded-full bg-accent-blue/10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white px-3 py-1 rounded-full bg-white/10">
             About Me
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4">
             Professional Profile & Skills
           </h2>
-          <div className="h-1 w-20 bg-accent-blue mt-4 mx-auto md:mx-0 rounded" />
+          <div className="h-1 w-20 bg-white mt-4 mx-auto md:mx-0 rounded" />
         </div>
 
         {/* Stack Layout */}
@@ -57,7 +57,7 @@ export function About() {
                 </div>
 
                 <div className="mb-4">
-                  <h5 className="text-xs font-bold text-accent-blue uppercase tracking-wider">
+                  <h5 className="text-xs font-bold text-white/80 uppercase tracking-wider">
                     Skillset & tools
                   </h5>
                 </div>
@@ -70,7 +70,7 @@ export function About() {
                       onClick={() => setActiveTab(idx)}
                       className={`flex-1 text-[9px] md:text-xs font-mono font-semibold px-1 md:px-3 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                         activeTab === idx
-                          ? "bg-gradient-to-r from-accent-blue to-accent-indigo text-white shadow-md"
+                          ? "bg-gradient-to-r from-white to-zinc-300 text-black shadow-md"
                           : "text-brand-text-muted hover:text-white hover:bg-white/5"
                       }`}
                     >
@@ -106,27 +106,17 @@ export function About() {
               </Card>
             </div>
 
-            {/* Profile Picture */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            {/* Profile Photo Layout */}
+            <div className="lg:col-span-5 flex justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="w-full max-w-sm"
+                transition={{ duration: 0.5 }}
+                className="relative w-64 h-64 md:w-80 md:h-80"
               >
-                <DirectionalTilt className="relative group w-full rounded-[2rem] border border-white/10 bg-brand-card">
-                  <img
-                    src="/assets/images/profile_avatar.jpg"
-                    alt="Alexander Tolosa Portrait"
-                    className="w-full h-auto object-cover aspect-[4/5] object-center rounded-[2rem] transition-transform duration-500 group-hover:scale-105"
-                  />
-                  
-                  {/* Glassmorphism Badge */}
-                  <div 
-                    style={{ transform: "translateZ(30px)" }}
-                    className="absolute top-5 right-5 px-4 py-1.5 rounded-full glass border border-white/10 text-xs font-semibold text-white tracking-widest uppercase backdrop-blur-md"
-                  >
+                <DirectionalTilt className="w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 relative group">
+                  <div className="w-full h-full flex items-center justify-center text-4xl font-extrabold text-white/40 group-hover:text-white/60 transition-colors">
                     Alexander
                   </div>
                 </DirectionalTilt>
@@ -139,7 +129,7 @@ export function About() {
             {/* Work Experience */}
             <div className="flex flex-col gap-8">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <Briefcase className="text-accent-blue" size={24} />
+                <Briefcase className="text-white" size={24} />
                 Experience
               </h3>
               
@@ -155,12 +145,12 @@ export function About() {
                     className="relative pl-10 group"
                   >
                     {/* Timeline Node Icon */}
-                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
+                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-white group-hover:bg-white transition-colors duration-300" />
                     
                     <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
                       <div className="flex flex-col gap-1.5 mb-4">
                         <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors leading-snug">
+                          <h4 className="text-lg font-bold text-white group-hover:text-zinc-300 transition-colors leading-snug">
                             {exp.role}
                           </h4>
                           <p className="text-sm font-semibold text-white/70 mt-0.5">
@@ -169,12 +159,12 @@ export function About() {
                         </div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
                           <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <Calendar size={13} className="text-accent-blue shrink-0" />
+                            <Calendar size={13} className="text-zinc-400 shrink-0" />
                             {exp.period}
                           </span>
                           <span className="text-white/20 hidden sm:inline">•</span>
                           <span className="inline-flex items-center gap-1.5 text-white/50 font-medium whitespace-nowrap">
-                            <MapPin size={13} className="text-accent-blue shrink-0" />
+                            <MapPin size={13} className="text-zinc-400 shrink-0" />
                             {exp.location}
                           </span>
                         </div>
@@ -184,7 +174,7 @@ export function About() {
                       <ul className="space-y-2 text-brand-text-muted text-sm">
                         {exp.description.map((bullet, bIdx) => (
                           <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                            <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -198,7 +188,7 @@ export function About() {
             {/* Education */}
             <div className="flex flex-col gap-8">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <GraduationCap className="text-accent-blue" size={24} />
+                <GraduationCap className="text-white" size={24} />
                 Education
               </h3>
               
@@ -214,12 +204,12 @@ export function About() {
                     className="relative pl-10 group"
                   >
                     {/* Timeline Node Icon */}
-                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-accent-blue group-hover:bg-accent-blue transition-colors duration-300" />
+                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-white group-hover:bg-white transition-colors duration-300" />
                     
                     <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
                       <div className="flex flex-col gap-1.5 mb-4">
                         <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors leading-snug">
+                          <h4 className="text-lg font-bold text-white group-hover:text-zinc-300 transition-colors leading-snug">
                             {edu.degree}
                           </h4>
                           <p className="text-sm font-semibold text-white/70 mt-0.5">
@@ -228,12 +218,12 @@ export function About() {
                         </div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
                           <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <Calendar size={13} className="text-accent-blue shrink-0" />
+                            <Calendar size={13} className="text-zinc-400 shrink-0" />
                             {edu.period}
                           </span>
                           <span className="text-white/20 hidden sm:inline">•</span>
                           <span className="inline-flex items-center gap-1.5 text-white/50 font-medium whitespace-nowrap">
-                            <MapPin size={13} className="text-accent-blue shrink-0" />
+                            <MapPin size={13} className="text-zinc-400 shrink-0" />
                             {edu.location}
                           </span>
                         </div>
@@ -243,7 +233,7 @@ export function About() {
                       <ul className="space-y-2 text-brand-text-muted text-sm">
                         {edu.description.map((bullet, bIdx) => (
                           <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                            <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -258,7 +248,7 @@ export function About() {
           {/* Certifications */}
           <div className="flex flex-col gap-6">
             <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Award className="text-accent-blue" size={24} />
+              <Award className="text-white" size={24} />
               Certifications
             </h3>
             
@@ -306,7 +296,7 @@ export function About() {
                             <ul className="space-y-2 text-brand-text-muted text-sm mt-3">
                               {cert.description.map((bullet, bIdx) => (
                                 <li key={bIdx} className="flex items-start gap-2">
-                                  <CheckCircle size={14} className="text-accent-emerald mt-1 shrink-0" />
+                                  <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
                                   <span>{bullet}</span>
                                 </li>
                               ))}
@@ -319,7 +309,7 @@ export function About() {
                               href={cert.credentialUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-blue hover:text-accent-indigo transition-colors"
+                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-zinc-300 transition-colors"
                             >
                               Verify Credential
                               <ExternalLink size={12} />
@@ -337,10 +327,10 @@ export function About() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setIsCertModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-accent-blue/15 to-accent-indigo/15 hover:from-accent-blue/25 hover:to-accent-indigo/25 border border-accent-blue/30 hover:border-accent-blue/50 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-accent-blue/10 group"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-white/5 group"
                   >
                     <span>See All ({content.certifications.length})</span>
-                    <ArrowRight size={14} className="text-accent-blue transition-transform group-hover:translate-x-1" />
+                    <ArrowRight size={14} className="text-white transition-transform group-hover:translate-x-1" />
                   </motion.button>
                 </div>
               </div>

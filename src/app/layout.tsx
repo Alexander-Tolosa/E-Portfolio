@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} scroll-smooth`}>
-      <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-accent-blue/30 selection:text-white antialiased">
+      <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-white/20 selection:text-white antialiased">
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />

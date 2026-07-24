@@ -37,7 +37,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-blue to-accent-indigo text-white font-semibold shadow-md hover:opacity-95"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-white to-zinc-300 text-black font-bold shadow-md hover:opacity-95"
         >
           <ArrowLeft size={16} />
           Back to Home
@@ -49,8 +49,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-brand-dark pt-32 pb-24 relative overflow-hidden">
       {/* Dynamic Background Glows */}
-      <div className="absolute top-0 right-1/4 w-[35rem] h-[35rem] bg-accent-blue/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[35rem] h-[35rem] bg-accent-purple/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[35rem] h-[35rem] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[35rem] h-[35rem] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Back Button */}
@@ -64,7 +64,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* Header Information */}
         <div className="mb-12">
-          <span className="text-xs font-semibold uppercase tracking-wider text-accent-blue px-3 py-1 rounded-full bg-accent-blue/10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white px-3 py-1 rounded-full bg-white/10">
             Case Study
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white mt-4 mb-6">
@@ -105,7 +105,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           </div>
           <div>
             <span className="block text-xs uppercase tracking-wider text-brand-text-muted mb-1.5">Category</span>
-            <span className="text-sm font-semibold text-accent-blue">{project.category}</span>
+            <span className="text-sm font-semibold text-white">{project.category}</span>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-blue to-accent-indigo text-white font-semibold hover:opacity-95 shadow-md shadow-accent-indigo/20 cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-white to-zinc-300 text-black font-bold hover:opacity-95 shadow-md shadow-white/10 cursor-pointer"
             >
               <ExternalLink size={16} />
               Visit Live Site
@@ -142,7 +142,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {/* Overview */}
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-white flex items-center gap-2.5">
-                <Milestone className="text-accent-blue" size={20} />
+                <Milestone className="text-white" size={20} />
                 Project Overview
               </h3>
               <p className="text-brand-text-muted text-sm leading-relaxed whitespace-pre-line">
@@ -153,7 +153,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {/* Challenges */}
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-white flex items-center gap-2.5">
-                <Cpu className="text-accent-indigo" size={20} />
+                <Cpu className="text-white" size={20} />
                 The Challenge
               </h3>
               <p className="text-brand-text-muted text-sm leading-relaxed">
@@ -164,7 +164,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {/* Solutions */}
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-white flex items-center gap-2.5">
-                <Code2 className="text-accent-cyan" size={20} />
+                <Code2 className="text-white" size={20} />
                 Our Solution
               </h3>
               <p className="text-brand-text-muted text-sm leading-relaxed">
@@ -175,7 +175,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {/* Results */}
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-white flex items-center gap-2.5">
-                <ShieldCheck className="text-accent-emerald" size={20} />
+                <ShieldCheck className="text-white" size={20} />
                 Key Deliverables & Results
               </h3>
               <p className="text-brand-text-muted text-sm leading-relaxed">
@@ -197,7 +197,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                     key={tech}
                     className="inline-flex items-center text-xs font-semibold px-3.5 py-2 rounded-xl bg-white/5 border border-white/5 text-white/80 lg:w-full"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-blue mr-2" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white mr-2" />
                     {tech}
                   </span>
                 ))}

@@ -67,18 +67,18 @@ export function Contact() {
   return (
     <section id="contact" className="py-24 relative overflow-hidden bg-brand-dark/20">
       {/* Background Glow */}
-      <div className="absolute bottom-0 right-1/4 translate-y-1/2 w-96 h-96 bg-accent-purple/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Heading */}
         <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-accent-indigo px-3 py-1 rounded-full bg-accent-indigo/10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white px-3 py-1 rounded-full bg-white/10">
             Contact
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4">
             Get In Touch
           </h2>
-          <div className="h-1 w-20 bg-accent-indigo mt-4 mx-auto md:mx-0 rounded" />
+          <div className="h-1 w-20 bg-white mt-4 mx-auto md:mx-0 rounded" />
         </div>
 
         {/* Layout Grid */}
@@ -96,14 +96,14 @@ export function Contact() {
               <div className="space-y-4 pt-6">
                 {/* Email Info */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-accent-blue shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-white shadow-sm">
                     <Mail size={20} />
                   </div>
                   <div>
                     <span className="block text-xs text-brand-text-muted uppercase tracking-wider">Email Address</span>
                     <a
                       href={content.personalInfo.socials.email}
-                      className="text-sm font-semibold text-white hover:text-accent-blue transition-colors"
+                      className="text-sm font-semibold text-white hover:text-zinc-300 transition-colors"
                     >
                       {content.personalInfo.socials.email.replace("mailto:", "")}
                     </a>
@@ -112,7 +112,7 @@ export function Contact() {
 
                 {/* Location Info */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-accent-indigo shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-white shadow-sm">
                     <MapPin size={20} />
                   </div>
                   <div>
@@ -141,7 +141,7 @@ export function Contact() {
                     exit={{ opacity: 0 }}
                     className="text-center py-12 flex flex-col items-center justify-center"
                   >
-                    <div className="w-16 h-16 rounded-full bg-accent-emerald/10 text-accent-emerald flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full bg-white/10 text-white flex items-center justify-center mb-6">
                       <CheckCircle2 size={36} />
                     </div>
                     <h4 className="text-xl font-bold text-white mb-2">Message Sent Successfully!</h4>
@@ -180,7 +180,7 @@ export function Contact() {
                           className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all ${
                             errors.name
                               ? "border-red-500/50 focus:ring-red-500/20"
-                              : "border-white/10 focus:border-accent-indigo focus:ring-accent-indigo/20"
+                              : "border-white/10 focus:border-white/40 focus:ring-white/10"
                           }`}
                           placeholder="John Doe"
                         />
@@ -205,7 +205,7 @@ export function Contact() {
                           className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all ${
                             errors.email
                               ? "border-red-500/50 focus:ring-red-500/20"
-                              : "border-white/10 focus:border-accent-indigo focus:ring-accent-indigo/20"
+                              : "border-white/10 focus:border-white/40 focus:ring-white/10"
                           }`}
                           placeholder="johndoe@example.com"
                         />
@@ -231,7 +231,7 @@ export function Contact() {
                         className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all ${
                           errors.subject
                             ? "border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-accent-indigo focus:ring-accent-indigo/20"
+                            : "border-white/10 focus:border-white/40 focus:ring-white/10"
                         }`}
                         placeholder="Project Partnership / Job Opportunity"
                       />
@@ -256,7 +256,7 @@ export function Contact() {
                         className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all resize-none ${
                           errors.message
                             ? "border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-accent-indigo focus:ring-accent-indigo/20"
+                            : "border-white/10 focus:border-white/40 focus:ring-white/10"
                         }`}
                         placeholder="Tell me more about your project idea..."
                       />
