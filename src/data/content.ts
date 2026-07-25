@@ -171,7 +171,7 @@ export const content: PortfolioContent = {
       category: "Web App",
       shortDescription: "A comprehensive digital ecosystem for a premium cafe including third-party online ordering app and AI chatbot support.",
       description: "Silim Café is a web application designed as a virtual storefront for a local specialty coffee shop with an interactive signature menu showcase, localized map routing, and authentic customer testimonials. It seamlessly bridges user engagement with utility by offering direct social media integration and a dedicated checkout funnel via its official Foodpanda delivery partnership.",
-      role: "Lead Full-Stack Architect",
+      role: "Front-End Dev & Design",
       timeline: "2026",
       client: "Silim Cafe Co.",
       techStack: ["Next.js", "React", "JavaScript", "Tailwind CSS"],
