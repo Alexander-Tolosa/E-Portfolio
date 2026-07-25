@@ -115,10 +115,14 @@ export function About() {
                 transition={{ duration: 0.5 }}
                 className="relative w-64 h-64 md:w-80 md:h-80"
               >
-                <DirectionalTilt className="w-full h-full rounded-2xl overflow-hidden border border-brand-border glass relative group">
-                  <div className="w-full h-full flex items-center justify-center text-4xl font-extrabold text-foreground/40 group-hover:text-foreground/60 transition-colors">
-                    Alexander
-                  </div>
+                <DirectionalTilt className="w-full h-full rounded-2xl overflow-hidden border border-brand-border glass relative group shadow-xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/images/profile_avatar.jpg"
+                    alt="Alexander Tolosa Profile Photo"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/40 via-transparent to-transparent opacity-40 pointer-events-none" />
                 </DirectionalTilt>
               </motion.div>
             </div>

@@ -55,6 +55,7 @@ export interface PortfolioContent {
     title: string;
     subTitle: string;
     bio: string;
+    avatarUrl: string;
     resumeUrl: string;
     socials: {
       github: string;
@@ -77,6 +78,7 @@ export const content: PortfolioContent = {
     title: "Full-Stack Software Engineer",
     subTitle: "Crafting Premium Digital Experiences & Robust Backends",
     bio: "A highly dedicated and detail-oriented Software Engineer specializing in building full-stack web applications. I turn complex logic and requirements into clean, elegant, and performant code, with an emphasis on fluid animations and responsive layout design.",
+    avatarUrl: "/assets/images/profile_avatar.jpg",
     resumeUrl: "/resume.pdf",
     socials: {
       github: "https://github.com/Alexander-Tolosa",
