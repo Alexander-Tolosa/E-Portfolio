@@ -21,26 +21,6 @@ export function About() {
     return name;
   };
 
-  const parseCertDate = (dateStr: string): number => {
-    const timestamp = Date.parse(dateStr);
-    if (!isNaN(timestamp)) return timestamp;
-    const parts = dateStr.trim().split(" ");
-    if (parts.length === 2) {
-      const month = parts[0];
-      const year = parseInt(parts[1], 10);
-      const monthIndex = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-        .findIndex((m) => m === month.toLowerCase().slice(0, 3));
-      if (monthIndex !== -1 && !isNaN(year)) {
-        return new Date(year, monthIndex, 1).getTime();
-      }
-    }
-    return 0;
-  };
-
-  const sortedCertifications = [...(content.certifications || [])].sort(
-    (a, b) => parseCertDate(b.date) - parseCertDate(a.date)
-  );
-
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       {/* Background radial glow */}
@@ -272,11 +252,11 @@ export function About() {
               Certifications
             </h3>
             
-            {sortedCertifications && sortedCertifications.length > 0 && (
+            {content.certifications && content.certifications.length > 0 && (
               <div className="flex flex-col gap-6">
                 {/* 4 Featured Certificates Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {sortedCertifications.slice(0, 4).map((cert, idx) => (
+                  {content.certifications.slice(0, 4).map((cert, idx) => (
                     <motion.div
                       key={cert.id}
                       initial={{ opacity: 0, y: 20 }}

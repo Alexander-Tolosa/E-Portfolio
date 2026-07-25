@@ -241,12 +241,12 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
-      id: "cert-5",
-      title: "Certificate of Completion: AI Capabilities and Limitations",
-      issuer: "Anthropic",
-      date: "Jul 2026",
-      credentialUrl: "https://verify.skilljar.com/c/9wzioy8w7xjs",
-      logo: "/assets/images/anthropic_logo.png",
+      id: "cert-4",
+      title: "AWS AI & ML Scholars - 2026 Challenge Completion",
+      issuer: "Udacity",
+      date: "Mar 2026",
+      credentialUrl: "https://www.udacity.com/certificate/e/0d3421a6-2cb9-11f1-a14f-875e605f5b98",
+      logo: "/assets/images/udacity_logo.png",
       description: []
     },
     {
@@ -259,11 +259,11 @@ export const content: PortfolioContent = {
       description: []
     },
     {
-      id: "cert-2",
-      title: "Certificate of Completion: AI Fluency for Students",
+      id: "cert-5",
+      title: "Certificate of Completion: AI Capabilities and Limitations",
       issuer: "Anthropic",
-      date: "Jun 2026",
-      credentialUrl: "https://verify.skilljar.com/c/7nc4w3u543cx",
+      date: "Jul 2026",
+      credentialUrl: "https://verify.skilljar.com/c/9wzioy8w7xjs",
       logo: "/assets/images/anthropic_logo.png",
       description: []
     },
@@ -277,12 +277,12 @@ export const content: PortfolioContent = {
       description: []
     },
     {
-      id: "cert-4",
-      title: "AWS AI & ML Scholars - 2026 Challenge Completion",
-      issuer: "Udacity",
-      date: "Mar 2026",
-      credentialUrl: "https://www.udacity.com/certificate/e/0d3421a6-2cb9-11f1-a14f-875e605f5b98",
-      logo: "/assets/images/udacity_logo.png",
+      id: "cert-2",
+      title: "Certificate of Completion: AI Fluency for Students",
+      issuer: "Anthropic",
+      date: "Jun 2026",
+      credentialUrl: "https://verify.skilljar.com/c/7nc4w3u543cx",
+      logo: "/assets/images/anthropic_logo.png",
       description: []
     }
   ]
