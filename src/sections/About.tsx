@@ -390,8 +390,8 @@ export function About() {
                 className="w-full h-auto max-h-[80vh] object-contain rounded-2xl"
               />
               <div className="py-3 px-6 text-center">
-                <h4 className="text-base font-bold text-foreground">Alexander Tolosa</h4>
-                <p className="text-xs text-brand-text-muted">Full-Stack Software Engineer</p>
+                <h4 className="text-base font-bold text-foreground">{content.personalInfo.name}</h4>
+                <p className="text-xs text-brand-text-muted">{content.personalInfo.title}</p>
               </div>
             </motion.div>
           </div>

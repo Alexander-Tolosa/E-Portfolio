@@ -11,13 +11,13 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Alexander Tolosa | Full-Stack Software Engineer Portfolio",
+  title: "Alexander Tolosa | Front-End Developer Portfolio",
   description:
     "Explore Alexander Tolosa's developer portfolio showcasing premium full-stack web applications, robust backends, and responsive user experiences.",
   keywords: [
     "Alexander Tolosa",
     "Software Engineer",
-    "Full-Stack Developer",
+    "Front-End Developer",
     "Iloilo Philippines",
     "Portfolio",
     "React",

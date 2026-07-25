@@ -75,7 +75,7 @@ export interface PortfolioContent {
 export const content: PortfolioContent = {
   personalInfo: {
     name: "Alexander Tolosa",
-    title: "Full-Stack Software Engineer",
+    title: "Front-End Developer",
     subTitle: "Crafting Premium Digital Experiences & Robust Backends",
     bio: "A highly dedicated and detail-oriented Software Engineer specializing in building full-stack web applications. I turn complex logic and requirements into clean, elegant, and performant code, with an emphasis on fluid animations and responsive layout design.",
     avatarUrl: "/assets/images/profile_avatar.jpg",
