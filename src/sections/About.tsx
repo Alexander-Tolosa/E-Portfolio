@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Maximize2, X } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
@@ -12,6 +12,7 @@ export function About() {
   const visibleCategories = content.skills.filter((cat) => cat.skills.length > 0);
   const [activeTab, setActiveTab] = useState(0);
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
   const getShortName = (name: string) => {
     if (name === "Devops & Cloud") return "DevOps";
@@ -113,16 +114,22 @@ export function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="relative w-64 h-64 md:w-80 md:h-80"
+                className="relative w-72 h-72 sm:w-88 sm:h-88 md:w-96 md:h-96 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] cursor-pointer"
+                onClick={() => setIsPhotoModalOpen(true)}
               >
-                <DirectionalTilt className="w-full h-full rounded-2xl overflow-hidden border border-brand-border glass relative group shadow-xl">
+                <DirectionalTilt className="w-full h-full rounded-3xl overflow-hidden border border-brand-border glass relative group shadow-2xl">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/assets/images/profile_avatar.jpg"
                     alt="Alexander Tolosa Profile Photo"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/40 via-transparent to-transparent opacity-40 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/50 via-transparent to-transparent opacity-60 pointer-events-none" />
+                  
+                  {/* Expand Overlay Icon */}
+                  <div className="absolute top-4 right-4 p-2.5 rounded-2xl glass border border-brand-border text-foreground opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-md">
+                    <Maximize2 size={18} />
+                  </div>
                 </DirectionalTilt>
               </motion.div>
             </div>
@@ -350,6 +357,46 @@ export function About() {
         onClose={() => setIsCertModalOpen(false)}
         certifications={content.certifications || []}
       />
+
+      {/* Expanded Profile Photo Lightbox Modal */}
+      <AnimatePresence>
+        {isPhotoModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsPhotoModalOpen(false)}
+              className="fixed inset-0 bg-brand-dark/85 backdrop-blur-xl cursor-pointer"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.85, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-2xl max-h-[90vh] rounded-3xl overflow-hidden glass border border-brand-border shadow-2xl z-10 flex flex-col items-center p-2"
+            >
+              <button
+                onClick={() => setIsPhotoModalOpen(false)}
+                className="absolute top-4 right-4 z-20 p-2.5 rounded-full glass border border-brand-border text-foreground hover:opacity-80 transition-opacity cursor-pointer shadow-xl backdrop-blur-md"
+                aria-label="Close photo view"
+              >
+                <X size={20} />
+              </button>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/images/profile_avatar.jpg"
+                alt="Alexander Tolosa Expanded Profile Photo"
+                className="w-full h-auto max-h-[80vh] object-contain rounded-2xl"
+              />
+              <div className="py-3 px-6 text-center">
+                <h4 className="text-base font-bold text-foreground">Alexander Tolosa</h4>
+                <p className="text-xs text-brand-text-muted">Full-Stack Software Engineer</p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
