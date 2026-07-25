@@ -29,11 +29,11 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  // Simple grayscale color schemes to display if a project screenshot fails/is loading
+  // Simple color schemes to display if a project screenshot fails/is loading
   const gradients = [
-    "from-white/10 to-white/5",
-    "from-zinc-800/80 to-zinc-900/80",
-    "from-white/15 to-zinc-800/50",
+    "from-foreground/10 to-foreground/5",
+    "from-brand-border/80 to-brand-card/80",
+    "from-foreground/15 to-brand-border/50",
   ];
   const placeholderGradient = gradients[index % gradients.length];
 
@@ -41,28 +41,27 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     <Card className="h-full flex flex-col justify-between" delay={index * 0.1}>
       <div>
         {/* Project Thumbnail Image / Placeholder */}
-        <div className="w-full h-48 rounded-xl border border-white/5 relative overflow-hidden mb-6 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
+        <div className="w-full h-48 rounded-xl border border-brand-border relative overflow-hidden mb-6 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
           {project.image ? (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={project.image}
               alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-90 transition-opacity"
+              className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity"
             />
           ) : (
             <div className={`absolute inset-0 bg-gradient-to-br ${placeholderGradient}`} />
           )}
           {/* Animated decorative grid lines */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:14px_24px]" />
-          
+          <div className="absolute inset-0 bg-[size:14px_24px] animated-grid opacity-30" />
           
           {/* Soft center light source */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-colors" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[var(--orb-bg-primary)] rounded-full blur-2xl group-hover:bg-[var(--orb-bg-secondary)] transition-colors" />
         </div>
 
         {/* Project Content */}
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted">
             {project.category}
           </span>
           <div className="flex items-center gap-2">
@@ -71,7 +70,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-brand-text-muted hover:text-white transition-colors"
+                className="text-brand-text-muted hover:text-foreground transition-colors"
                 title="View Codebase"
               >
                 <GithubIcon size={18} />
@@ -82,7 +81,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-brand-text-muted hover:text-white transition-colors"
+                className="text-brand-text-muted hover:text-foreground transition-colors"
                 title="View Live Demo"
               >
                 <ExternalLink size={18} />
@@ -91,11 +90,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
 
-        <h3 className="text-xl font-bold mb-3 text-white group-hover:text-zinc-300 transition-colors duration-200">
+        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:opacity-80 transition-opacity duration-200">
           {project.title}
         </h3>
         
-        <p className="text-brand-text-muted text-sm mb-6 line-clamp-3">
+        <p className="text-brand-text-muted text-sm mb-6 line-clamp-3 leading-relaxed">
           {project.shortDescription}
         </p>
       </div>
@@ -106,13 +105,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {project.techStack.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-white/5 border border-white/5 text-white/70"
+              className="text-[10px] font-medium px-2.5 py-0.5 rounded-full glass border border-brand-border text-foreground/80"
             >
               {tech}
             </span>
           ))}
           {project.techStack.length > 4 && (
-            <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/5 text-white/50">
+            <span className="text-[10px] font-medium px-2 py-0.5 rounded-full glass border border-brand-border text-brand-text-muted">
               +{project.techStack.length - 4} more
             </span>
           )}
@@ -121,7 +120,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Action Link to Case Study */}
         <Link
           href={`/projects/${project.id}`}
-          className="inline-flex items-center text-sm font-semibold text-white hover:text-zinc-300 transition-colors group/link cursor-pointer"
+          className="inline-flex items-center text-sm font-semibold text-foreground hover:opacity-80 transition-opacity group/link cursor-pointer"
         >
           View Case Study
           <ArrowRight

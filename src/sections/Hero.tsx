@@ -48,7 +48,7 @@ export function Hero() {
       <motion.div
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 opacity-60"
         animate={{
-          background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.08), transparent 80%)`,
+          background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, var(--orb-bg-primary), transparent 80%)`,
         }}
       />
 
@@ -63,7 +63,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute top-1/4 left-1/4 w-[20rem] sm:w-[35rem] h-[20rem] sm:h-[35rem] bg-white/8 rounded-full blur-[110px] pointer-events-none z-0"
+        className="absolute top-1/4 left-1/4 w-[20rem] sm:w-[35rem] h-[20rem] sm:h-[35rem] bg-[var(--orb-bg-primary)] rounded-full blur-[110px] pointer-events-none z-0"
       />
       <motion.div
         animate={{
@@ -75,7 +75,7 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute bottom-1/4 right-1/4 w-[22rem] sm:w-[38rem] h-[22rem] sm:h-[38rem] bg-white/5 rounded-full blur-[130px] pointer-events-none z-0"
+        className="absolute bottom-1/4 right-1/4 w-[22rem] sm:w-[38rem] h-[22rem] sm:h-[38rem] bg-[var(--orb-bg-secondary)] rounded-full blur-[130px] pointer-events-none z-0"
       />
       <motion.div
         animate={{
@@ -87,12 +87,12 @@ export function Hero() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute top-1/2 left-2/3 w-[18rem] sm:w-[28rem] h-[18rem] sm:h-[28rem] bg-white/5 rounded-full blur-[95px] pointer-events-none z-0"
+        className="absolute top-1/2 left-2/3 w-[18rem] sm:w-[28rem] h-[18rem] sm:h-[28rem] bg-[var(--orb-bg-secondary)] rounded-full blur-[95px] pointer-events-none z-0"
       />
       
       {/* Decorative moving grid pattern with parallax mouse tracking */}
       <motion.div
-        className="absolute -inset-16 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0 animated-grid"
+        className="absolute -inset-16 bg-[size:32px_32px] pointer-events-none z-0 animated-grid"
         animate={{
           x: mousePosition.x * -0.04,
           y: mousePosition.y * -0.04,
@@ -138,15 +138,15 @@ export function Hero() {
                 onMouseLeave={() => setHoveredIndex(null)}
                 className={`relative px-2.5 sm:px-4 py-1 sm:py-2 text-xs sm:text-lg md:text-xl font-bold tracking-wider sm:tracking-widest uppercase cursor-default transition-all duration-300 ${
                   hoveredIndex === null
-                    ? "text-white/60 filter-none"
+                    ? "text-foreground/70 filter-none"
                     : hoveredIndex === idx
-                    ? "text-white scale-105"
-                    : "text-white/20 filter blur-[2px]"
+                    ? "text-foreground scale-105"
+                    : "text-foreground/20 filter blur-[2px]"
                 }`}
               >
                 {skill}
                 
-                {/* White Target scope corner brackets on hover */}
+                {/* Target scope corner brackets on hover */}
                 {hoveredIndex === idx && (
                   <motion.div
                     layoutId="brackets"
@@ -154,13 +154,13 @@ export function Hero() {
                     transition={{ type: "spring", stiffness: 350, damping: 25 }}
                   >
                     {/* Top-Left */}
-                    <span className="absolute top-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-l-2 border-white rounded-tl-sm" />
+                    <span className="absolute top-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-l-2 border-foreground rounded-tl-sm" />
                     {/* Top-Right */}
-                    <span className="absolute top-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-r-2 border-white rounded-tr-sm" />
+                    <span className="absolute top-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-r-2 border-foreground rounded-tr-sm" />
                     {/* Bottom-Left */}
-                    <span className="absolute bottom-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-l-2 border-white rounded-bl-sm" />
+                    <span className="absolute bottom-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-l-2 border-foreground rounded-bl-sm" />
                     {/* Bottom-Right */}
-                    <span className="absolute bottom-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-r-2 border-white rounded-br-sm" />
+                    <span className="absolute bottom-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-r-2 border-foreground rounded-br-sm" />
                   </motion.div>
                 )}
               </div>
@@ -170,7 +170,7 @@ export function Hero() {
       </div>
 
       {/* Decorative Wave Lines matching user layout */}
-      <div className="absolute bottom-[20%] left-0 w-full h-32 pointer-events-none opacity-20 z-0">
+      <div className="absolute bottom-[20%] left-0 w-full h-32 pointer-events-none opacity-20 z-0 text-foreground">
         <svg
           className="w-full h-full"
           viewBox="0 0 1440 120"
@@ -179,18 +179,20 @@ export function Hero() {
         >
           <path
             d="M -100,60 C 200,100 400,20 720,60 C 1040,100 1240,20 1540,60"
-            stroke="rgba(255, 255, 255, 0.2)"
+            stroke="currentColor"
             strokeWidth="1.5"
           />
           <path
             d="M -100,80 C 150,110 380,40 720,80 C 1060,120 1290,50 1540,80"
-            stroke="rgba(255, 255, 255, 0.1)"
+            stroke="currentColor"
             strokeWidth="1"
+            strokeOpacity="0.6"
           />
           <path
             d="M -100,40 C 250,90 420,10 720,40 C 1020,70 1190,-10 1540,40"
-            stroke="rgba(255, 255, 255, 0.05)"
+            stroke="currentColor"
             strokeWidth="0.8"
+            strokeOpacity="0.3"
           />
         </svg>
       </div>
@@ -202,7 +204,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-1.5 h-1.5 bg-white rounded-full"
+            className="w-1.5 h-1.5 bg-foreground rounded-full"
           />
         </div>
       </div>
@@ -211,11 +213,11 @@ export function Hero() {
       <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 flex items-center gap-2.5 select-none z-20">
         <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
           {/* Fading ring layer */}
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
           {/* Core glowing dot */}
-          <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-white shadow-[0_0_8px_#ffffff]"></span>
+          <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
         </span>
-        <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-white/80">
+        <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-foreground/80">
           Available For Work
         </span>
       </div>

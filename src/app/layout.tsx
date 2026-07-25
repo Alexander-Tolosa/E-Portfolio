@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/global/Navbar";
 import { Footer } from "@/components/global/Footer";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -26,17 +27,40 @@ export const metadata: Metadata = {
   ],
 };
 
+const themeScript = `
+  (function() {
+    try {
+      var storedTheme = localStorage.getItem('theme');
+      var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (storedTheme === 'dark' || (!storedTheme && supportDarkMode)) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else if (storedTheme === 'light') {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} scroll-smooth`}>
-      <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-white/20 selection:text-white antialiased">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+    <html lang="en" className={`${outfit.variable} scroll-smooth dark`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

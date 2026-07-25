@@ -76,14 +76,14 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 bg-brand-dark/50 py-12">
+    <footer className="border-t border-brand-border bg-brand-dark/50 py-12">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left Side: Name and Copyright */}
         <div className="text-center md:text-left">
           <p className="text-sm text-brand-text-muted">
             &copy; {currentYear} Alexander Tolosa. All rights reserved.
           </p>
-          <p className="text-xs text-white/30 mt-1">
+          <p className="text-xs text-brand-text-muted/60 mt-1">
             Built with Next.js, Tailwind CSS & Framer Motion.
           </p>
         </div>
@@ -94,7 +94,7 @@ export function Footer() {
             href={content.personalInfo.socials.github}
             target="_blank"
             rel="noreferrer"
-            className="text-brand-text-muted hover:text-white transition-colors"
+            className="text-brand-text-muted hover:text-foreground transition-colors"
             title="GitHub"
           >
             <GithubIcon size={20} />
@@ -103,7 +103,7 @@ export function Footer() {
             href={content.personalInfo.socials.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="text-brand-text-muted hover:text-white transition-colors"
+            className="text-brand-text-muted hover:text-foreground transition-colors"
             title="LinkedIn"
           >
             <LinkedinIcon size={20} />
@@ -112,7 +112,7 @@ export function Footer() {
             href={content.personalInfo.socials.instagram}
             target="_blank"
             rel="noreferrer"
-            className="text-brand-text-muted hover:text-white transition-colors"
+            className="text-brand-text-muted hover:text-foreground transition-colors"
             title="Instagram"
           >
             <InstagramIcon size={20} />
@@ -121,7 +121,7 @@ export function Footer() {
             href={content.personalInfo.socials.facebook}
             target="_blank"
             rel="noreferrer"
-            className="text-brand-text-muted hover:text-white transition-colors"
+            className="text-brand-text-muted hover:text-foreground transition-colors"
             title="Facebook"
           >
             <FacebookIcon size={20} />

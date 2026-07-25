@@ -24,18 +24,18 @@ export function About() {
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       {/* Background radial glow */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-6">
         {/* Section Heading */}
         <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-white px-3 py-1 rounded-full bg-white/10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-foreground px-3 py-1 rounded-full bg-brand-border/20 border border-brand-border">
             About Me
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mt-4">
             Professional Profile & Skills
           </h2>
-          <div className="h-1 w-20 bg-white mt-4 mx-auto md:mx-0 rounded" />
+          <div className="h-1 w-20 bg-foreground mt-4 mx-auto md:mx-0 rounded" />
         </div>
 
         {/* Stack Layout */}
@@ -46,8 +46,8 @@ export function About() {
             <div className="lg:col-span-7 flex flex-col gap-6">
               <Card animate={false} className="p-6 md:p-8 relative overflow-visible">
                 {/* Decorative Corner Brackets */}
-                <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/20 pointer-events-none" />
-                <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/20 pointer-events-none" />
+                <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-brand-border pointer-events-none" />
+                <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-brand-border pointer-events-none" />
 
                 {/* Introduction Header and Bio */}
                 <div className="mb-6">
@@ -57,21 +57,21 @@ export function About() {
                 </div>
 
                 <div className="mb-4">
-                  <h5 className="text-xs font-bold text-white/80 uppercase tracking-wider">
+                  <h5 className="text-xs font-bold text-foreground/80 uppercase tracking-wider">
                     Skillset & tools
                   </h5>
                 </div>
 
                 {/* Category Selection Tabs on Top */}
-                <div className="flex flex-row gap-1 mb-6 bg-white/5 p-1 rounded-xl border border-white/5">
+                <div className="flex flex-row gap-1 mb-6 bg-brand-border/10 p-1 rounded-xl border border-brand-border">
                   {visibleCategories.map((category, idx) => (
                     <button
                       key={category.name}
                       onClick={() => setActiveTab(idx)}
                       className={`flex-1 text-[9px] md:text-xs font-mono font-semibold px-1 md:px-3 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                         activeTab === idx
-                          ? "bg-gradient-to-r from-white to-zinc-300 text-black shadow-md"
-                          : "text-brand-text-muted hover:text-white hover:bg-white/5"
+                          ? "bg-foreground text-background shadow-md"
+                          : "text-brand-text-muted hover:text-foreground hover:bg-brand-border/10"
                       }`}
                     >
                       {getShortName(category.name)}
@@ -95,9 +95,9 @@ export function About() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: idx * 0.05 }}
                       whileHover={{ scale: 1.05, y: -1 }}
-                      className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/3 border border-white/10 hover:border-white/20 hover:bg-white/6 transition-all duration-300 group cursor-default"
+                      className="inline-flex items-center justify-center px-4 py-2 rounded-full glass border border-brand-border hover:border-brand-border transition-all duration-300 group cursor-default"
                     >
-                      <span className="text-xs md:text-sm font-mono font-medium text-white/80 group-hover:text-white transition-colors text-center">
+                      <span className="text-xs md:text-sm font-mono font-medium text-foreground/80 group-hover:text-foreground transition-colors text-center">
                         {skill.name}
                       </span>
                     </motion.div>
@@ -115,8 +115,8 @@ export function About() {
                 transition={{ duration: 0.5 }}
                 className="relative w-64 h-64 md:w-80 md:h-80"
               >
-                <DirectionalTilt className="w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 relative group">
-                  <div className="w-full h-full flex items-center justify-center text-4xl font-extrabold text-white/40 group-hover:text-white/60 transition-colors">
+                <DirectionalTilt className="w-full h-full rounded-2xl overflow-hidden border border-brand-border glass relative group">
+                  <div className="w-full h-full flex items-center justify-center text-4xl font-extrabold text-foreground/40 group-hover:text-foreground/60 transition-colors">
                     Alexander
                   </div>
                 </DirectionalTilt>
@@ -128,13 +128,13 @@ export function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Work Experience */}
             <div className="flex flex-col gap-8">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <Briefcase className="text-white" size={24} />
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Briefcase className="text-foreground" size={24} />
                 Experience
               </h3>
               
               {/* Timeline Container */}
-              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-white/10 before:rounded-full">
+              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-brand-border before:rounded-full">
                 {content.experiences.map((exp, idx) => (
                   <motion.div
                     key={exp.id}
@@ -145,26 +145,26 @@ export function About() {
                     className="relative pl-10 group"
                   >
                     {/* Timeline Node Icon */}
-                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-white group-hover:bg-white transition-colors duration-300" />
+                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-background border-2 border-foreground group-hover:bg-foreground transition-colors duration-300" />
                     
-                    <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
+                    <Card animate={false} className="p-5 border border-brand-border transition-colors">
                       <div className="flex flex-col gap-1.5 mb-4">
                         <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-zinc-300 transition-colors leading-snug">
+                          <h4 className="text-lg font-bold text-foreground group-hover:opacity-80 transition-opacity leading-snug">
                             {exp.role}
                           </h4>
-                          <p className="text-sm font-semibold text-white/70 mt-0.5">
+                          <p className="text-sm font-semibold text-foreground/70 mt-0.5">
                             {exp.company}
                           </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
                           <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <Calendar size={13} className="text-zinc-400 shrink-0" />
+                            <Calendar size={13} className="shrink-0" />
                             {exp.period}
                           </span>
-                          <span className="text-white/20 hidden sm:inline">•</span>
-                          <span className="inline-flex items-center gap-1.5 text-white/50 font-medium whitespace-nowrap">
-                            <MapPin size={13} className="text-zinc-400 shrink-0" />
+                          <span className="text-foreground/20 hidden sm:inline">•</span>
+                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
+                            <MapPin size={13} className="shrink-0" />
                             {exp.location}
                           </span>
                         </div>
@@ -174,7 +174,7 @@ export function About() {
                       <ul className="space-y-2 text-brand-text-muted text-sm">
                         {exp.description.map((bullet, bIdx) => (
                           <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
+                            <CheckCircle size={14} className="text-foreground/60 mt-1 shrink-0" />
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -187,13 +187,13 @@ export function About() {
 
             {/* Education */}
             <div className="flex flex-col gap-8">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <GraduationCap className="text-white" size={24} />
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <GraduationCap className="text-foreground" size={24} />
                 Education
               </h3>
               
               {/* Timeline Container */}
-              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-white/10 before:rounded-full">
+              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-brand-border before:rounded-full">
                 {content.education.map((edu, idx) => (
                   <motion.div
                     key={edu.id}
@@ -204,26 +204,26 @@ export function About() {
                     className="relative pl-10 group"
                   >
                     {/* Timeline Node Icon */}
-                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-brand-dark border-2 border-white group-hover:bg-white transition-colors duration-300" />
+                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-background border-2 border-foreground group-hover:bg-foreground transition-colors duration-300" />
                     
-                    <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors">
+                    <Card animate={false} className="p-5 border border-brand-border transition-colors">
                       <div className="flex flex-col gap-1.5 mb-4">
                         <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-zinc-300 transition-colors leading-snug">
+                          <h4 className="text-lg font-bold text-foreground group-hover:opacity-80 transition-opacity leading-snug">
                             {edu.degree}
                           </h4>
-                          <p className="text-sm font-semibold text-white/70 mt-0.5">
+                          <p className="text-sm font-semibold text-foreground/70 mt-0.5">
                             {edu.institution}
                           </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
                           <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <Calendar size={13} className="text-zinc-400 shrink-0" />
+                            <Calendar size={13} className="shrink-0" />
                             {edu.period}
                           </span>
-                          <span className="text-white/20 hidden sm:inline">•</span>
-                          <span className="inline-flex items-center gap-1.5 text-white/50 font-medium whitespace-nowrap">
-                            <MapPin size={13} className="text-zinc-400 shrink-0" />
+                          <span className="text-foreground/20 hidden sm:inline">•</span>
+                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
+                            <MapPin size={13} className="shrink-0" />
                             {edu.location}
                           </span>
                         </div>
@@ -233,7 +233,7 @@ export function About() {
                       <ul className="space-y-2 text-brand-text-muted text-sm">
                         {edu.description.map((bullet, bIdx) => (
                           <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
+                            <CheckCircle size={14} className="text-foreground/60 mt-1 shrink-0" />
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -247,8 +247,8 @@ export function About() {
 
           {/* Certifications */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Award className="text-white" size={24} />
+            <h3 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <Award className="text-foreground" size={24} />
               Certifications
             </h3>
             
@@ -265,11 +265,12 @@ export function About() {
                       transition={{ duration: 0.5, delay: idx * 0.1 }}
                       className="h-full"
                     >
-                      <Card animate={false} className="p-5 border border-white/5 hover:border-white/10 transition-colors h-full flex flex-col justify-between">
+                      <Card animate={false} className="p-5 border border-brand-border transition-colors h-full flex flex-col justify-between">
                         <div>
                           <div className="flex items-start gap-4 mb-4">
                             {cert.logo && (
-                              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                              <div className="w-12 h-12 rounded-xl overflow-hidden glass border border-brand-border flex items-center justify-center shrink-0">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                   src={cert.logo}
                                   alt={`${cert.issuer} logo`}
@@ -279,7 +280,7 @@ export function About() {
                             )}
                             <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-start gap-2">
-                                <h4 className="text-base font-bold text-white transition-colors line-clamp-2">
+                                <h4 className="text-base font-bold text-foreground transition-colors line-clamp-2">
                                   {cert.title}
                                 </h4>
                                 <span className="inline-flex items-center gap-1 text-xs text-brand-text-muted whitespace-nowrap mt-0.5 shrink-0">
@@ -287,7 +288,7 @@ export function About() {
                                   {cert.date}
                                 </span>
                               </div>
-                              <p className="text-sm font-semibold text-white/70 mt-1">
+                              <p className="text-sm font-semibold text-foreground/70 mt-1">
                                 {cert.issuer}
                               </p>
                             </div>
@@ -296,7 +297,7 @@ export function About() {
                             <ul className="space-y-2 text-brand-text-muted text-sm mt-3">
                               {cert.description.map((bullet, bIdx) => (
                                 <li key={bIdx} className="flex items-start gap-2">
-                                  <CheckCircle size={14} className="text-zinc-400 mt-1 shrink-0" />
+                                  <CheckCircle size={14} className="text-foreground/60 mt-1 shrink-0" />
                                   <span>{bullet}</span>
                                 </li>
                               ))}
@@ -304,12 +305,12 @@ export function About() {
                           )}
                         </div>
                         {cert.credentialUrl && (
-                          <div className="mt-4 pt-3 border-t border-white/5 flex justify-end">
+                          <div className="mt-4 pt-3 border-t border-brand-border flex justify-end">
                             <a
                               href={cert.credentialUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-zinc-300 transition-colors"
+                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground hover:opacity-80 transition-opacity"
                             >
                               Verify Credential
                               <ExternalLink size={12} />
@@ -327,10 +328,10 @@ export function About() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setIsCertModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-white/5 group"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass border border-brand-border hover:border-brand-border text-xs font-bold text-foreground transition-all cursor-pointer shadow-md group"
                   >
                     <span>See All ({content.certifications.length})</span>
-                    <ArrowRight size={14} className="text-white transition-transform group-hover:translate-x-1" />
+                    <ArrowRight size={14} className="text-foreground transition-transform group-hover:translate-x-1" />
                   </motion.button>
                 </div>
               </div>

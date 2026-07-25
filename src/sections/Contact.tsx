@@ -67,18 +67,18 @@ export function Contact() {
   return (
     <section id="contact" className="py-24 relative overflow-hidden bg-brand-dark/20">
       {/* Background Glow */}
-      <div className="absolute bottom-0 right-1/4 translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 translate-y-1/2 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Heading */}
         <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-white px-3 py-1 rounded-full bg-white/10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-foreground px-3 py-1 rounded-full bg-brand-border/20 border border-brand-border">
             Contact
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mt-4">
             Get In Touch
           </h2>
-          <div className="h-1 w-20 bg-white mt-4 mx-auto md:mx-0 rounded" />
+          <div className="h-1 w-20 bg-foreground mt-4 mx-auto md:mx-0 rounded" />
         </div>
 
         {/* Layout Grid */}
@@ -86,7 +86,7 @@ export function Contact() {
           {/* Left Column: Contact details (5 Columns) */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-8">
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
                 {"Let's discuss your vision"}
               </h3>
               <p className="text-brand-text-muted leading-relaxed text-sm max-w-sm">
@@ -96,14 +96,14 @@ export function Contact() {
               <div className="space-y-4 pt-6">
                 {/* Email Info */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-white shadow-sm">
+                  <div className="w-12 h-12 rounded-xl glass border border-brand-border flex items-center justify-center text-foreground shadow-sm">
                     <Mail size={20} />
                   </div>
                   <div>
                     <span className="block text-xs text-brand-text-muted uppercase tracking-wider">Email Address</span>
                     <a
                       href={content.personalInfo.socials.email}
-                      className="text-sm font-semibold text-white hover:text-zinc-300 transition-colors"
+                      className="text-sm font-semibold text-foreground hover:opacity-80 transition-opacity"
                     >
                       {content.personalInfo.socials.email.replace("mailto:", "")}
                     </a>
@@ -112,12 +112,12 @@ export function Contact() {
 
                 {/* Location Info */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-white shadow-sm">
+                  <div className="w-12 h-12 rounded-xl glass border border-brand-border flex items-center justify-center text-foreground shadow-sm">
                     <MapPin size={20} />
                   </div>
                   <div>
                     <span className="block text-xs text-brand-text-muted uppercase tracking-wider">Location</span>
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-foreground">
                       Iloilo, Philippines
                     </span>
                   </div>
@@ -125,7 +125,7 @@ export function Contact() {
               </div>
             </div>
             
-            <div className="text-xs text-white/20 border-t border-white/5 pt-6 hidden lg:block">
+            <div className="text-xs text-brand-text-muted/60 border-t border-brand-border pt-6 hidden lg:block">
               Designed with deep precision.
             </div>
           </div>
@@ -141,10 +141,10 @@ export function Contact() {
                     exit={{ opacity: 0 }}
                     className="text-center py-12 flex flex-col items-center justify-center"
                   >
-                    <div className="w-16 h-16 rounded-full bg-white/10 text-white flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full glass border border-brand-border text-foreground flex items-center justify-center mb-6">
                       <CheckCircle2 size={36} />
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-2">Message Sent Successfully!</h4>
+                    <h4 className="text-xl font-bold text-foreground mb-2">Message Sent Successfully!</h4>
                     <p className="text-sm text-brand-text-muted max-w-sm mx-auto mb-8">
                       Thank you for getting in touch. I have received your message and will respond as soon as possible.
                     </p>
@@ -161,7 +161,7 @@ export function Contact() {
                     className="space-y-5"
                   >
                     {status === "error" && (
-                      <div className="p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-2 animate-pulse-slow">
+                      <div className="p-4 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-2 animate-pulse-slow">
                         <AlertCircle size={16} className="shrink-0" />
                         <span>Failed to send message. Please ensure your access key is set or try again later.</span>
                       </div>
@@ -169,7 +169,7 @@ export function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       {/* Name field */}
                       <div className="space-y-2">
-                        <label htmlFor="name" className="block text-xs font-semibold text-white/80 uppercase tracking-wider">
+                        <label htmlFor="name" className="block text-xs font-semibold text-foreground/80 uppercase tracking-wider">
                           Full Name
                         </label>
                         <input
@@ -177,15 +177,15 @@ export function Contact() {
                           type="text"
                           value={form.name}
                           onChange={(e) => setForm({ ...form, name: e.target.value })}
-                          className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all ${
+                          className={`w-full bg-brand-border/10 border rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 transition-all ${
                             errors.name
                               ? "border-red-500/50 focus:ring-red-500/20"
-                              : "border-white/10 focus:border-white/40 focus:ring-white/10"
+                              : "border-brand-border focus:border-foreground/40 focus:ring-foreground/10"
                           }`}
                           placeholder="John Doe"
                         />
                         {errors.name && (
-                          <span className="flex items-center gap-1 text-xs text-red-400 mt-1">
+                          <span className="flex items-center gap-1 text-xs text-red-500 mt-1">
                             <AlertCircle size={12} />
                             {errors.name}
                           </span>
@@ -194,7 +194,7 @@ export function Contact() {
 
                       {/* Email field */}
                       <div className="space-y-2">
-                        <label htmlFor="email" className="block text-xs font-semibold text-white/80 uppercase tracking-wider">
+                        <label htmlFor="email" className="block text-xs font-semibold text-foreground/80 uppercase tracking-wider">
                           Email Address
                         </label>
                         <input
@@ -202,15 +202,15 @@ export function Contact() {
                           type="email"
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all ${
+                          className={`w-full bg-brand-border/10 border rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 transition-all ${
                             errors.email
                               ? "border-red-500/50 focus:ring-red-500/20"
-                              : "border-white/10 focus:border-white/40 focus:ring-white/10"
+                              : "border-brand-border focus:border-foreground/40 focus:ring-foreground/10"
                           }`}
                           placeholder="johndoe@example.com"
                         />
                         {errors.email && (
-                          <span className="flex items-center gap-1 text-xs text-red-400 mt-1">
+                          <span className="flex items-center gap-1 text-xs text-red-500 mt-1">
                             <AlertCircle size={12} />
                             {errors.email}
                           </span>
@@ -220,7 +220,7 @@ export function Contact() {
 
                     {/* Subject field */}
                     <div className="space-y-2">
-                      <label htmlFor="subject" className="block text-xs font-semibold text-white/80 uppercase tracking-wider">
+                      <label htmlFor="subject" className="block text-xs font-semibold text-foreground/80 uppercase tracking-wider">
                         Subject
                       </label>
                       <input
@@ -228,15 +228,15 @@ export function Contact() {
                         type="text"
                         value={form.subject}
                         onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                        className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full bg-brand-border/10 border rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 transition-all ${
                           errors.subject
                             ? "border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-white/40 focus:ring-white/10"
+                            : "border-brand-border focus:border-foreground/40 focus:ring-foreground/10"
                         }`}
                         placeholder="Project Partnership / Job Opportunity"
                       />
                       {errors.subject && (
-                        <span className="flex items-center gap-1 text-xs text-red-400 mt-1">
+                        <span className="flex items-center gap-1 text-xs text-red-500 mt-1">
                           <AlertCircle size={12} />
                           {errors.subject}
                         </span>
@@ -245,7 +245,7 @@ export function Contact() {
 
                     {/* Message field */}
                     <div className="space-y-2">
-                      <label htmlFor="message" className="block text-xs font-semibold text-white/80 uppercase tracking-wider">
+                      <label htmlFor="message" className="block text-xs font-semibold text-foreground/80 uppercase tracking-wider">
                         Your Message
                       </label>
                       <textarea
@@ -253,15 +253,15 @@ export function Contact() {
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         rows={5}
-                        className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 transition-all resize-none ${
+                        className={`w-full bg-brand-border/10 border rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 transition-all resize-none ${
                           errors.message
                             ? "border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-white/40 focus:ring-white/10"
+                            : "border-brand-border focus:border-foreground/40 focus:ring-foreground/10"
                         }`}
                         placeholder="Tell me more about your project idea..."
                       />
                       {errors.message && (
-                        <span className="flex items-center gap-1 text-xs text-red-400 mt-1">
+                        <span className="flex items-center gap-1 text-xs text-red-500 mt-1">
                           <AlertCircle size={12} />
                           {errors.message}
                         </span>
@@ -277,7 +277,7 @@ export function Contact() {
                     >
                       {status === "submitting" ? (
                         <>
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <div className="w-4 h-4 border-2 border-background/30 border-t-background rounded-full animate-spin" />
                           Sending Message...
                         </>
                       ) : (

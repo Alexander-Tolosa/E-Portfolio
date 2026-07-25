@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +53,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-brand-dark/80 backdrop-blur-md border-b border-white/5 py-4"
+            ? "bg-brand-dark/80 backdrop-blur-md border-b border-brand-border py-4"
             : "bg-transparent py-6"
         }`}
       >
@@ -61,10 +62,10 @@ export function Navbar() {
           <Link
             href="/"
             onClick={(e) => handleScrollClick(e, "hero")}
-            className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5 cursor-pointer group"
+            className="text-xl font-bold tracking-tight text-foreground flex items-center gap-1.5 cursor-pointer group"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-white group-hover:bg-zinc-300 transition-colors" />
-            KIMZSEN<span className="text-zinc-400 font-light">.Dev</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-foreground group-hover:opacity-80 transition-opacity" />
+            KIMZSEN<span className="text-brand-text-muted font-light">.Dev</span>
           </Link>
 
           {/* Desktop Nav Items */}
@@ -76,30 +77,38 @@ export function Navbar() {
                 onClick={(e) => handleScrollClick(e, item.id)}
                 className={`text-sm font-medium transition-all cursor-pointer relative py-1.5 ${
                   activeSection === item.id
-                    ? "text-white"
-                    : "text-brand-text-muted hover:text-white"
+                    ? "text-foreground font-semibold"
+                    : "text-brand-text-muted hover:text-foreground"
                 }`}
               >
                 {item.label}
                 {activeSection === item.id && (
                   <motion.span
                     layoutId="activeIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-white to-zinc-400"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
               </a>
             ))}
+
+            {/* Desktop Theme Toggle */}
+            <div className="pl-2 border-l border-brand-border">
+              <ThemeToggle />
+            </div>
           </nav>
 
-          {/* Mobile menu Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-brand-text-muted hover:text-white p-2"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Actions (Theme Toggle & Menu Toggle) */}
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-brand-text-muted hover:text-foreground p-2 focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -111,7 +120,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-[73px] z-40 bg-brand-dark/95 backdrop-blur-lg border-b border-white/5 md:hidden"
+            className="fixed inset-0 top-[73px] z-40 bg-brand-dark/95 backdrop-blur-lg border-b border-brand-border md:hidden"
           >
             <nav className="flex flex-col items-center justify-center h-[calc(100vh-73px)] gap-8 p-6">
               {navItems.map((item, idx) => (
@@ -124,7 +133,7 @@ export function Navbar() {
                   onClick={(e) => handleScrollClick(e, item.id)}
                   className={`text-2xl font-bold tracking-tight ${
                     activeSection === item.id
-                      ? "text-white"
+                      ? "text-foreground"
                       : "text-brand-text-muted"
                   }`}
                 >
