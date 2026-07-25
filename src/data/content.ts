@@ -174,7 +174,7 @@ export const content: PortfolioContent = {
       role: "Lead Full-Stack Architect",
       timeline: "2026",
       client: "Silim Cafe Co.",
-      techStack: ["Next.js", "Tailwind CSS", "TypeScript", "Node.js", "Express", "MongoDB", "Framer Motion", "Socket.io"],
+      techStack: ["Next.js", "React", "JavaScript", "Tailwind CSS"],
       challenges: "Integrating a conversational chatbot helper that updates users dynamically on open and close hours, store location, menu items and third party app.",
       solutions: "I Created this app to ensure the customers able to find out their business and a API connected to enable third party app directly into a foodapp delivery.",
       results: "Because the café is located at the end of a quiet street away from high foot traffic, the website acts as its digital storefront.",
