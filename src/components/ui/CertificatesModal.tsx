@@ -37,11 +37,29 @@ export function CertificatesModal({ isOpen, onClose, certifications }: Certifica
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  const filteredCerts = certifications.filter(
-    (cert) =>
-      cert.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      cert.issuer.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const parseCertDate = (dateStr: string): number => {
+    const timestamp = Date.parse(dateStr);
+    if (!isNaN(timestamp)) return timestamp;
+    const parts = dateStr.trim().split(" ");
+    if (parts.length === 2) {
+      const month = parts[0];
+      const year = parseInt(parts[1], 10);
+      const monthIndex = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+        .findIndex((m) => m === month.toLowerCase().slice(0, 3));
+      if (monthIndex !== -1 && !isNaN(year)) {
+        return new Date(year, monthIndex, 1).getTime();
+      }
+    }
+    return 0;
+  };
+
+  const filteredCerts = certifications
+    .filter(
+      (cert) =>
+        cert.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cert.issuer.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => parseCertDate(b.date) - parseCertDate(a.date));
 
   return (
     <AnimatePresence>
