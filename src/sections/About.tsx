@@ -32,8 +32,8 @@ function TimelineCard({
   // Trigger card entrance animation
   const isCardVisible = useInView(cardRef, { once: true, margin: "0px 0px -50px 0px" });
 
-  // Trigger checkpoint check ONLY when the glowing scroll line reaches the node circle
-  const isChecked = useInView(nodeRef, { margin: "0px 0px -40% 0px", once: false });
+  // Trigger checkpoint check ONLY when the glowing scroll line reaches the node circle & REMAIN glowing once checked
+  const isChecked = useInView(nodeRef, { margin: "0px 0px -35% 0px", once: true });
 
   const title = item.role || item.degree;
   const subtitle = item.company || item.institution;
@@ -324,14 +324,6 @@ export function About() {
                 className="absolute left-4 lg:left-1/2 top-14 bottom-6 w-[2px] -translate-x-1/2 bg-gradient-to-b from-foreground via-accent-cyan to-foreground rounded-full shadow-[0_0_15px_rgba(255,255,255,0.8),0_0_8px_rgba(56,189,248,0.6)] pointer-events-none"
               />
 
-              {/* Glowing Scroll Cursor Bead */}
-              <motion.div
-                style={{
-                  top: useTransform(scrollYProgress, [0, 1], ["3.5rem", "calc(100% - 1.5rem)"]),
-                  opacity: useTransform(scrollYProgress, [0, 0.03, 0.97, 1], [0, 1, 1, 0]),
-                }}
-                className="absolute left-4 lg:left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-foreground border-2 border-background shadow-[0_0_15px_#fff,0_0_25px_rgba(255,255,255,0.9)] z-20 pointer-events-none"
-              />
 
               {/* Render Interleaved Timeline Cards */}
               {timelineItems.map((item, idx) => (
