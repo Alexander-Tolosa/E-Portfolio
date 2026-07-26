@@ -33,8 +33,8 @@ function TimelineCard({
   const subtitle = item.company || item.institution;
   const isExp = type === "experience";
   
-  // Alternating side placement for staggered timeline according to user sketch
-  const isLeftOnDesktop = index % 2 === 0;
+  // All Experience items on the left, all Education items on the right
+  const isLeftOnDesktop = isExp;
 
   return (
     <div className="relative w-full flex flex-col items-center">
