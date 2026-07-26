@@ -27,7 +27,13 @@ function TimelineCard({
   index: number;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { margin: "0px 0px -100px 0px", once: false });
+  const nodeRef = useRef<HTMLDivElement>(null);
+
+  // Trigger card entrance animation
+  const isCardVisible = useInView(cardRef, { once: true, margin: "0px 0px -50px 0px" });
+
+  // Trigger checkpoint check ONLY when the glowing scroll line reaches the node circle
+  const isChecked = useInView(nodeRef, { margin: "0px 0px -40% 0px", once: false });
 
   const title = item.role || item.degree;
   const subtitle = item.company || item.institution;
@@ -41,8 +47,7 @@ function TimelineCard({
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, x: isLeftOnDesktop ? -30 : 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
+        animate={isCardVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeftOnDesktop ? -30 : 30 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className={`relative w-full pl-10 lg:pl-0 lg:w-[calc(50%-2.5rem)] ${
           isLeftOnDesktop ? "lg:mr-auto" : "lg:ml-auto"
@@ -51,7 +56,7 @@ function TimelineCard({
         {/* Horizontal Branch Connector Line to Central Divider Line on Desktop */}
         <div
           className={`hidden lg:block absolute top-8 h-[2px] transition-all duration-500 pointer-events-none ${
-            isInView
+            isChecked
               ? "bg-gradient-to-r from-foreground via-accent-cyan to-foreground shadow-[0_0_10px_rgba(255,255,255,0.8)]"
               : "bg-brand-border/60"
           } ${isLeftOnDesktop ? "-right-10 w-10" : "-left-10 w-10"}`}
@@ -59,6 +64,7 @@ function TimelineCard({
 
         {/* Checkpoint Node (Circle with Checkmark on Central Divider Line) */}
         <div
+          ref={nodeRef}
           className={`absolute top-8 -translate-y-1/2 flex items-center justify-center transition-all duration-500 z-10 ${
             isLeftOnDesktop
               ? "left-4 lg:left-auto lg:-right-10 -translate-x-1/2 lg:translate-x-1/2"
@@ -67,7 +73,7 @@ function TimelineCard({
         >
           <div
             className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${
-              isInView
+              isChecked
                 ? "bg-foreground border-foreground text-background scale-110 shadow-[0_0_15px_#fff,0_0_22px_var(--color-accent-cyan)]"
                 : "bg-background border-brand-border text-brand-text-muted/40 scale-90"
             }`}
@@ -75,7 +81,7 @@ function TimelineCard({
             <Check
               size={13}
               className={`transition-all duration-300 ${
-                isInView
+                isChecked
                   ? "scale-100 opacity-100 stroke-[3.5]"
                   : "scale-50 opacity-0 stroke-[2]"
               }`}
@@ -87,7 +93,7 @@ function TimelineCard({
         <Card
           animate={false}
           className={`p-5 border transition-all duration-500 ${
-            isInView
+            isChecked
               ? "border-foreground/50 shadow-[0_0_25px_rgba(255,255,255,0.06)]"
               : "border-brand-border"
           }`}
@@ -117,12 +123,12 @@ function TimelineCard({
               {/* Checked Status Badge */}
               <span
                 className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border transition-all duration-500 shrink-0 ${
-                  isInView
+                  isChecked
                     ? "bg-foreground text-background border-foreground shadow-[0_0_10px_rgba(255,255,255,0.4)]"
                     : "bg-brand-border/20 border-brand-border text-brand-text-muted/60"
                 }`}
               >
-                {isInView ? "CHECKED" : "MILESTONE"}
+                {isChecked ? "CHECKED" : "MILESTONE"}
               </span>
             </div>
 
@@ -146,7 +152,7 @@ function TimelineCard({
                 <CheckCircle
                   size={14}
                   className={`mt-1 shrink-0 transition-colors duration-300 ${
-                    isInView ? "text-foreground" : "text-brand-text-muted/50"
+                    isChecked ? "text-foreground" : "text-brand-text-muted/50"
                   }`}
                 />
                 <span>{bullet}</span>
@@ -168,7 +174,7 @@ export function About() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: timelineRef,
-    offset: ["start 75%", "end 50%"],
+    offset: ["start 60%", "end 60%"],
   });
 
   const getShortName = (name: string) => {
