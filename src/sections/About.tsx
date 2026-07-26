@@ -1,18 +1,175 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Maximize2, X } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Maximize2, X, Check } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
 import { CertificatesModal } from "@/components/ui/CertificatesModal";
+
+function TimelineCard({
+  item,
+  type,
+  index,
+}: {
+  item: {
+    id: string;
+    role?: string;
+    degree?: string;
+    company?: string;
+    institution?: string;
+    period: string;
+    location: string;
+    description: string[];
+  };
+  type: "experience" | "education";
+  index: number;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { margin: "0px 0px -100px 0px", once: false });
+
+  const title = item.role || item.degree;
+  const subtitle = item.company || item.institution;
+  const isExp = type === "experience";
+  
+  // Alternating side placement for staggered timeline according to user sketch
+  const isLeftOnDesktop = index % 2 === 0;
+
+  return (
+    <div className="relative w-full flex flex-col items-center">
+      <motion.div
+        ref={cardRef}
+        initial={{ opacity: 0, x: isLeftOnDesktop ? -30 : 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className={`relative w-full pl-10 lg:pl-0 lg:w-[calc(50%-2.5rem)] ${
+          isLeftOnDesktop ? "lg:mr-auto" : "lg:ml-auto"
+        } group`}
+      >
+        {/* Horizontal Branch Connector Line to Central Divider Line on Desktop */}
+        <div
+          className={`hidden lg:block absolute top-8 h-[2px] transition-all duration-500 pointer-events-none ${
+            isInView
+              ? "bg-gradient-to-r from-foreground via-accent-cyan to-foreground shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+              : "bg-brand-border/60"
+          } ${isLeftOnDesktop ? "-right-10 w-10" : "-left-10 w-10"}`}
+        />
+
+        {/* Checkpoint Node (Circle with Checkmark on Central Divider Line) */}
+        <div
+          className={`absolute top-8 -translate-y-1/2 flex items-center justify-center transition-all duration-500 z-10 ${
+            isLeftOnDesktop
+              ? "left-4 lg:left-auto lg:-right-10 -translate-x-1/2 lg:translate-x-1/2"
+              : "left-4 lg:-left-10 -translate-x-1/2"
+          }`}
+        >
+          <div
+            className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${
+              isInView
+                ? "bg-foreground border-foreground text-background scale-110 shadow-[0_0_15px_#fff,0_0_22px_var(--color-accent-cyan)]"
+                : "bg-background border-brand-border text-brand-text-muted/40 scale-90"
+            }`}
+          >
+            <Check
+              size={13}
+              className={`transition-all duration-300 ${
+                isInView
+                  ? "scale-100 opacity-100 stroke-[3.5]"
+                  : "scale-50 opacity-0 stroke-[2]"
+              }`}
+            />
+          </div>
+        </div>
+
+        {/* Timeline Banner Card */}
+        <Card
+          animate={false}
+          className={`p-5 border transition-all duration-500 ${
+            isInView
+              ? "border-foreground/50 shadow-[0_0_25px_rgba(255,255,255,0.06)]"
+              : "border-brand-border"
+          }`}
+        >
+          <div className="flex flex-col gap-1.5 mb-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex flex-col gap-1">
+                {/* Type Badge (Experience vs Education) */}
+                <span
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold w-fit border transition-colors ${
+                    isExp
+                      ? "bg-accent-cyan/10 text-foreground border-accent-cyan/30"
+                      : "bg-foreground/10 text-foreground border-foreground/30"
+                  }`}
+                >
+                  {isExp ? <Briefcase size={11} /> : <GraduationCap size={11} />}
+                  {isExp ? "Experience" : "Education"}
+                </span>
+                <h4 className="text-lg font-bold text-foreground group-hover:opacity-90 transition-opacity leading-snug mt-1">
+                  {title}
+                </h4>
+                <p className="text-sm font-semibold text-foreground/70">
+                  {subtitle}
+                </p>
+              </div>
+
+              {/* Checked Status Badge */}
+              <span
+                className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border transition-all duration-500 shrink-0 ${
+                  isInView
+                    ? "bg-foreground text-background border-foreground shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+                    : "bg-brand-border/20 border-brand-border text-brand-text-muted/60"
+                }`}
+              >
+                {isInView ? "CHECKED" : "MILESTONE"}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
+              <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
+                <Calendar size={13} className="shrink-0" />
+                {item.period}
+              </span>
+              <span className="text-foreground/20 hidden sm:inline">•</span>
+              <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
+                <MapPin size={13} className="shrink-0" />
+                {item.location}
+              </span>
+            </div>
+          </div>
+
+          {/* Bullet Points */}
+          <ul className="space-y-2 text-brand-text-muted text-sm">
+            {item.description.map((bullet, bIdx) => (
+              <li key={bIdx} className="flex items-start gap-2">
+                <CheckCircle
+                  size={14}
+                  className={`mt-1 shrink-0 transition-colors duration-300 ${
+                    isInView ? "text-foreground" : "text-brand-text-muted/50"
+                  }`}
+                />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </motion.div>
+    </div>
+  );
+}
 
 export function About() {
   const visibleCategories = content.skills.filter((cat) => cat.skills.length > 0);
   const [activeTab, setActiveTab] = useState(0);
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 75%", "end 50%"],
+  });
 
   const getShortName = (name: string) => {
     if (name === "Devops & Cloud") return "DevOps";
@@ -21,6 +178,14 @@ export function About() {
     if (name === "Developer Tools") return "Tools";
     return name;
   };
+
+  const timelineItems = [
+    { ...content.experiences[0], type: "experience" as const },
+    { ...content.education[0], type: "education" as const },
+    { ...content.experiences[1], type: "experience" as const },
+    { ...content.education[1], type: "education" as const },
+    { ...content.education[2], type: "education" as const },
+  ];
 
   return (
     <section id="about" className="py-24 relative overflow-hidden">
@@ -135,124 +300,37 @@ export function About() {
             </div>
           </div>
 
-          {/* Experience & Education Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Work Experience */}
-            <div className="flex flex-col gap-8">
-              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
-                <Briefcase className="text-foreground" size={24} />
-                Experience
-              </h3>
-              
-              {/* Timeline Container */}
-              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-brand-border before:rounded-full">
-                {content.experiences.map((exp, idx) => (
-                  <motion.div
-                    key={exp.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative pl-10 group"
-                  >
-                    {/* Timeline Node Icon */}
-                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-background border-2 border-foreground group-hover:bg-foreground transition-colors duration-300" />
-                    
-                    <Card animate={false} className="p-5 border border-brand-border transition-colors">
-                      <div className="flex flex-col gap-1.5 mb-4">
-                        <div>
-                          <h4 className="text-lg font-bold text-foreground group-hover:opacity-80 transition-opacity leading-snug">
-                            {exp.role}
-                          </h4>
-                          <p className="text-sm font-semibold text-foreground/70 mt-0.5">
-                            {exp.company}
-                          </p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
-                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <Calendar size={13} className="shrink-0" />
-                            {exp.period}
-                          </span>
-                          <span className="text-foreground/20 hidden sm:inline">•</span>
-                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <MapPin size={13} className="shrink-0" />
-                            {exp.location}
-                          </span>
-                        </div>
-                      </div>
-                      
-                      {/* Experience Bullet Points */}
-                      <ul className="space-y-2 text-brand-text-muted text-sm">
-                        {exp.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-foreground/60 mt-1 shrink-0" />
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          {/* Interleaved Experience & Education Timeline */}
+          <div className="flex flex-col gap-6">
+            <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3 text-center">
+              <Briefcase className="text-foreground" size={24} />
+              <span>Experience & Education</span>
+              <GraduationCap className="text-foreground" size={24} />
+            </h3>
 
-            {/* Education */}
-            <div className="flex flex-col gap-8">
-              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
-                <GraduationCap className="text-foreground" size={24} />
-                Education
-              </h3>
-              
-              {/* Timeline Container */}
-              <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-brand-border before:rounded-full">
-                {content.education.map((edu, idx) => (
-                  <motion.div
-                    key={edu.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative pl-10 group"
-                  >
-                    {/* Timeline Node Icon */}
-                    <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-background border-2 border-foreground group-hover:bg-foreground transition-colors duration-300" />
-                    
-                    <Card animate={false} className="p-5 border border-brand-border transition-colors">
-                      <div className="flex flex-col gap-1.5 mb-4">
-                        <div>
-                          <h4 className="text-lg font-bold text-foreground group-hover:opacity-80 transition-opacity leading-snug">
-                            {edu.degree}
-                          </h4>
-                          <p className="text-sm font-semibold text-foreground/70 mt-0.5">
-                            {edu.institution}
-                          </p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
-                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <Calendar size={13} className="shrink-0" />
-                            {edu.period}
-                          </span>
-                          <span className="text-foreground/20 hidden sm:inline">•</span>
-                          <span className="inline-flex items-center gap-1.5 text-brand-text-muted font-medium whitespace-nowrap">
-                            <MapPin size={13} className="shrink-0" />
-                            {edu.location}
-                          </span>
-                        </div>
-                      </div>
-                      
-                      {/* Education Bullet Points */}
-                      <ul className="space-y-2 text-brand-text-muted text-sm">
-                        {edu.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="flex items-start gap-2">
-                            <CheckCircle size={14} className="text-foreground/60 mt-1 shrink-0" />
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+            <div ref={timelineRef} className="relative pt-6 flex flex-col gap-10 sm:gap-14">
+              {/* Central Background Track Line */}
+              <div className="absolute left-4 lg:left-1/2 top-14 bottom-6 w-[2px] -translate-x-1/2 bg-brand-border/50 rounded-full pointer-events-none" />
+
+              {/* Glowing Progress Fill Line (Scroll-Animated) */}
+              <motion.div
+                style={{ scaleY: scrollYProgress, transformOrigin: "top" }}
+                className="absolute left-4 lg:left-1/2 top-14 bottom-6 w-[2px] -translate-x-1/2 bg-gradient-to-b from-foreground via-accent-cyan to-foreground rounded-full shadow-[0_0_15px_rgba(255,255,255,0.8),0_0_8px_rgba(56,189,248,0.6)] pointer-events-none"
+              />
+
+              {/* Glowing Scroll Cursor Bead */}
+              <motion.div
+                style={{
+                  top: useTransform(scrollYProgress, [0, 1], ["3.5rem", "calc(100% - 1.5rem)"]),
+                  opacity: useTransform(scrollYProgress, [0, 0.03, 0.97, 1], [0, 1, 1, 0]),
+                }}
+                className="absolute left-4 lg:left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-foreground border-2 border-background shadow-[0_0_15px_#fff,0_0_25px_rgba(255,255,255,0.9)] z-20 pointer-events-none"
+              />
+
+              {/* Render Interleaved Timeline Cards */}
+              {timelineItems.map((item, idx) => (
+                <TimelineCard key={item.id} item={item} type={item.type} index={idx} />
+              ))}
             </div>
           </div>
 
