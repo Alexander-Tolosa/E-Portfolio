@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { ExternalLink, Award, Flame } from "lucide-react";
 import { Card } from "@/components/ui/Card";
+import { useTheme } from "@/context/ThemeContext";
 
 interface GithubData {
   username: string;
@@ -13,6 +14,8 @@ interface GithubData {
 }
 
 export function GithubStreak() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [data, setData] = useState<GithubData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -57,18 +60,34 @@ export function GithubStreak() {
 
   // Get the size class and opacity class for each level
   const getDotStyles = (level: number) => {
+    if (isLight) {
+      switch (level) {
+        case 0:
+          return "w-1.5 h-1.5 bg-slate-300/80 rounded-full";
+        case 1:
+          return "w-1.5 h-1.5 bg-slate-600 rounded-full shadow-sm";
+        case 2:
+          return "w-2 h-2 bg-slate-800 rounded-full shadow-sm";
+        case 3:
+          return "w-2.5 h-2.5 bg-slate-950 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.25)]";
+        case 4:
+        default:
+          return "w-3 h-3 bg-black rounded-full shadow-[0_0_10px_rgba(0,0,0,0.4)]";
+      }
+    }
+
     switch (level) {
       case 0:
-        return "w-1 h-1 bg-foreground/15 rounded-full";
+        return "w-1 h-1 bg-foreground/20 rounded-full";
       case 1:
-        return "w-1.5 h-1.5 bg-foreground/45 rounded-full";
+        return "w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.6)]";
       case 2:
-        return "w-2 h-2 bg-foreground/70 rounded-full";
+        return "w-2 h-2 bg-white rounded-full shadow-[0_0_6px_rgba(255,255,255,0.75)]";
       case 3:
-        return "w-2.5 h-2.5 bg-foreground/90 rounded-full";
+        return "w-2.5 h-2.5 bg-white rounded-full shadow-[0_0_9px_rgba(255,255,255,0.9)]";
       case 4:
       default:
-        return "w-3 h-3 bg-foreground rounded-full shadow-[0_0_8px_var(--foreground)]";
+        return "w-3 h-3 bg-white rounded-full shadow-[0_0_12px_#fff]";
     }
   };
 
