@@ -32,8 +32,8 @@ function TimelineCard({
   // Trigger card entrance animation
   const isCardVisible = useInView(cardRef, { once: true, margin: "0px 0px -50px 0px" });
 
-  // Trigger checkpoint check ONLY when the glowing scroll line reaches the node circle & REMAIN glowing once checked
-  const isChecked = useInView(nodeRef, { margin: "0px 0px -35% 0px", once: true });
+  // Trigger checkpoint check ONLY when touched/covered by the glowing line (active from top of screen down to 60% height)
+  const isChecked = useInView(nodeRef, { margin: "1000px 0px -40% 0px", once: false });
 
   const title = item.role || item.degree;
   const subtitle = item.company || item.institution;
