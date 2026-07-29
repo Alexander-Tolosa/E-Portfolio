@@ -29,9 +29,6 @@ function TimelineCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const nodeRef = useRef<HTMLDivElement>(null);
 
-  // Trigger card entrance animation
-  const isCardVisible = useInView(cardRef, { once: true, margin: "0px 0px -50px 0px" });
-
   // Trigger checkpoint check ONLY when touched/covered by the glowing line (active from top of screen down to 60% height)
   const isChecked = useInView(nodeRef, { margin: "1000px 0px -40% 0px", once: false });
 
@@ -42,13 +39,31 @@ function TimelineCard({
   // All Experience items on the left, all Education items on the right
   const isLeftOnDesktop = isExp;
 
+  // Scroll progress for this specific checkpoint node as screen scrolls up/down
+  const { scrollYProgress: cardProgress } = useScroll({
+    target: nodeRef,
+    offset: ["start 95%", "start 60%", "end 15%", "end 0%"],
+  });
+
+  // Opacity: slowly fade in as screen scrolls up towards the circle checkpoint (95% -> 60%),
+  // stay fully opaque while active (60% -> 15%), slowly fade out when scrolling past top (15% -> 0%)
+  const opacity = useTransform(cardProgress, [0, 0.333, 0.666, 1], [0.15, 1, 1, 0.15]);
+
+  // Scale: subtle scale up into focus as it reaches checkpoint
+  const scale = useTransform(cardProgress, [0, 0.333, 0.666, 1], [0.93, 1, 1, 0.94]);
+
+  // Dynamic X and Y translation gliding smoothly towards checkpoint center
+  const x = useTransform(cardProgress, [0, 0.333], [isLeftOnDesktop ? -25 : 25, 0]);
+  const y = useTransform(cardProgress, [0, 0.333, 0.666, 1], [25, 0, 0, -15]);
+
+  // Soft blur effect fading into crisp focus as it reaches the checkpoint
+  const filter = useTransform(cardProgress, [0, 0.333], ["blur(4px)", "blur(0px)"]);
+
   return (
     <div className="relative w-full flex flex-col items-center">
       <motion.div
         ref={cardRef}
-        initial={{ opacity: 0, x: isLeftOnDesktop ? -30 : 30 }}
-        animate={isCardVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeftOnDesktop ? -30 : 30 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        style={{ opacity, scale, x, y, filter }}
         className={`relative w-full pl-10 lg:pl-0 lg:w-[calc(50%-2.5rem)] ${
           isLeftOnDesktop ? "lg:mr-auto" : "lg:ml-auto"
         } group`}
