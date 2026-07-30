@@ -11,6 +11,7 @@ export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [serverErrorMsg, setServerErrorMsg] = useState<string | null>(null);
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -32,14 +33,10 @@ export function Contact() {
     if (!validate()) return;
 
     setStatus("submitting");
+    setServerErrorMsg(null);
     
     try {
-      const apiKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-      if (!apiKey) {
-        console.error("Web3Forms error: NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY is missing in .env.local");
-        setStatus("error");
-        return;
-      }
+      const apiKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "98a8c60b-75a4-4e60-930a-bd3f067fecfd";
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -63,10 +60,12 @@ export function Contact() {
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
         console.error("Web3Forms submission failed:", result);
+        setServerErrorMsg(result.message || "Failed to send message. Please try again later.");
         setStatus("error");
       }
     } catch (err) {
       console.error("Error submitting form:", err);
+      setServerErrorMsg("Failed to send message due to network error. Please try again later.");
       setStatus("error");
     }
   };
@@ -170,7 +169,7 @@ export function Contact() {
                     {status === "error" && (
                       <div className="p-4 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-2 animate-pulse-slow">
                         <AlertCircle size={16} className="shrink-0" />
-                        <span>Failed to send message. Please ensure your access key is set or try again later.</span>
+                        <span>{serverErrorMsg || "Failed to send message. Please try again later."}</span>
                       </div>
                     )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
