@@ -243,6 +243,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-6",
+      title: "Developing Designs for User Interface",
+      issuer: "e-TESDA (Technical Education & Skills Development Authority)",
+      date: "Jul 2026",
+      credentialUrl: "https://e-tesda.gov.ph/mod/customcert/view.php?id=63485&downloadown=1",
+      logo: "/assets/images/tesda_seal.png",
+      description: []
+    },
+    {
       id: "cert-4",
       title: "AWS AI & ML Scholars - 2026 Challenge Completion",
       issuer: "Udacity",

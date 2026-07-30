@@ -376,7 +376,7 @@ export function About() {
                                 <img
                                   src={cert.logo}
                                   alt={`${cert.issuer} logo`}
-                                  className="w-full h-full object-cover"
+                                  className="w-full h-full object-contain p-1"
                                 />
                               </div>
                             )}
