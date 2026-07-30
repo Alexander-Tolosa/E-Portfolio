@@ -34,6 +34,13 @@ export function Contact() {
     setStatus("submitting");
     
     try {
+      const apiKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+      if (!apiKey) {
+        console.error("Web3Forms error: NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY is missing in .env.local");
+        setStatus("error");
+        return;
+      }
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -41,7 +48,7 @@ export function Contact() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "",
+          access_key: apiKey,
           name: form.name,
           email: form.email,
           subject: form.subject,
