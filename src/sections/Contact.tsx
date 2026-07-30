@@ -48,6 +48,7 @@ export function Contact() {
           access_key: apiKey,
           name: form.name,
           email: form.email,
+          replyto: form.email,
           subject: form.subject,
           message: form.message,
           from_name: `${form.name} (Portfolio Contact Form)`,
