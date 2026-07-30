@@ -36,22 +36,16 @@ export function Contact() {
     setServerErrorMsg(null);
     
     try {
-      const apiKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "98a8c60b-75a4-4e60-930a-bd3f067fecfd";
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: apiKey,
           name: form.name,
           email: form.email,
-          replyto: form.email,
           subject: form.subject,
           message: form.message,
-          from_name: `${form.name} (Portfolio Contact Form)`,
         }),
       });
 
@@ -60,7 +54,7 @@ export function Contact() {
         setStatus("success");
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
-        console.error("Web3Forms submission failed:", result);
+        console.error("Contact form submission failed:", result);
         setServerErrorMsg(result.message || "Failed to send message. Please try again later.");
         setStatus("error");
       }
