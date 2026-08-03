@@ -8,7 +8,10 @@ export async function GET() {
   
   try {
     const res = await fetch(`${url}?_=${Date.now()}`, {
-      cache: "no-store"
+      cache: "no-store",
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      }
     });
     
     if (!res.ok) {
@@ -17,9 +20,11 @@ export async function GET() {
     
     const html = await res.text();
     
-    const tdRegex = /<td[^>]*class="[^"]*ContributionCalendar-day[^"]*"[^>]*>/gi;
-    const matches = html.match(tdRegex) || [];
+    // Match calendar days (td or rect element in modern GitHub)
+    const dayRegex = /<(?:td|rect)[^>]*class="[^"]*ContributionCalendar-day[^"]*"[^>]*>/gi;
+    const matches = html.match(dayRegex) || [];
     
+    // Parse tooltips for accurate counts
     const tooltipRegex = /<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/gi;
     let tooltipMatch;
     const countMap: Record<string, number> = {};
@@ -29,9 +34,7 @@ export async function GET() {
       const text = tooltipMatch[2].trim();
       
       let count = 0;
-      if (text.startsWith("No contributions")) {
-        count = 0;
-      } else {
+      if (!text.startsWith("No contributions")) {
         const match = text.match(/^([\d,]+)\s+contribution/i);
         if (match) {
           count = parseInt(match[1].replace(/,/g, ''), 10);
@@ -49,21 +52,22 @@ export async function GET() {
       const level = levelMatch ? parseInt(levelMatch[1], 10) : 0;
       const id = idMatch ? idMatch[1] : "";
       
-      const count = id && countMap[id] !== undefined ? countMap[id] : level;
+      const count = id && countMap[id] !== undefined ? countMap[id] : (level > 0 ? level : 0);
       
       return { date, level, count };
     }).filter(d => d.date);
 
+    // Total contributions string in HTML
     const totalMatch = html.match(/([\d,]+)\s+contributions\s+in\s+the\s+last\s+year/i);
-    const totalContributions = totalMatch ? parseInt(totalMatch[1].replace(/,/g, ''), 10) : 0;
+    const totalContributions = totalMatch 
+      ? parseInt(totalMatch[1].replace(/,/g, ''), 10) 
+      : parsedDays.reduce((acc, curr) => acc + curr.count, 0);
     
     parsedDays.sort((a, b) => a.date.localeCompare(b.date));
     
+    // Compute max streak
     let maxStreak = 0;
-    let currentStreak = 0;
     let tempStreak = 0;
-    
-    const todayStr = new Date().toISOString().split("T")[0];
     
     for (const d of parsedDays) {
       if (d.count > 0) {
@@ -74,35 +78,26 @@ export async function GET() {
       } else {
         tempStreak = 0;
       }
-      
-      if (d.date <= todayStr) {
-        if (d.count > 0) {
-          currentStreak = tempStreak;
-        } else {
-          currentStreak = 0;
-        }
-      }
     }
     
-    const yesterdayDate = new Date();
-    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-    const yesterdayDateStr = yesterdayDate.toISOString().split("T")[0];
-    const yesterdayEntry = parsedDays.find(d => d.date === yesterdayDateStr);
-    const todayEntry = parsedDays.find(d => d.date === todayStr);
+    // Compute current streak backward
+    const todayStr = new Date().toISOString().split("T")[0];
+    const activeDays = parsedDays.filter(d => d.date <= todayStr);
     
-    if (todayEntry && todayEntry.count === 0 && yesterdayEntry && yesterdayEntry.count > 0) {
-      let countBack = 0;
-      const yesterdayIndex = parsedDays.findIndex(d => d.date === yesterdayDateStr);
-      if (yesterdayIndex !== -1) {
-        for (let i = yesterdayIndex; i >= 0; i--) {
-          if (parsedDays[i].count > 0) {
-            countBack++;
-          } else {
-            break;
-          }
-        }
+    let currentStreak = 0;
+    let startIndex = activeDays.length - 1;
+    
+    // If today has 0 contributions, start checking from yesterday so active streak isn't reset prematurely today
+    if (activeDays.length > 0 && activeDays[startIndex].count === 0) {
+      startIndex = activeDays.length - 2;
+    }
+    
+    for (let i = startIndex; i >= 0; i--) {
+      if (activeDays[i] && activeDays[i].count > 0) {
+        currentStreak++;
+      } else {
+        break;
       }
-      currentStreak = countBack;
     }
 
     return NextResponse.json({
