@@ -243,6 +243,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-7",
+      title: "Developing Designs for User Experience",
+      issuer: "e-TESDA (Technical Education & Skills Development Authority)",
+      date: "Aug 2026",
+      credentialUrl: "https://e-tesda.gov.ph/mod/customcert/view.php?id=63484&downloadown=1",
+      logo: "/assets/images/tesda_seal.png",
+      description: []
+    },
+    {
       id: "cert-6",
       title: "Developing Designs for User Interface",
       issuer: "e-TESDA (Technical Education & Skills Development Authority)",
