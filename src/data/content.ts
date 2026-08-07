@@ -243,6 +243,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-8",
+      title: "Getting Started with Cisco Packet Tracer",
+      issuer: "Cisco Networking Academy",
+      date: "Aug 2026",
+      credentialUrl: "https://www.netacad.com/certificates/?issuanceId=3d36bbef-1d4f-422f-941b-b394427715b6",
+      logo: "/assets/images/cisco_logo.png",
+      description: []
+    },
+    {
       id: "cert-7",
       title: "Developing Designs for User Experience",
       issuer: "e-TESDA (Technical Education & Skills Development Authority)",
