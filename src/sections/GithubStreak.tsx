@@ -148,7 +148,7 @@ export function GithubStreak() {
   if (loading) {
     return (
       <section className="py-16 relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
           <div
             className={`p-6 sm:p-8 rounded-2xl border transition-colors ${
               isLight
@@ -177,7 +177,7 @@ export function GithubStreak() {
 
   return (
     <section className="py-16 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

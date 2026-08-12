@@ -51,31 +51,35 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 border-b border-brand-border transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 border-b border-brand-border/60 transition-all duration-300 ${
           scrolled
-            ? "bg-brand-dark/80 backdrop-blur-md py-4"
-            : "bg-transparent py-6"
+            ? "bg-background/80 backdrop-blur-md py-3.5"
+            : "bg-background/40 backdrop-blur-sm py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo Name */}
+        <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+          {/* Logo Name / Initials */}
           <Link
             href="/"
             onClick={(e) => handleScrollClick(e, "hero")}
-            className="text-xl font-bold tracking-tight text-foreground flex items-center gap-1.5 cursor-pointer group"
+            className="text-base font-bold tracking-wider text-foreground flex items-center gap-2 cursor-pointer group"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-foreground group-hover:opacity-80 transition-opacity" />
-            KIMZSEN<span className="text-brand-text-muted font-light">.Dev</span>
+            <span className="w-7 h-7 rounded-full bg-foreground text-background text-xs font-mono font-bold flex items-center justify-center group-hover:scale-105 transition-transform">
+              AT
+            </span>
+            <span className="font-semibold tracking-tight text-foreground text-sm sm:text-base">
+              Alexander<span className="text-brand-text-muted font-normal">.dev</span>
+            </span>
           </Link>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {navItems.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={(e) => handleScrollClick(e, item.id)}
-                className={`text-sm font-medium transition-all cursor-pointer relative py-1.5 ${
+                className={`text-sm font-medium transition-all cursor-pointer relative py-1 ${
                   activeSection === item.id
                     ? "text-foreground font-semibold"
                     : "text-brand-text-muted hover:text-foreground"
@@ -85,7 +89,7 @@ export function Navbar() {
                 {activeSection === item.id && (
                   <motion.span
                     layoutId="activeIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground rounded-full"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -93,7 +97,7 @@ export function Navbar() {
             ))}
 
             {/* Desktop Theme Toggle */}
-            <div className="pl-2 border-l border-brand-border">
+            <div className="pl-3 border-l border-brand-border">
               <ThemeToggle />
             </div>
           </nav>
@@ -106,7 +110,7 @@ export function Navbar() {
               className="text-brand-text-muted hover:text-foreground p-2 focus:outline-none"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>

@@ -1,225 +1,165 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+import { ChevronRight, Check, Mail } from "lucide-react";
 import { content } from "@/data/content";
+import { TechBadge } from "@/components/ui/TechBadge";
+import { InteractiveAvatar } from "@/components/ui/InteractiveAvatar";
+
+const GithubIcon = ({ size = 18 }: { size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
+const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
 
 export function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const skills = ["Developer", "Editor", "Junior"];
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const heroElement = document.getElementById("hero");
-      if (heroElement) {
-        const rect = heroElement.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: 0.15,
+        duration: 0.6,
+        staggerChildren: 0.12,
+        ease: "easeOut" as const,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
+    hidden: { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-[100dvh] flex flex-col justify-center items-center pt-24 pb-16 overflow-hidden"
-    >
-      {/* Dynamic Cursor Spotlight Tracking */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 opacity-60"
-        animate={{
-          background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, var(--orb-bg-primary), transparent 80%)`,
-        }}
-      />
-
-      {/* Dynamic Floating Orbs */}
-      <motion.div
-        animate={{
-          x: [0, 45, -25, 0],
-          y: [0, -65, 45, 0],
-        }}
-        transition={{
-          duration: 22,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute top-1/4 left-1/4 w-[20rem] sm:w-[35rem] h-[20rem] sm:h-[35rem] bg-[var(--orb-bg-primary)] rounded-full blur-[110px] pointer-events-none z-0"
-      />
-      <motion.div
-        animate={{
-          x: [0, -55, 35, 0],
-          y: [0, 45, -55, 0],
-        }}
-        transition={{
-          duration: 28,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute bottom-1/4 right-1/4 w-[22rem] sm:w-[38rem] h-[22rem] sm:h-[38rem] bg-[var(--orb-bg-secondary)] rounded-full blur-[130px] pointer-events-none z-0"
-      />
-      <motion.div
-        animate={{
-          x: [0, 35, -35, 0],
-          y: [0, 35, 35, 0],
-        }}
-        transition={{
-          duration: 19,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute top-1/2 left-2/3 w-[18rem] sm:w-[28rem] h-[18rem] sm:h-[28rem] bg-[var(--orb-bg-secondary)] rounded-full blur-[95px] pointer-events-none z-0"
-      />
-      
-      {/* Decorative moving grid pattern with parallax mouse tracking */}
-      <motion.div
-        className="absolute -inset-16 bg-[size:32px_32px] pointer-events-none z-0 animated-grid"
-        animate={{
-          x: mousePosition.x * -0.04,
-          y: mousePosition.y * -0.04,
-        }}
-        transition={{ type: "spring", stiffness: 80, damping: 25 }}
-      />
-
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center relative z-10 my-auto">
+    <section id="hero" className="pt-32 sm:pt-40 pb-16 sm:pb-20 relative overflow-hidden">
+      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex flex-col items-center"
+          className="flex flex-col items-start text-left"
         >
-          {/* Heading */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-shine mb-6 sm:mb-8 py-1 max-w-full sm:whitespace-nowrap"
-          >
-            {content.personalInfo.name.split("").map((char, index) => (
-              <span
-                key={index}
-                className="relative inline-block"
-                style={{
-                  animation: "letter-bounce 1.4s ease-in-out infinite",
-                  animationDelay: `${index * 0.06}s`,
-                }}
-              >
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-          </motion.h1>
+          {/* Top Row: Circular Avatar + Name + Verified Badge + Social Icons */}
+          <motion.div variants={itemVariants} className="flex items-center gap-5 sm:gap-6 mb-8">
+            {/* Interactive Profile Avatar (Anime -> Formal on hover with shine effect) */}
+            <InteractiveAvatar
+              animeSrc={content.personalInfo.animeAvatarUrl}
+              formalSrc={content.personalInfo.formalAvatarUrl}
+              alt={content.personalInfo.name}
+            />
 
-          {/* Top 3 Skills / Roles Row with Target Brackets and Blur Parallax Hover Effect */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-14 md:gap-20 py-2 sm:py-4 relative z-20 select-none max-w-full"
-          >
-            {skills.map((skill, idx) => (
-              <div
-                key={skill}
-                onMouseEnter={() => setHoveredIndex(idx)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className={`relative px-2.5 sm:px-4 py-1 sm:py-2 text-xs sm:text-lg md:text-xl font-bold tracking-wider sm:tracking-widest uppercase cursor-default transition-all duration-300 ${
-                  hoveredIndex === null
-                    ? "text-foreground/70 filter-none"
-                    : hoveredIndex === idx
-                    ? "text-foreground scale-105"
-                    : "text-foreground/20 filter blur-[2px]"
-                }`}
-              >
-                {skill}
-                
-                {/* Target scope corner brackets on hover */}
-                {hoveredIndex === idx && (
-                  <motion.div
-                    layoutId="brackets"
-                    className="absolute -inset-x-2 sm:-inset-x-4 -inset-y-1 sm:-inset-y-1.5 pointer-events-none"
-                    transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                  >
-                    {/* Top-Left */}
-                    <span className="absolute top-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-l-2 border-foreground rounded-tl-sm" />
-                    {/* Top-Right */}
-                    <span className="absolute top-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-t-2 border-r-2 border-foreground rounded-tr-sm" />
-                    {/* Bottom-Left */}
-                    <span className="absolute bottom-0 left-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-l-2 border-foreground rounded-bl-sm" />
-                    {/* Bottom-Right */}
-                    <span className="absolute bottom-0 right-0 w-2.5 sm:w-3 h-2.5 sm:h-3 border-b-2 border-r-2 border-foreground rounded-br-sm" />
-                  </motion.div>
-                )}
+            {/* Name + Verified Badge + Social Icons Column */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-foreground">
+                  {content.personalInfo.name}
+                </h1>
+
+                {/* Verified Blue Badge Icon matching reference image */}
+                <span
+                  title="Verified Developer"
+                  className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#1D9BF0] text-white shadow-xs shrink-0"
+                >
+                  <Check size={13} className="stroke-[3.5]" />
+                </span>
               </div>
-            ))}
+
+              {/* Social Link Icons Array */}
+              <div className="flex items-center gap-3 text-brand-text-muted pt-0.5">
+                <a
+                  href={content.personalInfo.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors p-1 rounded-md hover:bg-brand-border/30"
+                  aria-label="GitHub Profile"
+                >
+                  <GithubIcon size={18} />
+                </a>
+                <a
+                  href={content.personalInfo.socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors p-1 rounded-md hover:bg-brand-border/30"
+                  aria-label="LinkedIn Profile"
+                >
+                  <LinkedinIcon size={18} />
+                </a>
+                <a
+                  href={content.personalInfo.socials.email}
+                  className="hover:text-foreground transition-colors p-1.5 rounded-lg hover:bg-brand-border/30"
+                  aria-label="Send Email"
+                >
+                  <Mail size={18} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Main Title / Role Headline matching reference image format */}
+          <motion.h2
+            variants={itemVariants}
+            className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground/90 mb-6 leading-tight"
+          >
+            Front-End Developer — <span className="text-brand-text-muted font-normal">React, Next.js & UI/UX</span>
+          </motion.h2>
+
+          {/* Lead Bio Paragraph with Inline Tech Badges matching reference image */}
+          <motion.p
+            variants={itemVariants}
+            className="text-base sm:text-lg text-brand-text-muted leading-relaxed mb-8 max-w-3xl font-normal select-text cursor-text"
+          >
+            I&apos;m a front-end developer and UI/UX designer building performant web applications and modern user interfaces with
+            <TechBadge name="React" />
+            <TechBadge name="Next.js" />
+            <TechBadge name="TypeScript" />
+            <TechBadge name="Tailwind CSS" />
+            with custom design systems and client work. Using my experience from Cascade Development Group and projects, I turn complex ideas into clean, easy-to-use screens that work perfectly.
+          </motion.p>
+
+          {/* Primary CTA Button ("View Resume >") matching reference image */}
+          <motion.div variants={itemVariants}>
+            <a
+              href={content.personalInfo.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-all shadow-md group cursor-pointer"
+            >
+              <span>View Resume</span>
+              <ChevronRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+            </a>
           </motion.div>
         </motion.div>
-      </div>
-
-      {/* Decorative Wave Lines matching user layout */}
-      <div className="absolute bottom-[20%] left-0 w-full h-32 pointer-events-none opacity-20 z-0 text-foreground">
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M -100,60 C 200,100 400,20 720,60 C 1040,100 1240,20 1540,60"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          />
-          <path
-            d="M -100,80 C 150,110 380,40 720,80 C 1060,120 1290,50 1540,80"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeOpacity="0.6"
-          />
-          <path
-            d="M -100,40 C 250,90 420,10 720,40 C 1020,70 1190,-10 1540,40"
-            stroke="currentColor"
-            strokeWidth="0.8"
-            strokeOpacity="0.3"
-          />
-        </svg>
-      </div>
-
-      {/* Scroll indicator banner - hidden on mobile to prevent layout collision */}
-      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity pointer-events-none z-20">
-        <span className="text-[10px] sm:text-xs uppercase tracking-widest text-brand-text-muted">Scroll Down</span>
-        <div className="w-5 h-8 rounded-full border-2 border-brand-text-muted p-1 flex justify-center">
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-1.5 h-1.5 bg-foreground rounded-full"
-          />
-        </div>
-      </div>
-
-      {/* Availability indicator bottom-left */}
-      <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 flex items-center gap-2.5 select-none z-20">
-        <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
-          {/* Fading ring layer */}
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-          {/* Core glowing dot */}
-          <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
-        </span>
-        <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-foreground/80">
-          Available For Work
-        </span>
       </div>
     </section>
   );

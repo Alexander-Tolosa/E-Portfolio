@@ -5,6 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { content } from "@/data/content";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
 export function Projects() {
   const [filterCategory, setFilterCategory] = useState("All");
 
@@ -17,33 +27,32 @@ export function Projects() {
       : content.projects.filter((p) => p.category === filterCategory);
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden bg-brand-dark/30">
+    <section id="projects" className="py-24 relative overflow-hidden bg-brand-dark/30 select-text">
       {/* Background ambient lighting */}
       <div className="absolute top-10 left-10 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Heading */}
-        <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-foreground px-3 py-1 rounded-full bg-brand-border/20 border border-brand-border">
-            Portfolio
+        <div className="mb-10 select-text">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted select-text cursor-text">
+            Portfolio Work
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mt-4">
-            Featured Projects & Case Studies
-          </h2>
-          <div className="h-1 w-20 bg-foreground mt-4 mx-auto md:mx-0 rounded" />
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mt-1 tracking-tight select-text cursor-text font-mono">
+            Featured Projects
+          </h3>
         </div>
 
         {/* Categories Filtering Tabs */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-12">
+        <div className="flex flex-wrap justify-start gap-2 mb-10 select-none">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setFilterCategory(category)}
-              className={`text-xs font-semibold px-5 py-2.5 rounded-xl border transition-all cursor-pointer ${
+              className={`text-xs font-medium px-4 py-2 rounded-full border transition-all cursor-pointer ${
                 filterCategory === category
-                  ? "bg-foreground text-background font-bold shadow-md"
-                  : "border-brand-border text-brand-text-muted hover:text-foreground hover:border-brand-border"
+                  ? "bg-foreground text-background font-semibold shadow-xs"
+                  : "border-brand-border text-brand-text-muted hover:text-foreground hover:border-brand-border/80"
               }`}
             >
               {category}
@@ -51,24 +60,24 @@ export function Projects() {
           ))}
         </div>
 
-        {/* Animated Project Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, idx) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                key={project.id}
-                className="h-full"
-              >
-                <ProjectCard project={project} index={idx} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Perspective Container & Animated Project Grid */}
+        <div className="perspective-[1000px] w-full">
+          <motion.div
+            key={filterCategory}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, idx) => (
+                <motion.div layout key={project.id} className="h-full">
+                  <ProjectCard project={project} index={idx} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

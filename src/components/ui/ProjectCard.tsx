@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { Project } from "@/data/content";
-import { Card } from "./Card";
 
-const GithubIcon = ({ size = 20 }: { size?: number }) => (
+const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -23,13 +23,82 @@ const GithubIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, rotateX: 15, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  },
+};
+
 interface ProjectCardProps {
   project: Project;
   index: number;
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  // Simple color schemes to display if a project screenshot fails/is loading
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Normalized mouse coordinates relative to card center (-0.5 to 0.5)
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Pixel coordinates for glare overlay
+  const pixelX = useMotionValue(150);
+  const pixelY = useMotionValue(150);
+
+  // Spring physics for realistic 3D tilt inertia
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  // Map coordinates to 3D rotation angles (-15deg to 15deg)
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  // Smooth springs for spotlight glare in pixels
+  const glareXSpring = useSpring(pixelX, { stiffness: 350, damping: 25 });
+  const glareYSpring = useSpring(pixelY, { stiffness: 350, damping: 25 });
+
+  // Parallax offset for thumbnail image
+  const imgTranslateX = useSpring(useTransform(mouseXSpring, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 250,
+    damping: 25,
+  });
+  const imgTranslateY = useSpring(useTransform(mouseYSpring, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 250,
+    damping: 25,
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseXPos = e.clientX - rect.left;
+    const mouseYPos = e.clientY - rect.top;
+
+    // Set pixel coordinates for glare
+    pixelX.set(mouseXPos);
+    pixelY.set(mouseYPos);
+
+    // Normalize between -0.5 and 0.5 for spring rotation
+    x.set(mouseXPos / width - 0.5);
+    y.set(mouseYPos / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   const gradients = [
     "from-foreground/10 to-foreground/5",
     "from-brand-border/80 to-brand-card/80",
@@ -38,97 +107,138 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const placeholderGradient = gradients[index % gradients.length];
 
   return (
-    <Card className="h-full flex flex-col justify-between" delay={index * 0.1}>
-      <div>
-        {/* Project Thumbnail Image / Placeholder */}
-        <div className="w-full h-48 rounded-xl border border-brand-border relative overflow-hidden mb-6 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
-          {project.image ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={project.image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity"
-            />
-          ) : (
-            <div className={`absolute inset-0 bg-gradient-to-br ${placeholderGradient}`} />
-          )}
-          {/* Animated decorative grid lines */}
-          <div className="absolute inset-0 bg-[size:14px_24px] animated-grid opacity-30" />
-          
-          {/* Soft center light source */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[var(--orb-bg-primary)] rounded-full blur-2xl group-hover:bg-[var(--orb-bg-secondary)] transition-colors" />
-        </div>
+    <div className="perspective-[1000px] h-full w-full">
+      <motion.div
+        ref={cardRef}
+        variants={cardVariants}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        whileHover={{
+          scale: 1.03,
+          transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+        }}
+        className="group relative h-full w-full rounded-2xl glass border border-brand-border/90 backdrop-blur-xl p-6 md:p-7 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-foreground/40 transition-all duration-300 select-text will-change-transform"
+      >
+        {/* Pixel-Accurate Spotlight Glare Overlay */}
+        <motion.div
+          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl z-10"
+          style={{
+            background: `radial-gradient(500px circle at ${glareXSpring.get()}px ${glareYSpring.get()}px, rgba(255, 255, 255, 0.12), transparent 40%)`,
+          }}
+        />
 
-        {/* Project Content */}
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted">
-            {project.category}
-          </span>
-          <div className="flex items-center gap-2">
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-brand-text-muted hover:text-foreground transition-colors"
-                title="View Codebase"
-              >
-                <GithubIcon size={18} />
-              </a>
-            )}
-            {project.liveUrl && project.liveUrl !== "#" && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-brand-text-muted hover:text-foreground transition-colors"
-                title="View Live Demo"
-              >
-                <ExternalLink size={18} />
-              </a>
-            )}
+        {/* Ambient Top Glow Line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
+        {/* Outer 3D Preserve Container */}
+        <div className="relative z-20 flex flex-col justify-between h-full" style={{ transformStyle: "preserve-3d" }}>
+          <div>
+            {/* Magnetic Image Thumbnail Floating at translateZ(40px) */}
+            <div
+              className="w-full h-48 sm:h-52 rounded-xl border border-brand-border relative overflow-hidden mb-6 flex items-center justify-center bg-black/20 group-hover:border-foreground/30 transition-colors shadow-lg"
+              style={{ transform: "translateZ(40px)" }}
+            >
+              {project.image ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <motion.img
+                  src={project.image}
+                  alt={project.title}
+                  style={{
+                    x: imgTranslateX,
+                    y: imgTranslateY,
+                  }}
+                  whileHover={{ scale: 1.07 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                />
+              ) : (
+                <motion.div
+                  style={{ x: imgTranslateX, y: imgTranslateY }}
+                  className={`absolute inset-0 bg-gradient-to-br ${placeholderGradient}`}
+                />
+              )}
+              {/* Subtle Grid Overlay */}
+              <div className="absolute inset-0 bg-[size:14px_24px] animated-grid opacity-25 pointer-events-none" />
+            </div>
+
+            {/* Category & Quick External Links Floating at translateZ(30px) */}
+            <div className="flex items-center justify-between gap-2 mb-2 select-text" style={{ transform: "translateZ(30px)" }}>
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted select-text cursor-text">
+                {project.category}
+              </span>
+              <div className="flex items-center gap-2 select-none">
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-1.5 rounded-full glass border border-brand-border/60 text-brand-text-muted hover:text-foreground hover:border-foreground/40 transition-all cursor-pointer shadow-xs"
+                    title="View Codebase"
+                  >
+                    <GithubIcon size={16} />
+                  </a>
+                )}
+                {project.liveUrl && project.liveUrl !== "#" && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-1.5 rounded-full glass border border-brand-border/60 text-brand-text-muted hover:text-foreground hover:border-foreground/40 transition-all cursor-pointer shadow-xs"
+                    title="View Live Demo"
+                  >
+                    <ExternalLink size={16} />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Project Title & Short Description Floating at translateZ(30px) */}
+            <div style={{ transform: "translateZ(30px)" }}>
+              <h3 className="text-xl font-bold mb-2.5 text-foreground group-hover:text-foreground/90 transition-colors select-text cursor-text">
+                {project.title}
+              </h3>
+              <p className="text-brand-text-muted text-sm mb-6 line-clamp-3 leading-relaxed select-text cursor-text">
+                {project.shortDescription}
+              </p>
+            </div>
+          </div>
+
+          {/* Tech Stack Pills & Action Link Floating at translateZ(20px) */}
+          <div style={{ transform: "translateZ(20px)" }}>
+            <div className="flex flex-wrap gap-1.5 mb-6 select-text">
+              {project.techStack.slice(0, 4).map((tech) => (
+                <span
+                  key={tech}
+                  className="text-[10px] font-mono font-medium px-2.5 py-1 rounded-full glass border border-brand-border text-foreground/85 select-text cursor-text shadow-2xs"
+                >
+                  {tech}
+                </span>
+              ))}
+              {project.techStack.length > 4 && (
+                <span className="text-[10px] font-mono font-medium px-2 py-1 rounded-full glass border border-brand-border text-brand-text-muted select-text cursor-text shadow-2xs">
+                  +{project.techStack.length - 4}
+                </span>
+              )}
+            </div>
+
+            <Link
+              href={`/projects/${project.id}`}
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-foreground hover:opacity-80 transition-opacity group/link cursor-pointer"
+            >
+              <span>View Case Study</span>
+              <ArrowRight
+                size={14}
+                className="transform group-hover/link:translate-x-1 transition-transform"
+              />
+            </Link>
           </div>
         </div>
-
-        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:opacity-80 transition-opacity duration-200">
-          {project.title}
-        </h3>
-        
-        <p className="text-brand-text-muted text-sm mb-6 line-clamp-3 leading-relaxed">
-          {project.shortDescription}
-        </p>
-      </div>
-
-      <div>
-        {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-1.5 mb-6">
-          {project.techStack.slice(0, 4).map((tech) => (
-            <span
-              key={tech}
-              className="text-[10px] font-medium px-2.5 py-0.5 rounded-full glass border border-brand-border text-foreground/80"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.techStack.length > 4 && (
-            <span className="text-[10px] font-medium px-2 py-0.5 rounded-full glass border border-brand-border text-brand-text-muted">
-              +{project.techStack.length - 4} more
-            </span>
-          )}
-        </div>
-
-        {/* Action Link to Case Study */}
-        <Link
-          href={`/projects/${project.id}`}
-          className="inline-flex items-center text-sm font-semibold text-foreground hover:opacity-80 transition-opacity group/link cursor-pointer"
-        >
-          View Case Study
-          <ArrowRight
-            size={16}
-            className="ml-1 transform group-hover/link:translate-x-1 transition-transform"
-          />
-        </Link>
-      </div>
-    </Card>
+      </motion.div>
+    </div>
   );
 }

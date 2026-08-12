@@ -70,16 +70,15 @@ export function Contact() {
       {/* Background Glow */}
       <div className="absolute bottom-0 right-1/4 translate-y-1/2 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Heading */}
-        <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-foreground px-3 py-1 rounded-full bg-brand-border/20 border border-brand-border">
+        <div className="mb-10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted">
             Contact
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mt-4">
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mt-1 tracking-tight">
             Get In Touch
-          </h2>
-          <div className="h-1 w-20 bg-foreground mt-4 mx-auto md:mx-0 rounded" />
+          </h3>
         </div>
 
         {/* Layout Grid */}

@@ -2,11 +2,13 @@
 
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Maximize2, X, Check } from "lucide-react";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Maximize2, X, Check, LayoutGrid, ChevronRight } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
 import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
 import { CertificatesModal } from "@/components/ui/CertificatesModal";
+import { TechBadge } from "@/components/ui/TechBadge";
+import { SkillsModal } from "@/components/ui/SkillsModal";
 
 function TimelineCard({
   item,
@@ -134,17 +136,6 @@ function TimelineCard({
                   {subtitle}
                 </p>
               </div>
-
-              {/* Checked Status Badge */}
-              <span
-                className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border transition-all duration-500 shrink-0 ${
-                  isChecked
-                    ? "bg-foreground text-background border-foreground shadow-[0_0_10px_rgba(255,255,255,0.4)]"
-                    : "bg-brand-border/20 border-brand-border text-brand-text-muted/60"
-                }`}
-              >
-                {isChecked ? "CHECKED" : "MILESTONE"}
-              </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs pt-1">
@@ -184,7 +175,7 @@ export function About() {
   const visibleCategories = content.skills.filter((cat) => cat.skills.length > 0);
   const [activeTab, setActiveTab] = useState(0);
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
-  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -213,112 +204,103 @@ export function About() {
       {/* Background radial glow */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Heading */}
-        <div className="mb-16 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider text-foreground px-3 py-1 rounded-full bg-brand-border/20 border border-brand-border">
-            About Me
+        <div className="mb-12">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted">
+            Experience & Profile
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mt-4">
-            Professional Profile & Skills
-          </h2>
-          <div className="h-1 w-20 bg-foreground mt-4 mx-auto md:mx-0 rounded" />
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mt-1 tracking-tight">
+            Background & Skillset
+          </h3>
         </div>
 
         {/* Stack Layout */}
         <div className="flex flex-col gap-16">
-          {/* Technical Skill Matrix & Photo Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Technical Skill Matrix */}
-            <div className="lg:col-span-7 flex flex-col gap-6">
-              <Card animate={false} className="p-6 md:p-8 relative overflow-visible">
-                {/* Decorative Corner Brackets */}
-                <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-brand-border pointer-events-none" />
-                <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-brand-border pointer-events-none" />
-
-                {/* Introduction Header and Bio */}
-                <div className="mb-6">
-                  <p className="text-sm text-brand-text-muted leading-relaxed">
-                    I&apos;m a Front-End Developer and UI/UX Designer, Using my experience from Cascade Development Group and projects turning complex ideas into clean, easy-to-use screens that work perfectly.
-                  </p>
-                </div>
-
-                <div className="mb-4">
-                  <h5 className="text-xs font-bold text-foreground/80 uppercase tracking-wider">
-                    Skillset & tools
-                  </h5>
-                </div>
-
-                {/* Category Selection Tabs on Top */}
-                <div className="flex flex-row gap-1 mb-6 bg-brand-border/10 p-1 rounded-xl border border-brand-border">
-                  {visibleCategories.map((category, idx) => (
-                    <button
-                      key={category.name}
-                      onClick={() => setActiveTab(idx)}
-                      className={`flex-1 text-[9px] md:text-xs font-mono font-semibold px-1 md:px-3 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
-                        activeTab === idx
-                          ? "bg-foreground text-background shadow-md"
-                          : "text-brand-text-muted hover:text-foreground hover:bg-brand-border/10"
-                      }`}
-                    >
-                      {getShortName(category.name)}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Wrapping Flow of Tech Stack Badges */}
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-wrap justify-center gap-2.5"
+          {/* Technical Skillset and Tools Showcase */}
+          <div className="w-full">
+            <Card animate={false} className="p-6 md:p-8 relative overflow-hidden">
+              {/* Header Title & View All button matching reference image */}
+              <div className="mb-6 flex items-center justify-between">
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                  Skillset and Tools
+                </h3>
+                <button
+                  onClick={() => setIsSkillsModalOpen(true)}
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-brand-text-muted hover:text-foreground transition-all cursor-pointer group"
                 >
-                  {visibleCategories[activeTab]?.skills.map((skill, idx) => (
-                    <motion.div
-                      key={skill.name}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: idx * 0.05 }}
-                      whileHover={{ scale: 1.05, y: -1 }}
-                      className="inline-flex items-center justify-center px-4 py-2 rounded-full glass border border-brand-border hover:border-brand-border transition-all duration-300 group cursor-default"
-                    >
-                      <span className="text-xs md:text-sm font-mono font-medium text-foreground/80 group-hover:text-foreground transition-colors text-center">
-                        {skill.name}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </Card>
-            </div>
+                  <LayoutGrid size={14} className="text-brand-text-muted group-hover:text-foreground transition-colors" />
+                  <span>View All</span>
+                  <ChevronRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                </button>
+              </div>
 
-            {/* Profile Photo Layout */}
-            <div className="lg:col-span-5 flex justify-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="relative w-72 h-72 sm:w-88 sm:h-88 md:w-96 md:h-96 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] cursor-pointer"
-                onClick={() => setIsPhotoModalOpen(true)}
-              >
-                <DirectionalTilt className="w-full h-full rounded-3xl overflow-hidden border border-brand-border glass relative group shadow-2xl">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/images/profile_avatar.jpg"
-                    alt="Alexander Tolosa Profile Photo"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/50 via-transparent to-transparent opacity-60 pointer-events-none" />
-                  
-                  {/* Expand Overlay Icon */}
-                  <div className="absolute top-4 right-4 p-2.5 rounded-2xl glass border border-brand-border text-foreground opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-md">
-                    <Maximize2 size={18} />
-                  </div>
-                </DirectionalTilt>
-              </motion.div>
-            </div>
+              {/* Multi-Row Infinite Marquee Tracks matching reference image */}
+              <div className="marquee-mask relative w-full overflow-hidden flex flex-col gap-3 py-2 select-none">
+                {/* Row 1: Left Scroll */}
+                <div className="flex w-max gap-3 animate-marquee">
+                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "JavaScript", "Framer Motion", "Vite", "HTML5", "CSS3"].map((name, idx) => (
+                    <div
+                      key={`r1-1-${name}-${idx}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                    </div>
+                  ))}
+                  {/* Duplicate Row 1 */}
+                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "JavaScript", "Framer Motion", "Vite", "HTML5", "CSS3"].map((name, idx) => (
+                    <div
+                      key={`r1-2-${name}-${idx}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Row 2: Right Scroll (Reverse) */}
+                <div className="flex w-max gap-3 animate-marquee-reverse">
+                  {["Python", "Java", "Spring Boot", "PostgreSQL", "MySQL", "Supabase", "GitHub Actions", "IndexedDB", "Redis"].map((name, idx) => (
+                    <div
+                      key={`r2-1-${name}-${idx}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                    </div>
+                  ))}
+                  {/* Duplicate Row 2 */}
+                  {["Python", "Java", "Spring Boot", "PostgreSQL", "MySQL", "Supabase", "GitHub Actions", "IndexedDB", "Redis"].map((name, idx) => (
+                    <div
+                      key={`r2-2-${name}-${idx}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Row 3: Left Scroll */}
+                <div className="flex w-max gap-3 animate-marquee">
+                  {["WordPress", "Git", "GitHub", "Anthropic", "VS Code", "Canva", "Antigravity", "Discord", "Teams", "Vercel"].map((name, idx) => (
+                    <div
+                      key={`r3-1-${name}-${idx}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                    </div>
+                  ))}
+                  {/* Duplicate Row 3 */}
+                  {["WordPress", "Git", "GitHub", "Anthropic", "VS Code", "Canva", "Antigravity", "Discord", "Teams", "Vercel"].map((name, idx) => (
+                    <div
+                      key={`r3-2-${name}-${idx}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
           </div>
 
           {/* Interleaved Experience & Education Timeline */}
@@ -449,45 +431,12 @@ export function About() {
         certifications={content.certifications || []}
       />
 
-      {/* Expanded Profile Photo Lightbox Modal */}
-      <AnimatePresence>
-        {isPhotoModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsPhotoModalOpen(false)}
-              className="fixed inset-0 bg-brand-dark/85 backdrop-blur-xl cursor-pointer"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-2xl max-h-[90vh] rounded-3xl overflow-hidden glass border border-brand-border shadow-2xl z-10 flex flex-col items-center p-2"
-            >
-              <button
-                onClick={() => setIsPhotoModalOpen(false)}
-                className="absolute top-4 right-4 z-20 p-2.5 rounded-full glass border border-brand-border text-foreground hover:opacity-80 transition-opacity cursor-pointer shadow-xl backdrop-blur-md"
-                aria-label="Close photo view"
-              >
-                <X size={20} />
-              </button>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/images/profile_avatar.jpg"
-                alt="Alexander Tolosa Expanded Profile Photo"
-                className="w-full h-auto max-h-[80vh] object-contain rounded-2xl"
-              />
-              <div className="py-3 px-6 text-center">
-                <h4 className="text-base font-bold text-foreground">{content.personalInfo.name}</h4>
-                <p className="text-xs text-brand-text-muted">{content.personalInfo.title}</p>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      {/* Skills & Tools Categorized Modal */}
+      <SkillsModal
+        isOpen={isSkillsModalOpen}
+        onClose={() => setIsSkillsModalOpen(false)}
+        skillCategories={content.skills || []}
+      />
     </section>
   );
 }

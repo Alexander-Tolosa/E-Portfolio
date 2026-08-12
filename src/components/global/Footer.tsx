@@ -77,7 +77,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-brand-border bg-brand-dark/50 py-12">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left Side: Name and Copyright */}
         <div className="text-center md:text-left">
           <p className="text-sm text-brand-text-muted">
