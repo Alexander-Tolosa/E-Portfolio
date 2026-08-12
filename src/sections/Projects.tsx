@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { content } from "@/data/content";
 import { ProjectCard } from "@/components/ui/ProjectCard";
@@ -16,16 +16,6 @@ const containerVariants = {
 };
 
 export function Projects() {
-  const [filterCategory, setFilterCategory] = useState("All");
-
-  // Get list of unique categories
-  const categories = ["All", ...Array.from(new Set(content.projects.map((p) => p.category)))];
-
-  const filteredProjects =
-    filterCategory === "All"
-      ? content.projects
-      : content.projects.filter((p) => p.category === filterCategory);
-
   return (
     <section id="projects" className="py-24 relative overflow-hidden bg-brand-dark/30 select-text">
       {/* Background ambient lighting */}
@@ -43,34 +33,16 @@ export function Projects() {
           </h3>
         </div>
 
-        {/* Categories Filtering Tabs */}
-        <div className="flex flex-wrap justify-start gap-2 mb-10 select-none">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setFilterCategory(category)}
-              className={`text-xs font-medium px-4 py-2 rounded-full border transition-all cursor-pointer ${
-                filterCategory === category
-                  ? "bg-foreground text-background font-semibold shadow-xs"
-                  : "border-brand-border text-brand-text-muted hover:text-foreground hover:border-brand-border/80"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
         {/* Perspective Container & Animated Project Grid */}
         <div className="perspective-[1000px] w-full">
           <motion.div
-            key={filterCategory}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, idx) => (
+              {content.projects.map((project, idx) => (
                 <motion.div layout key={project.id} className="h-full">
                   <ProjectCard project={project} index={idx} />
                 </motion.div>
