@@ -73,11 +73,13 @@ export function Hero() {
           {/* Top Row: Circular Avatar + Name + Verified Badge + Social Icons */}
           <motion.div variants={itemVariants} className="flex items-center gap-5 sm:gap-6 mb-8">
             {/* Interactive Profile Avatar (Anime -> Formal on hover with shine effect) */}
-            <InteractiveAvatar
-              animeSrc={content.personalInfo.animeAvatarUrl}
-              formalSrc={content.personalInfo.formalAvatarUrl}
-              alt={content.personalInfo.name}
-            />
+            <div data-no-sound="true" className="no-sound shrink-0">
+              <InteractiveAvatar
+                animeSrc={content.personalInfo.animeAvatarUrl}
+                formalSrc={content.personalInfo.formalAvatarUrl}
+                alt={content.personalInfo.name}
+              />
+            </div>
 
             {/* Name + Verified Badge + Social Icons Column */}
             <div className="flex flex-col gap-2">

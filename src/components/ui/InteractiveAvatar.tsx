@@ -20,16 +20,18 @@ export function InteractiveAvatar({
 
   return (
     <div
+      data-no-sound="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-full overflow-hidden border-2 border-brand-border/80 hover:border-foreground/80 shadow-lg cursor-pointer group transition-all duration-500 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] shrink-0 select-none ${className}`}
+      className={`no-sound relative rounded-full overflow-hidden border-2 border-brand-border/80 hover:border-foreground/80 shadow-lg cursor-pointer group transition-all duration-500 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] shrink-0 select-none ${className}`}
     >
       {/* 1. Anime Avatar Image (Default display) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        data-no-sound="true"
         src={animeSrc}
         alt={`${alt} (Anime)`}
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
+        className={`no-sound absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
           isHovered
             ? "opacity-0 scale-110 filter blur-[1px]"
             : "opacity-100 scale-100 filter-none"
@@ -39,9 +41,10 @@ export function InteractiveAvatar({
       {/* 2. Formal Avatar Image (Revealed on hover) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        data-no-sound="true"
         src={formalSrc}
         alt={`${alt} (Formal)`}
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
+        className={`no-sound absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
           isHovered
             ? "opacity-100 scale-100 filter-none"
             : "opacity-0 scale-95 filter blur-[2px]"
@@ -50,17 +53,18 @@ export function InteractiveAvatar({
 
       {/* 3. Shine Sweep Effect Overlay */}
       <motion.div
+        data-no-sound="true"
         animate={isHovered ? { x: ["-100%", "200%"] } : { x: "-100%" }}
         transition={
           isHovered
             ? { duration: 0.8, ease: [0.4, 0, 0.2, 1] }
             : { duration: 0 }
         }
-        className="absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-[-25deg] pointer-events-none z-10"
+        className="no-sound absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-[-25deg] pointer-events-none z-10"
       />
 
       {/* 4. Subtle Outer Glow Ring on Hover */}
-      <div className="absolute inset-0 rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div data-no-sound="true" className="no-sound absolute inset-0 rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
     </div>
   );
 }
