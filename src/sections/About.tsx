@@ -239,7 +239,7 @@ export function About() {
               <div className="marquee-mask relative w-full overflow-hidden flex flex-col gap-3 py-2 select-none">
                 {/* Row 1: Left Scroll */}
                 <div className="flex w-max gap-3 animate-marquee">
-                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "JavaScript", "Framer Motion", "Vite", "HTML5", "CSS3"].map((name, idx) => (
+                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "Shadcn UI", "JavaScript", "Framer Motion", "Vite", "HTML5", "CSS3"].map((name, idx) => (
                     <div
                       key={`r1-1-${name}-${idx}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
@@ -248,7 +248,7 @@ export function About() {
                     </div>
                   ))}
                   {/* Duplicate Row 1 */}
-                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "JavaScript", "Framer Motion", "Vite", "HTML5", "CSS3"].map((name, idx) => (
+                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "Shadcn UI", "JavaScript", "Framer Motion", "Vite", "HTML5", "CSS3"].map((name, idx) => (
                     <div
                       key={`r1-2-${name}-${idx}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
