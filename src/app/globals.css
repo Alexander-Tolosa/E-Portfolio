@@ -9,13 +9,13 @@
   --color-brand-card: var(--brand-card);
   --color-brand-border: var(--brand-border);
   --color-brand-text-muted: var(--brand-text-muted);
-  
+
   --color-accent-blue: var(--accent-blue);
   --color-accent-indigo: var(--accent-indigo);
   --color-accent-purple: var(--accent-purple);
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-emerald: var(--accent-emerald);
-  
+
   /* Animations */
   --animate-glow: glow 3s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -24,20 +24,51 @@
   --animate-gradient-x: gradient-x 6s ease infinite;
 
   @keyframes glow {
-    0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25)); }
-    50% { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4)); }
+
+    0%,
+    100% {
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
+    }
+
+    50% {
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    }
   }
+
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
   }
+
   @keyframes float-delayed {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(10px); }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(10px);
+    }
   }
+
   @keyframes gradient-x {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
   }
 }
 
@@ -80,7 +111,8 @@
   scroll-behavior: smooth;
 }
 
-html.light, .light {
+html.light,
+.light {
   --background: #f8fafc;
   --foreground: #0f172a;
   --brand-dark: #f8fafc;
@@ -135,13 +167,23 @@ html.light, .light {
 
 /* Infinite Seamless Marquee Slider Animation */
 @keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes marquee-scroll-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .animate-marquee {
@@ -152,7 +194,8 @@ html.light, .light {
   animation: marquee-scroll-reverse 28s linear infinite;
 }
 
-.animate-marquee:hover, .animate-marquee-reverse:hover {
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
 
@@ -167,12 +210,14 @@ html.light, .light {
   color: #ffffff;
 }
 
-html.dark ::selection, .dark ::selection {
+html.dark ::selection,
+.dark ::selection {
   background-color: #f4f4f5;
   color: #09090b;
 }
 
-html.light ::selection, .light ::selection {
+html.light ::selection,
+.light ::selection {
   background-color: #0f172a;
   color: #ffffff;
 }
@@ -241,36 +286,47 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 @keyframes grid-drift {
-  0% { background-position: 0px 0px; }
-  100% { background-position: 64px 64px; }
+  0% {
+    background-position: 0px 0px;
+  }
+
+  100% {
+    background-position: 64px 64px;
+  }
 }
 
 .animated-grid {
   animation: grid-drift 3s linear infinite;
   background-image: linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
-                    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
 }
 
 @keyframes text-shine {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .text-shine {
-  background: linear-gradient(
-    110deg,
-    var(--shine-from) 35%,
-    var(--shine-via) 46%,
-    var(--shine-to) 50%,
-    var(--shine-via) 54%,
-    var(--shine-from) 65%
-  );
+  background: linear-gradient(110deg,
+      var(--shine-from) 35%,
+      var(--shine-via) 46%,
+      var(--shine-to) 50%,
+      var(--shine-via) 54%,
+      var(--shine-from) 65%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -279,9 +335,12 @@ body {
 }
 
 @keyframes letter-bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     top: 0;
   }
+
   50% {
     top: -6px;
   }

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { flushSync } from "react-dom";
 
 type Theme = "dark" | "light";
 
@@ -58,48 +57,60 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    // 2. Get click coordinates (or button center position)
+    // 2. Get click/tap coordinates without layout thrashing
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
 
-    if (e && e.currentTarget) {
+    if (e && typeof e.clientX === "number" && typeof e.clientY === "number" && (e.clientX !== 0 || e.clientY !== 0)) {
+      x = e.clientX;
+      y = e.clientY;
+    } else if (e && e.currentTarget) {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       x = rect.left + rect.width / 2;
       y = rect.top + rect.height / 2;
-    } else if (e && e.clientX !== undefined && e.clientY !== undefined) {
-      x = e.clientX;
-      y = e.clientY;
     }
 
-    // 3. Calculate distance to the furthest corner of the screen
+    // 3. Calculate distance to furthest corner
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
     );
 
-    // 4. Start the view transition with flushSync
+    // 4. Suppress CSS element transitions temporarily for 60fps performance
+    document.documentElement.classList.add("theme-transitioning");
+
+    // 5. Start View Transition without blocking React main thread
     const transition = document.startViewTransition(() => {
-      flushSync(() => {
-        applyTheme(nextTheme);
-      });
+      applyTheme(nextTheme);
     });
 
-    // 5. Animate the circular clip-path on the new layer once ready
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 500,
-          easing: "ease-in-out",
-          pseudoElement: "::view-transition-new(root)",
-        }
-      );
-    });
+    const cleanup = () => {
+      document.documentElement.classList.remove("theme-transitioning");
+    };
+
+    // 6. Animate circular clip-path on new layer once ready
+    transition.ready
+      .then(() => {
+        const isMobile = window.innerWidth <= 768;
+        const animation = document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: isMobile ? 320 : 400,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            pseudoElement: "::view-transition-new(root)",
+          }
+        );
+        animation.onfinish = cleanup;
+        animation.oncancel = cleanup;
+      })
+      .catch(cleanup);
+
+    transition.finished.then(cleanup).catch(cleanup);
   };
 
   return (
