@@ -2,12 +2,17 @@
 
 import React, { useEffect } from "react";
 import { playWaterDropSound, resumeAudioContext } from "@/utils/sound";
+import { useSound } from "@/context/SoundContext";
 
 export function HoverSoundProvider({ children }: { children: React.ReactNode }) {
+  const { soundEnabled } = useSound();
+
   useEffect(() => {
     let activeElement: Element | null = null;
 
     const handleMouseOver = (e: MouseEvent) => {
+      if (!soundEnabled) return;
+
       const target = e.target as Element | null;
       if (!target || typeof target.closest !== "function") return;
 
@@ -58,7 +63,7 @@ export function HoverSoundProvider({ children }: { children: React.ReactNode }) 
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
     };
-  }, []);
+  }, [soundEnabled]);
 
   return <>{children}</>;
 }

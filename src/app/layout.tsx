@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/global/Navbar";
 import { Footer } from "@/components/global/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { SoundProvider } from "@/context/SoundContext";
 import { HoverSoundProvider } from "@/components/providers/HoverSoundProvider";
 
 const outfit = Outfit({
@@ -58,11 +59,13 @@ export default function RootLayout({
       </head>
       <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
         <ThemeProvider>
-          <HoverSoundProvider>
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </HoverSoundProvider>
+          <SoundProvider>
+            <HoverSoundProvider>
+              <Navbar />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </HoverSoundProvider>
+          </SoundProvider>
         </ThemeProvider>
       </body>
     </html>

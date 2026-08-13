@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { SoundToggle } from "@/components/ui/SoundToggle";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,14 +97,16 @@ export function Navbar() {
               </a>
             ))}
 
-            {/* Desktop Theme Toggle */}
-            <div className="pl-3 border-l border-brand-border">
+            {/* Desktop Theme & Sound Toggles */}
+            <div className="pl-3 border-l border-brand-border flex items-center gap-2">
+              <SoundToggle />
               <ThemeToggle />
             </div>
           </nav>
 
-          {/* Mobile Actions (Theme Toggle & Menu Toggle) */}
-          <div className="flex items-center gap-3 md:hidden">
+          {/* Mobile Actions (Sound Toggle, Theme Toggle & Menu Toggle) */}
+          <div className="flex items-center gap-2 sm:gap-3 md:hidden">
+            <SoundToggle />
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
