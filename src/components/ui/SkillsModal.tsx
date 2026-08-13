@@ -73,7 +73,7 @@ export function SkillsModal({ isOpen, onClose, skillCategories }: SkillsModalPro
                         key={skill.name}
                         className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg glass border border-brand-border/80 hover:border-foreground/40 transition-all text-xs font-mono font-medium text-foreground select-text cursor-text"
                       >
-                        <TechBadge name={skill.name} className="!border-0 !bg-transparent !p-0 !m-0 select-text cursor-text" />
+                        <TechBadge name={skill.name} showIcon={false} className="!border-0 !bg-transparent !p-0 !m-0 select-text cursor-text" />
                       </div>
                     ))}
                   </div>

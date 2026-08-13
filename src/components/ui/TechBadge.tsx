@@ -5,9 +5,10 @@ import React from "react";
 interface TechBadgeProps {
   name: string;
   className?: string;
+  showIcon?: boolean;
 }
 
-export function TechBadge({ name, className = "" }: TechBadgeProps) {
+export function TechBadge({ name, className = "", showIcon = true }: TechBadgeProps) {
   const getIcon = () => {
     const key = name.toLowerCase();
 
@@ -94,7 +95,7 @@ export function TechBadge({ name, className = "" }: TechBadgeProps) {
 
   return (
     <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border border-brand-border bg-brand-card/80 hover:bg-brand-border/30 transition-all text-xs font-mono font-medium text-foreground align-baseline mx-1 cursor-text select-text shadow-xs ${className}`}>
-      {getIcon()}
+      {showIcon && getIcon()}
       <span>{name}</span>
     </span>
   );
