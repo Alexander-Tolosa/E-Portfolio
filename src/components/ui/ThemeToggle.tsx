@@ -15,24 +15,40 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.92 }}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.90 }}
       onClick={(e) => toggleTheme(e)}
-      className={`relative p-2.5 rounded-full glass border border-brand-border text-foreground hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer flex items-center justify-center touch-manipulation ${className}`}
+      className={`relative w-10 h-10 rounded-full glass border border-brand-border text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center touch-manipulation overflow-hidden shadow-xs group ${
+        isDark
+          ? "hover:border-amber-500/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)]"
+          : "hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.25)]"
+      } ${className}`}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
+      {/* Soft glowing radial aura on hover */}
+      <div
+        className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-full ${
+          isDark
+            ? "bg-radial from-amber-500/20 via-amber-500/5 to-transparent"
+            : "bg-radial from-indigo-500/20 via-indigo-500/5 to-transparent"
+        }`}
+      />
+
+      <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
           <motion.div
             key="sun"
             initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="text-amber-400 flex items-center justify-center"
+            transition={{
+              duration: 0.22,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="text-amber-400 flex items-center justify-center relative z-10"
           >
-            <Sun size={18} />
+            <Sun size={19} className="stroke-[2.2]" />
           </motion.div>
         ) : (
           <motion.div
@@ -40,13 +56,17 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
             initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="text-indigo-600 dark:text-indigo-400 flex items-center justify-center"
+            transition={{
+              duration: 0.22,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="text-indigo-600 dark:text-indigo-400 flex items-center justify-center relative z-10"
           >
-            <Moon size={18} />
+            <Moon size={19} className="stroke-[2.2]" />
           </motion.div>
         )}
       </AnimatePresence>
     </motion.button>
   );
 }
+

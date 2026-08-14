@@ -73,6 +73,7 @@
 }
 
 :root {
+  color-scheme: dark;
   --background: #030712;
   --foreground: #f3f4f6;
   --brand-dark: #030712;
@@ -113,6 +114,7 @@
 
 html.light,
 .light {
+  color-scheme: light;
   --background: #f8fafc;
   --foreground: #0f172a;
   --brand-dark: #f8fafc;
@@ -147,6 +149,39 @@ html.light,
 
   --orb-bg-primary: rgba(15, 23, 42, 0.05);
   --orb-bg-secondary: rgba(15, 23, 42, 0.03);
+}
+
+/* Smooth site-wide theme color transitions */
+body,
+header,
+footer,
+main,
+section,
+nav,
+div,
+p,
+h1, h2, h3, h4, h5, h6,
+span,
+a,
+button,
+input,
+textarea,
+svg,
+path,
+.glass,
+.glass-hover,
+.border-brand-border {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow, opacity;
+  transition-duration: 0.35s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable individual element transitions during View Transitions so clip-path snapshot is crisp */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: none !important;
 }
 
 /* Disable default view transition fade so custom clip-path takes over */
