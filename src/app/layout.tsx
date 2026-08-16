@@ -27,6 +27,11 @@ export const metadata: Metadata = {
     "TypeScript",
     "Node.js",
   ],
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 const themeScript = `
@@ -55,6 +60,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} scroll-smooth dark`}>
       <head>
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
