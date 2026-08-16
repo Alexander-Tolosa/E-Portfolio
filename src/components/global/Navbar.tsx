@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
@@ -11,6 +12,8 @@ import { SoundToggle } from "@/components/ui/SoundToggle";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   const sectionIds = ["hero", "about", "projects", "contact"];
   const activeSection = useScrollSpy(sectionIds, 120);
 
@@ -24,28 +27,33 @@ export function Navbar() {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#hero", id: "hero" },
-    { label: "About", href: "#about", id: "about" },
-    { label: "Projects", href: "#projects", id: "projects" },
-    { label: "Contact", href: "#contact", id: "contact" },
+    { label: "Home", href: "/#hero", id: "hero" },
+    { label: "About", href: "/#about", id: "about" },
+    { label: "Projects", href: "/#projects", id: "projects" },
+    { label: "Contact", href: "/#contact", id: "contact" },
   ];
 
-  // Helper to handle smooth click scroll
+  // Helper to handle smooth click scroll or route to home sections
   const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
     setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // height of sticky navbar
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+    if (pathname === "/") {
+      e.preventDefault();
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 80; // height of sticky navbar
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      e.preventDefault();
+      router.push(`/#${id}`);
     }
   };
 
@@ -61,7 +69,7 @@ export function Navbar() {
         <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo Name / Initials */}
           <Link
-            href="/"
+            href="/#hero"
             onClick={(e) => handleScrollClick(e, "hero")}
             className="text-base font-bold tracking-wider text-foreground flex items-center gap-2 cursor-pointer group"
           >
@@ -81,13 +89,13 @@ export function Navbar() {
                 href={item.href}
                 onClick={(e) => handleScrollClick(e, item.id)}
                 className={`text-sm font-medium transition-all cursor-pointer relative py-1 ${
-                  activeSection === item.id
+                  activeSection === item.id && pathname === "/"
                     ? "text-foreground font-semibold"
                     : "text-brand-text-muted hover:text-foreground"
                 }`}
               >
                 {item.label}
-                {activeSection === item.id && (
+                {activeSection === item.id && pathname === "/" && (
                   <motion.span
                     layoutId="activeIndicator"
                     className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground rounded-full"
@@ -139,7 +147,7 @@ export function Navbar() {
                   href={item.href}
                   onClick={(e) => handleScrollClick(e, item.id)}
                   className={`text-2xl font-bold tracking-tight ${
-                    activeSection === item.id
+                    activeSection === item.id && pathname === "/"
                       ? "text-foreground"
                       : "text-brand-text-muted"
                   }`}

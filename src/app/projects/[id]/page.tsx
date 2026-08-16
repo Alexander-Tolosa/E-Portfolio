@@ -53,15 +53,6 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
       <div className="absolute bottom-0 left-1/4 w-[35rem] h-[35rem] bg-[var(--orb-bg-secondary)] rounded-full blur-[120px] pointer-events-none" />
       
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        {/* Back Button */}
-        <Link
-          href="/#hero"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-text-muted hover:text-foreground mb-10 transition-colors group cursor-pointer"
-        >
-          <ArrowLeft size={16} className="transform group-hover:-translate-x-1 transition-transform" />
-          Back to Portfolio
-        </Link>
-
         {/* Header Information */}
         <div className="mb-12">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground px-3 py-1 rounded-full bg-brand-border/20 border border-brand-border">
