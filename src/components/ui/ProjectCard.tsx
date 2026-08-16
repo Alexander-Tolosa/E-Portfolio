@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { Project } from "@/data/content";
 
@@ -24,14 +24,12 @@ const GithubIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40, rotateX: 15, scale: 0.9 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    rotateX: 0,
-    scale: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
@@ -43,62 +41,6 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Normalized mouse coordinates relative to card center (-0.5 to 0.5)
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // Pixel coordinates for glare overlay
-  const pixelX = useMotionValue(150);
-  const pixelY = useMotionValue(150);
-
-  // Spring physics for realistic 3D tilt inertia
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
-
-  // Map coordinates to 3D rotation angles (-15deg to 15deg)
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
-
-  // Smooth springs for spotlight glare in pixels
-  const glareXSpring = useSpring(pixelX, { stiffness: 350, damping: 25 });
-  const glareYSpring = useSpring(pixelY, { stiffness: 350, damping: 25 });
-
-  // Parallax offset for thumbnail image
-  const imgTranslateX = useSpring(useTransform(mouseXSpring, [-0.5, 0.5], [-12, 12]), {
-    stiffness: 250,
-    damping: 25,
-  });
-  const imgTranslateY = useSpring(useTransform(mouseYSpring, [-0.5, 0.5], [-12, 12]), {
-    stiffness: 250,
-    damping: 25,
-  });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseXPos = e.clientX - rect.left;
-    const mouseYPos = e.clientY - rect.top;
-
-    // Set pixel coordinates for glare
-    pixelX.set(mouseXPos);
-    pixelY.set(mouseYPos);
-
-    // Normalize between -0.5 and 0.5 for spring rotation
-    x.set(mouseXPos / width - 0.5);
-    y.set(mouseYPos / height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   const gradients = [
     "from-foreground/10 to-foreground/5",
     "from-brand-border/80 to-brand-card/80",
@@ -107,58 +49,33 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const placeholderGradient = gradients[index % gradients.length];
 
   return (
-    <div className="perspective-[1000px] h-full w-full">
+    <div className="h-full w-full">
       <motion.div
-        ref={cardRef}
         variants={cardVariants}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
         whileHover={{
-          scale: 1.03,
-          transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+          y: -6,
+          scale: 1.015,
+          transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
         }}
-        className="group relative h-full w-full rounded-2xl glass border border-brand-border/90 backdrop-blur-xl p-6 md:p-7 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-foreground/40 transition-all duration-300 select-text will-change-transform"
+        whileTap={{ scale: 0.99 }}
+        className="glass rounded-2xl p-6 md:p-7 overflow-hidden relative group border border-brand-border hover:border-brand-border/80 flex flex-col justify-between h-full w-full select-text shadow-lg hover:shadow-2xl transition-all duration-300"
       >
-        {/* Pixel-Accurate Spotlight Glare Overlay */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl z-10"
-          style={{
-            background: `radial-gradient(500px circle at ${glareXSpring.get()}px ${glareYSpring.get()}px, rgba(255, 255, 255, 0.12), transparent 40%)`,
-          }}
-        />
+        {/* Subtle glowing mesh in background identical to certification cards */}
+        <div className="absolute -inset-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
 
-        {/* Ambient Top Glow Line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-
-        {/* Outer 3D Preserve Container */}
-        <div className="relative z-20 flex flex-col justify-between h-full" style={{ transformStyle: "preserve-3d" }}>
+        <div className="relative z-20 flex flex-col justify-between h-full">
           <div>
-            {/* Magnetic Image Thumbnail Floating at translateZ(40px) */}
-            <div
-              className="w-full h-48 sm:h-52 rounded-xl border border-brand-border relative overflow-hidden mb-6 flex items-center justify-center bg-black/20 group-hover:border-foreground/30 transition-colors shadow-lg"
-              style={{ transform: "translateZ(40px)" }}
-            >
+            {/* Image Thumbnail */}
+            <div className="w-full h-48 sm:h-52 rounded-xl border border-brand-border relative overflow-hidden mb-6 flex items-center justify-center bg-black/20 shadow-lg">
               {project.image ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <motion.img
+                <img
                   src={project.image}
                   alt={project.title}
-                  style={{
-                    x: imgTranslateX,
-                    y: imgTranslateY,
-                  }}
-                  whileHover={{ scale: 1.07 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               ) : (
-                <motion.div
-                  style={{ x: imgTranslateX, y: imgTranslateY }}
+                <div
                   className={`absolute inset-0 bg-gradient-to-br ${placeholderGradient}`}
                 />
               )}
@@ -166,8 +83,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               <div className="absolute inset-0 bg-[size:14px_24px] animated-grid opacity-25 pointer-events-none" />
             </div>
 
-            {/* Category & Quick External Links Floating at translateZ(30px) */}
-            <div className="flex items-center justify-between gap-2 mb-2 select-text" style={{ transform: "translateZ(30px)" }}>
+            {/* Category & Quick External Links */}
+            <div className="flex items-center justify-between gap-2 mb-2 select-text">
               <span className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted select-text cursor-text">
                 {project.category}
               </span>
@@ -197,9 +114,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               </div>
             </div>
 
-            {/* Project Title & Short Description Floating at translateZ(30px) */}
-            <div style={{ transform: "translateZ(30px)" }}>
-              <h3 className="text-xl font-bold mb-2.5 text-foreground group-hover:text-foreground/90 transition-colors select-text cursor-text">
+            {/* Project Title & Short Description */}
+            <div>
+              <h3 className="text-xl font-bold mb-2.5 text-foreground select-text cursor-text">
                 {project.title}
               </h3>
               <p className="text-brand-text-muted text-sm mb-6 line-clamp-3 leading-relaxed select-text cursor-text">
@@ -208,8 +125,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
           </div>
 
-          {/* Tech Stack Pills & Action Link Floating at translateZ(20px) */}
-          <div style={{ transform: "translateZ(20px)" }}>
+          {/* Tech Stack Pills & Action Link */}
+          <div>
             <div className="flex flex-wrap gap-1.5 mb-6 select-text">
               {project.techStack.slice(0, 4).map((tech) => (
                 <span

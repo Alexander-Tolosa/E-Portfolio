@@ -34,7 +34,7 @@ export function Projects() {
         </div>
 
         {/* Perspective Container & Animated Project Grid */}
-        <div className="perspective-[1000px] w-full">
+        <div className="w-full">
           <motion.div
             variants={containerVariants}
             initial="hidden"
