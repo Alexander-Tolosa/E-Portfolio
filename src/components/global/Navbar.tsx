@@ -1,21 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { SoundToggle } from "@/components/ui/SoundToggle";
+import { content } from "@/data/content";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
-  const sectionIds = ["hero", "about", "projects", "contact"];
-  const activeSection = useScrollSpy(sectionIds, 120);
+  const navRef = useRef<HTMLDivElement>(null);
+
+  const sectionIds = ["hero", "about", "skills", "experience", "projects", "contact"];
+  const activeSection = useScrollSpy(sectionIds, 130);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,9 +30,27 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile island when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   const navItems = [
     { label: "Home", href: "/#hero", id: "hero" },
     { label: "About", href: "/#about", id: "about" },
+    { label: "Skills", href: "/#skills", id: "skills" },
+    { label: "Experience", href: "/#experience", id: "experience" },
     { label: "Projects", href: "/#projects", id: "projects" },
     { label: "Contact", href: "/#contact", id: "contact" },
   ];
@@ -40,14 +62,14 @@ export function Navbar() {
       e.preventDefault();
       const element = document.getElementById(id);
       if (element) {
-        const offset = 80; // height of sticky navbar
+        const offset = 90; // height of floating dynamic island + margin
         const bodyRect = document.body.getBoundingClientRect().top;
         const elementRect = element.getBoundingClientRect().top;
         const elementPosition = elementRect - bodyRect;
         const offsetPosition = elementPosition - offset;
 
         window.scrollTo({
-          top: offsetPosition,
+          top: Math.max(0, offsetPosition),
           behavior: "smooth",
         });
       }
@@ -57,108 +79,214 @@ export function Navbar() {
     }
   };
 
+  const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    handleScrollClick(e, "contact");
+  };
+
+  const currentActive = activeSection || "hero";
+
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 border-b border-brand-border/60 transition-all duration-300 ${
-          scrolled
-            ? "bg-background/80 backdrop-blur-md py-3.5"
-            : "bg-background/40 backdrop-blur-sm py-5"
+    <header className="fixed top-3.5 sm:top-5 left-0 right-0 z-50 flex justify-center pointer-events-none px-3 sm:px-4">
+      <motion.div
+        ref={navRef}
+        layout
+        initial={{ y: -30, opacity: 0, scale: 0.96 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 350,
+          damping: 30,
+        }}
+        style={{
+          backgroundColor: isOpen ? "rgba(8, 9, 13, 0.98)" : "rgba(8, 9, 13, 0.92)",
+        }}
+        className={`pointer-events-auto transition-all duration-300 ${
+          isOpen
+            ? "w-[94vw] max-w-sm rounded-3xl p-3.5 sm:p-4 border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.85)] backdrop-blur-2xl text-white"
+            : "w-[94vw] max-w-[940px] md:w-[940px] h-[58px] rounded-full px-3 sm:px-4 border border-white/12 shadow-[0_12px_40px_rgba(0,0,0,0.7)] backdrop-blur-2xl text-white flex items-center justify-between"
         }`}
       >
-        <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Logo Name / Initials */}
+        {/* Main Bar Content */}
+        <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
+          {/* Left Brand with Avatar */}
           <Link
             href="/#hero"
             onClick={(e) => handleScrollClick(e, "hero")}
-            className="text-base font-bold tracking-wider text-foreground flex items-center gap-2 cursor-pointer group"
+            className="flex items-center gap-2.5 group cursor-pointer select-none pl-1 flex-shrink-0"
           >
-            <span className="w-7 h-7 rounded-full bg-foreground text-background text-xs font-mono font-bold flex items-center justify-center group-hover:scale-105 transition-transform">
-              AT
-            </span>
-            <span className="font-semibold tracking-tight text-foreground text-sm sm:text-base">
-              Alexander<span className="text-brand-text-muted font-normal">.dev</span>
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/25 shadow-xs flex-shrink-0 bg-neutral-900 group-hover:scale-105 transition-transform duration-200">
+              <img
+                src="/icon.png"
+                alt={content.personalInfo.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="font-bold tracking-tight text-[15px] text-white group-hover:text-white/90 transition-colors">
+              alexander
             </span>
           </Link>
 
-          {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-7">
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => handleScrollClick(e, item.id)}
-                className={`text-sm font-medium transition-all cursor-pointer relative py-1 ${
-                  activeSection === item.id && pathname === "/"
-                    ? "text-foreground font-semibold"
-                    : "text-brand-text-muted hover:text-foreground"
-                }`}
-              >
-                {item.label}
-                {activeSection === item.id && pathname === "/" && (
-                  <motion.span
-                    layoutId="activeIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </a>
-            ))}
-
-            {/* Desktop Theme & Sound Toggles */}
-            <div className="pl-3 border-l border-brand-border flex items-center gap-2">
-              <SoundToggle />
-              <ThemeToggle />
-            </div>
-          </nav>
-
-          {/* Mobile Actions (Sound Toggle, Theme Toggle & Menu Toggle) */}
-          <div className="flex items-center gap-2 sm:gap-3 md:hidden">
-            <SoundToggle />
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-brand-text-muted hover:text-foreground p-2 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Drawer Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-[73px] z-40 bg-brand-dark/95 backdrop-blur-lg border-b border-brand-border md:hidden"
+          {/* Desktop Navigation Links */}
+          <nav
+            className="hidden lg:flex items-center gap-1 xl:gap-1.5 bg-transparent"
+            onMouseLeave={() => setHoveredTab(null)}
           >
-            <nav className="flex flex-col items-center justify-center h-[calc(100vh-73px)] gap-8 p-6">
-              {navItems.map((item, idx) => (
-                <motion.a
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
+            {navItems.map((item) => {
+              const isActive = currentActive === item.id && pathname === "/";
+              return (
+                <a
                   key={item.id}
                   href={item.href}
                   onClick={(e) => handleScrollClick(e, item.id)}
-                  className={`text-2xl font-bold tracking-tight ${
-                    activeSection === item.id && pathname === "/"
-                      ? "text-foreground"
-                      : "text-brand-text-muted"
+                  onMouseEnter={() => setHoveredTab(item.id)}
+                  className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-medium transition-colors select-none cursor-pointer ${
+                    isActive
+                      ? "text-white font-semibold"
+                      : "text-neutral-400 hover:text-white"
                   }`}
                 >
+                  {/* Hover background */}
+                  {hoveredTab === item.id && !isActive && (
+                    <motion.div
+                      layoutId="island-nav-hover"
+                      className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                    />
+                  )}
+
+                  {/* Active highlight pill */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="island-nav-active"
+                      style={{ backgroundColor: "rgba(28, 29, 36, 0.95)" }}
+                      className="absolute inset-0 rounded-full shadow-xs border border-white/15 -z-10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+
                   {item.label}
-                </motion.a>
-              ))}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right Section: Toggles & CTA */}
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+            {/* Desktop Theme & Sound Toggles */}
+            <div className="hidden sm:flex items-center gap-1.5">
+              <SoundToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/30" />
+              <ThemeToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/30" />
+            </div>
+
+            {/* CTA Button "Book a Call" */}
+            <a
+              href="/#contact"
+              onClick={handleCtaClick}
+              style={{ backgroundColor: "#5b52f9" }}
+              className="relative group hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white hover:opacity-95 active:scale-95 transition-all duration-200 shadow-[0_0_20px_rgba(91,82,249,0.45)] hover:shadow-[0_0_28px_rgba(91,82,249,0.7)] cursor-pointer select-none overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-1.5">
+                Book a Call
+                <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </span>
+            </a>
+
+            {/* Mobile Actions */}
+            <div className="flex items-center gap-1.5 lg:hidden">
+              <ThemeToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300" />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center cursor-pointer focus:outline-none transition-transform active:scale-90"
+                aria-label="Toggle Navigation Island"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {isOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <X size={16} />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <Menu size={16} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Expanded Menu Island */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden lg:hidden w-full"
+            >
+              <div className="pt-4 pb-1 flex flex-col gap-2.5">
+                {/* Mobile Navigation Links */}
+                <div className="flex flex-col gap-1 bg-black/40 p-1.5 rounded-2xl border border-white/10">
+                  {navItems.map((item, idx) => {
+                    const isActive = currentActive === item.id && pathname === "/";
+                    return (
+                      <motion.a
+                        key={item.id}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.03 }}
+                        href={item.href}
+                        onClick={(e) => handleScrollClick(e, item.id)}
+                        className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                          isActive
+                            ? "bg-[#1c1d24] text-white font-semibold shadow-xs border border-white/10"
+                            : "text-neutral-400 hover:text-white hover:bg-white/5"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        {isActive && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#5b52f9]" />
+                        )}
+                      </motion.a>
+                    );
+                  })}
+                </div>
+
+                {/* Mobile Bottom Controls & CTA */}
+                <div className="pt-2 flex items-center justify-between gap-2.5">
+                  <div className="flex items-center gap-2">
+                    <SoundToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300" />
+                    <span className="text-xs text-neutral-400 font-medium">Sound Effects</span>
+                  </div>
+
+                  <a
+                    href="/#contact"
+                    onClick={handleCtaClick}
+                    style={{ backgroundColor: "#5b52f9" }}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-white hover:opacity-95 active:scale-95 transition-all shadow-[0_0_18px_rgba(91,82,249,0.45)]"
+                  >
+                    <span>Book a Call</span>
+                    <ArrowUpRight size={14} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </header>
   );
 }
