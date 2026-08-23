@@ -2,6 +2,7 @@ export interface Project {
   id: string;
   title: string;
   category: string;
+  domain?: string;
   shortDescription: string;
   description: string;
   role: string;
@@ -12,6 +13,8 @@ export interface Project {
   solutions: string;
   results: string;
   image: string; // URL or placeholder path
+  secondaryImage?: string;
+  images?: string[];
   liveUrl?: string;
   githubUrl?: string;
 }
@@ -159,8 +162,9 @@ export const content: PortfolioContent = {
     {
       id: "pharmatrack",
       title: "PharmaTrack",
+      domain: "pharmatrack.app",
       category: "Attendance Monitoring System",
-      shortDescription: "A QR-based offline-first attendance tracking system for the University of San Agustin College of Pharmacy.",
+      shortDescription: "A QR-based attendance tracking and management system for the University of San Agustin College of Pharmacy. Gives facilitators real-time scan metrics.",
       description: "PharmaTrack is a high-performance attendance monitoring and management system designed for the College of Pharmacy. It features QR-based student check-in, automatic presence status derivation based on customizable event time windows, and robust administrative dashboards for facilitators to view and export analytics.",
       role: "Front-End Developer & UI/UX Designer",
       timeline: "2026",
@@ -169,14 +173,19 @@ export const content: PortfolioContent = {
       challenges: "Ensuring scanning facilitators can record student check-ins at venues with poor network connectivity without losing original scan timestamps or producing double check-in states.",
       solutions: "Implemented an offline-first scanning mechanism that queues scan data in IndexedDB when the server is unreachable and auto-syncs on reconnect, retaining actual check-in timestamps. Designed a responsive dashboard for managing event rules.",
       results: "Eliminated manual roll-call overhead, automated email alerts for absence, and generated accurate Excel/PDF reports, successfully serving the department's student body.",
-      image: "/assets/images/pharmatrack_cover.jpg",
+      image: "/assets/images/pharmatrack_landing.png",
+      images: [
+        "/assets/images/pharmatrack_landing.png",
+        "/assets/images/pharmatrack_dashboard.jpg"
+      ],
       githubUrl: "https://github.com/JustineSalinas/pharmatrack",
     },
     {
       id: "silim-cafe",
       title: "Silim Café",
-      category: "Web App",
-      shortDescription: "A comprehensive digital ecosystem for a premium cafe including third-party online ordering app and AI chatbot support.",
+      domain: "silimcafe.com",
+      category: "E-Commerce",
+      shortDescription: "A comprehensive digital ecosystem for a specialty coffee shop with interactive signature menu showcase, localized map routing, and delivery integrations.",
       description: "Silim Café is a web application designed as a virtual storefront for a local specialty coffee shop with an interactive signature menu showcase, localized map routing, and authentic customer testimonials. It seamlessly bridges user engagement with utility by offering direct social media integration and a dedicated checkout funnel via its official Foodpanda delivery partnership.",
       role: "Front-End Dev & Design",
       timeline: "2026",
@@ -185,7 +194,11 @@ export const content: PortfolioContent = {
       challenges: "Integrating a conversational chatbot helper that updates users dynamically on open and close hours, store location, menu items and third party app.",
       solutions: "I Created this app to ensure the customers able to find out their business and a API connected to enable third party app directly into a foodapp delivery.",
       results: "Because the café is located at the end of a quiet street away from high foot traffic, the website acts as its digital storefront.",
-      image: "/assets/images/silim_cafe_cover.png",
+      image: "/assets/images/silim_cafe_flat.jpg",
+      images: [
+        "/assets/images/silim_cafe_flat.jpg",
+        "/assets/images/silim_cafe_menu_flat.jpg"
+      ],
       githubUrl: "https://github.com/Alexander-Tolosa/Silim-Cafe",
       liveUrl: "#",
     },
