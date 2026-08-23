@@ -28,9 +28,12 @@ export const metadata: Metadata = {
     "Node.js",
   ],
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/icon.png?v=2", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico?v=2",
+    apple: "/apple-touch-icon.png?v=2",
   },
 };
 
@@ -58,10 +61,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} scroll-smooth dark`}>
+    <html lang="en" className={`${outfit.variable} scroll-smooth dark`} suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <link rel="apple-touch-icon" href="/icon.svg" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
