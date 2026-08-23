@@ -7,18 +7,22 @@ import { useTheme } from "@/context/ThemeContext";
 
 interface ThemeToggleProps {
   className?: string;
+  size?: "sm" | "md";
 }
 
-export function ThemeToggle({ className = "" }: ThemeToggleProps) {
+export function ThemeToggle({ className = "", size = "md" }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
+  const isSm = size === "sm";
 
   return (
     <motion.button
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.90 }}
       onClick={(e) => toggleTheme(e)}
-      className={`relative w-10 h-10 rounded-full glass border border-brand-border text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center touch-manipulation overflow-hidden shadow-xs group ${
+      className={`relative ${
+        isSm ? "w-8 h-8" : "w-10 h-10"
+      } rounded-full glass border border-brand-border text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center touch-manipulation overflow-hidden shadow-xs group ${
         isDark
           ? "hover:border-amber-500/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)]"
           : "hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.25)]"
@@ -48,7 +52,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
             }}
             className="text-amber-400 flex items-center justify-center relative z-10"
           >
-            <Sun size={19} className="stroke-[2.2]" />
+            <Sun size={isSm ? 15 : 19} className="stroke-[2.2]" />
           </motion.div>
         ) : (
           <motion.div
@@ -62,7 +66,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
             }}
             className="text-indigo-600 dark:text-indigo-400 flex items-center justify-center relative z-10"
           >
-            <Moon size={19} className="stroke-[2.2]" />
+            <Moon size={isSm ? 15 : 19} className="stroke-[2.2]" />
           </motion.div>
         )}
       </AnimatePresence>

@@ -218,7 +218,7 @@ export function About() {
         {/* Stack Layout */}
         <div className="flex flex-col gap-16">
           {/* Technical Skillset and Tools Showcase */}
-          <div className="w-full">
+          <div id="skills" className="w-full scroll-mt-28">
             <Card animate={false} className="p-6 md:p-8 relative overflow-hidden">
               {/* Header Title & View All button matching reference image */}
               <div className="mb-6 flex items-center justify-between">
@@ -304,7 +304,7 @@ export function About() {
           </div>
 
           {/* Interleaved Experience & Education Timeline */}
-          <div className="flex flex-col gap-6">
+          <div id="experience" className="flex flex-col gap-6 scroll-mt-28">
             <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3 text-center">
               <Briefcase className="text-foreground" size={24} />
               <span>Experience & Education</span>

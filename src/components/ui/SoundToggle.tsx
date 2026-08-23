@@ -7,10 +7,12 @@ import { useSound } from "@/context/SoundContext";
 
 interface SoundToggleProps {
   className?: string;
+  size?: "sm" | "md";
 }
 
-export function SoundToggle({ className = "" }: SoundToggleProps) {
+export function SoundToggle({ className = "", size = "md" }: SoundToggleProps) {
   const { soundEnabled, toggleSound } = useSound();
+  const isSm = size === "sm";
 
   return (
     <motion.button
@@ -18,7 +20,9 @@ export function SoundToggle({ className = "" }: SoundToggleProps) {
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.90 }}
       onClick={() => toggleSound()}
-      className={`relative w-10 h-10 rounded-full glass border border-brand-border text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center touch-manipulation overflow-hidden shadow-xs group no-sound ${
+      className={`relative ${
+        isSm ? "w-8 h-8" : "w-10 h-10"
+      } rounded-full glass border border-brand-border text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center touch-manipulation overflow-hidden shadow-xs group no-sound ${
         soundEnabled
           ? "hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.25)]"
           : "hover:border-slate-500/50"
@@ -48,21 +52,21 @@ export function SoundToggle({ className = "" }: SoundToggleProps) {
             }}
             className="text-cyan-400 dark:text-cyan-300 flex items-center justify-center relative z-10"
           >
-            <Volume2 size={19} className="stroke-[2.2]" />
+            <Volume2 size={isSm ? 15 : 19} className="stroke-[2.2]" />
           </motion.div>
         ) : (
           <motion.div
             key="sound-off"
-            initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
+            initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
+            exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
             transition={{
               duration: 0.22,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="text-brand-text-muted flex items-center justify-center relative z-10"
           >
-            <VolumeX size={19} className="stroke-[2.2]" />
+            <VolumeX size={isSm ? 15 : 19} className="stroke-[2.2]" />
           </motion.div>
         )}
       </AnimatePresence>
