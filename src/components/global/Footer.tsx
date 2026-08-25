@@ -239,7 +239,7 @@ export function Footer() {
                     <a
                       href={`/#${item.id}`}
                       onClick={(e) => handleNavClick(e, item.id)}
-                      className="text-sm text-neutral-400 hover:text-white transition-colors duration-150 inline-block hover:translate-x-0.5 transform"
+                      className="text-sm font-medium text-white hover:text-white/75 transition-colors duration-150 inline-block hover:translate-x-0.5 transform"
                     >
                       {item.name}
                     </a>
@@ -291,11 +291,10 @@ export function Footer() {
 
                 {subscribeMsg && (
                   <p
-                    className={`text-xs mt-2 transition-all ${
-                      subscribeStatus === "success"
+                    className={`text-xs mt-2 transition-all ${subscribeStatus === "success"
                         ? "text-emerald-400"
                         : "text-rose-400"
-                    }`}
+                      }`}
                   >
                     {subscribeMsg}
                   </p>
