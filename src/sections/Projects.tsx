@@ -57,9 +57,9 @@ export function Projects() {
   });
 
   return (
-    <section id="projects" className="py-24 sm:py-28 relative overflow-hidden bg-[#030712]/40 select-text">
+    <section id="projects" className="py-24 sm:py-28 relative overflow-hidden select-text">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -67,10 +67,10 @@ export function Projects() {
           <span className="text-[#5b52f9] font-bold text-xs tracking-widest uppercase mb-2 inline-block">
             MY WORK
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mt-1">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white mt-1">
             Featured <span className="text-[#4f75ff]">Projects</span>
           </h2>
-          <p className="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto mt-3.5 leading-relaxed">
+          <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto mt-3.5 leading-relaxed">
             Explore my portfolio of successful projects that showcase my expertise in building digital solutions that make an impact.
           </p>
         </div>
@@ -86,7 +86,7 @@ export function Projects() {
                 className={`relative px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-[#5b52f9] text-white shadow-[0_0_18px_rgba(91,82,249,0.45)]"
-                    : "border border-white/10 hover:border-white/20 bg-transparent text-neutral-400 hover:text-white hover:bg-white/5"
+                    : "border border-neutral-200/90 dark:border-white/10 bg-white/80 dark:bg-white/5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/10 shadow-2xs backdrop-blur-xs"
                 }`}
               >
                 {category}
@@ -98,7 +98,7 @@ export function Projects() {
         {/* macOS Browser Project Cards Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 max-w-[820px] mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => (
@@ -108,7 +108,7 @@ export function Projects() {
         </motion.div>
 
         {filteredProjects.length === 0 && (
-          <div className="text-center py-16 text-neutral-500 text-sm">
+          <div className="text-center py-16 text-neutral-500 dark:text-neutral-400 text-sm">
             No projects found in this category. Select &quot;All&quot; to view all work.
           </div>
         )}

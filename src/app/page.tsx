@@ -34,10 +34,6 @@ export default function Home() {
         transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
         className="relative"
       >
-        {/* Decorative vertical lines on sides of the page for high-tech premium aesthetics */}
-        <div className="fixed top-0 left-12 bottom-0 w-[1px] bg-white/[0.02] hidden xl:block pointer-events-none" />
-        <div className="fixed top-0 right-12 bottom-0 w-[1px] bg-white/[0.02] hidden xl:block pointer-events-none" />
-
         {/* Main Sections stack */}
         <Hero />
         <About />

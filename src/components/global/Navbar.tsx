@@ -6,11 +6,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { useTheme } from "@/context/ThemeContext";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { SoundToggle } from "@/components/ui/SoundToggle";
 import { content } from "@/data/content";
 
 export function Navbar() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
@@ -97,13 +100,14 @@ export function Navbar() {
           stiffness: 350,
           damping: 30,
         }}
-        style={{
-          backgroundColor: isOpen ? "rgba(8, 9, 13, 0.98)" : "rgba(8, 9, 13, 0.92)",
-        }}
-        className={`pointer-events-auto transition-all duration-300 ${
+        className={`pointer-events-auto transition-all duration-300 backdrop-blur-2xl ${
           isOpen
-            ? "w-[94vw] max-w-sm rounded-3xl p-3.5 sm:p-4 border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.85)] backdrop-blur-2xl text-white"
-            : "w-[94vw] max-w-[940px] md:w-[940px] h-[58px] rounded-full px-3 sm:px-4 border border-white/12 shadow-[0_12px_40px_rgba(0,0,0,0.7)] backdrop-blur-2xl text-white flex items-center justify-between"
+            ? isDark
+              ? "w-[94vw] max-w-sm rounded-3xl p-3.5 sm:p-4 bg-[#08090d]/95 border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-white"
+              : "w-[94vw] max-w-sm rounded-3xl p-3.5 sm:p-4 bg-white/95 border border-neutral-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.12)] text-neutral-900"
+            : isDark
+              ? "w-[94vw] max-w-[940px] md:w-[940px] h-[58px] rounded-full px-3 sm:px-4 bg-[#08090d]/90 border border-white/12 shadow-[0_12px_40px_rgba(0,0,0,0.7)] text-white flex items-center justify-between"
+              : "w-[94vw] max-w-[940px] md:w-[940px] h-[58px] rounded-full px-3 sm:px-4 bg-white/85 border border-neutral-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] text-neutral-900 flex items-center justify-between"
         }`}
       >
         {/* Main Bar Content */}
@@ -114,15 +118,19 @@ export function Navbar() {
             onClick={(e) => handleScrollClick(e, "hero")}
             className="flex items-center gap-2.5 group cursor-pointer select-none pl-1 flex-shrink-0"
           >
-            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/25 shadow-xs flex-shrink-0 bg-neutral-900 group-hover:scale-105 transition-transform duration-200">
+            <div className={`relative w-9 h-9 rounded-full overflow-hidden border shadow-xs flex-shrink-0 group-hover:scale-105 transition-transform duration-200 ${
+              isDark ? "border-white/25 bg-neutral-900" : "border-neutral-200/80 bg-neutral-100"
+            }`}>
               <img
                 src="/icon.png"
                 alt={content.personalInfo.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="font-bold tracking-tight text-[15px] text-white group-hover:text-white/90 transition-colors">
-              alexander
+            <span className={`font-bold tracking-tight text-[15px] transition-colors ${
+              isDark ? "text-white group-hover:text-white/90" : "text-neutral-900 group-hover:text-neutral-700"
+            }`}>
+              Alexander
             </span>
           </Link>
 
@@ -141,15 +149,21 @@ export function Navbar() {
                   onMouseEnter={() => setHoveredTab(item.id)}
                   className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-medium transition-colors select-none cursor-pointer ${
                     isActive
-                      ? "text-white font-semibold"
-                      : "text-neutral-400 hover:text-white"
+                      ? isDark
+                        ? "text-white font-semibold"
+                        : "text-neutral-950 font-semibold"
+                      : isDark
+                        ? "text-neutral-400 hover:text-white"
+                        : "text-neutral-500 hover:text-neutral-950"
                   }`}
                 >
                   {/* Hover background */}
                   {hoveredTab === item.id && !isActive && (
                     <motion.div
                       layoutId="island-nav-hover"
-                      className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                      className={`absolute inset-0 rounded-full -z-10 ${
+                        isDark ? "bg-white/10" : "bg-neutral-100/80"
+                      }`}
                       transition={{ type: "spring", stiffness: 450, damping: 35 }}
                     />
                   )}
@@ -158,8 +172,11 @@ export function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="island-nav-active"
-                      style={{ backgroundColor: "rgba(28, 29, 36, 0.95)" }}
-                      className="absolute inset-0 rounded-full shadow-xs border border-white/15 -z-10"
+                      className={`absolute inset-0 rounded-full shadow-2xs border -z-10 ${
+                        isDark
+                          ? "bg-[#1c1d24] border-white/15 text-white"
+                          : "bg-neutral-100/90 border-neutral-200/80 text-neutral-950"
+                      }`}
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -174,8 +191,8 @@ export function Navbar() {
           <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
             {/* Desktop Theme & Sound Toggles */}
             <div className="hidden sm:flex items-center gap-1.5">
-              <SoundToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/30" />
-              <ThemeToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/30" />
+              <SoundToggle size="sm" className={isDark ? "bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/30" : "bg-neutral-100/80 border-neutral-200/80 text-neutral-600 hover:text-neutral-950 hover:border-neutral-300"} />
+              <ThemeToggle size="sm" className={isDark ? "bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/30" : "bg-neutral-100/80 border-neutral-200/80 text-neutral-600 hover:text-neutral-950 hover:border-neutral-300"} />
             </div>
 
             {/* CTA Button "Book a Call" */}
@@ -193,10 +210,12 @@ export function Navbar() {
 
             {/* Mobile Actions */}
             <div className="flex items-center gap-1.5 lg:hidden">
-              <ThemeToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300" />
+              <ThemeToggle size="sm" className={isDark ? "bg-white/5 border-white/10 text-neutral-300" : "bg-neutral-100/80 border-neutral-200/80 text-neutral-600"} />
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center cursor-pointer focus:outline-none transition-transform active:scale-90"
+                className={`w-8 h-8 rounded-full border flex items-center justify-center cursor-pointer focus:outline-none transition-transform active:scale-90 ${
+                  isDark ? "bg-white/5 border-white/10 text-white" : "bg-neutral-100/80 border-neutral-200/80 text-neutral-800"
+                }`}
                 aria-label="Toggle Navigation Island"
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -239,7 +258,9 @@ export function Navbar() {
             >
               <div className="pt-4 pb-1 flex flex-col gap-2.5">
                 {/* Mobile Navigation Links */}
-                <div className="flex flex-col gap-1 bg-black/40 p-1.5 rounded-2xl border border-white/10">
+                <div className={`flex flex-col gap-1 p-1.5 rounded-2xl border ${
+                  isDark ? "bg-black/40 border-white/10" : "bg-neutral-100/80 border-neutral-200/80"
+                }`}>
                   {navItems.map((item, idx) => {
                     const isActive = currentActive === item.id && pathname === "/";
                     return (
@@ -252,8 +273,12 @@ export function Navbar() {
                         onClick={(e) => handleScrollClick(e, item.id)}
                         className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                           isActive
-                            ? "bg-[#1c1d24] text-white font-semibold shadow-xs border border-white/10"
-                            : "text-neutral-400 hover:text-white hover:bg-white/5"
+                            ? isDark
+                              ? "bg-[#1c1d24] text-white font-semibold shadow-xs border border-white/10"
+                              : "bg-white text-neutral-950 font-semibold shadow-2xs border border-neutral-200/80"
+                            : isDark
+                              ? "text-neutral-400 hover:text-white hover:bg-white/5"
+                              : "text-neutral-600 hover:text-neutral-950 hover:bg-white/60"
                         }`}
                       >
                         <span>{item.label}</span>
@@ -268,8 +293,8 @@ export function Navbar() {
                 {/* Mobile Bottom Controls & CTA */}
                 <div className="pt-2 flex items-center justify-between gap-2.5">
                   <div className="flex items-center gap-2">
-                    <SoundToggle size="sm" className="bg-white/5 border-white/10 text-neutral-300" />
-                    <span className="text-xs text-neutral-400 font-medium">Sound Effects</span>
+                    <SoundToggle size="sm" className={isDark ? "bg-white/5 border-white/10 text-neutral-300" : "bg-neutral-100/80 border-neutral-200/80 text-neutral-600"} />
+                    <span className={`text-xs font-medium ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>Sound Effects</span>
                   </div>
 
                   <a
