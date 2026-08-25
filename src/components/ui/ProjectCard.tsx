@@ -73,31 +73,33 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Slideshow Image Viewport (envember.com style) */}
         <Link
           href={`/projects/${project.id}`}
-          className="relative w-full aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-black/80 block cursor-pointer border-b border-neutral-100 dark:border-transparent"
+          className="relative w-full aspect-[2.1/1] overflow-hidden bg-[#0a0c10] block cursor-pointer border-b border-neutral-200/60 dark:border-white/5"
         >
           <AnimatePresence mode="wait">
             <motion.img
               key={`${project.id}-${currentIndex}`}
               src={images[currentIndex]}
               alt={`${project.title} screenshot ${currentIndex + 1}`}
-              initial={{ opacity: 0, scale: 1.01 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.99 }}
-              transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="w-full h-full object-cover object-top"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="w-full h-full object-contain object-center"
             />
           </AnimatePresence>
 
           {/* Center Hover Action Icon */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-11 h-11 rounded-full bg-white/85 dark:bg-black/60 backdrop-blur-md border border-neutral-200/80 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl">
+            <div className={`w-11 h-11 rounded-full backdrop-blur-md border flex items-center justify-center scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl ${
+              isDark ? "bg-black/60 border-white/20 text-white" : "bg-white/85 border-neutral-200/80 text-neutral-900"
+            }`}>
               <ArrowUpRight size={18} />
             </div>
           </div>
 
           {/* Slideshow Indicator Dots matching envember.com */}
           {images.length > 1 && (
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/60 dark:bg-black/65 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15 z-20 select-none">
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/60 dark:bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/15 z-20 select-none">
               {images.map((_, dotIdx) => {
                 const isActive = currentIndex === dotIdx;
                 return (
@@ -110,8 +112,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     }}
                     className={`transition-all duration-300 rounded-full cursor-pointer ${
                       isActive
-                        ? "w-4 h-1.5 bg-white shadow-xs"
-                        : "w-1.5 h-1.5 bg-white/40 hover:bg-white/80"
+                        ? "w-3.5 h-1 bg-white shadow-xs"
+                        : "w-1 h-1 bg-white/40 hover:bg-white/80"
                     }`}
                     aria-label={`Go to slide ${dotIdx + 1}`}
                   />
