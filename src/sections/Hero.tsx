@@ -141,7 +141,7 @@ export function Hero() {
             variants={itemVariants}
             className="text-base sm:text-lg text-brand-text-muted leading-relaxed mb-8 max-w-3xl font-normal select-text cursor-text"
           >
-            I&apos;m a front-end developer and UI/UX designer building performant web applications and modern user interfaces with
+            I&apos;m a Front-End Developer and UI/UX designer building performant web applications and modern user interfaces with
             <TechBadge name="React" />
             <TechBadge name="Next.js" />
             <TechBadge name="TypeScript" />
