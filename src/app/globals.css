@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -115,40 +117,40 @@
 html.light,
 .light {
   color-scheme: light;
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --brand-dark: #f8fafc;
+  --background: #ffffff;
+  --foreground: #09090b;
+  --brand-dark: #ffffff;
   --brand-card: #ffffff;
-  --brand-border: #e2e8f0;
-  --brand-text-muted: #475569;
+  --brand-border: #e4e4e7;
+  --brand-text-muted: #52525b;
 
-  --accent-blue: #0284c7;
-  --accent-indigo: #4338ca;
-  --accent-purple: #7e22ce;
-  --accent-cyan: #0891b2;
+  --accent-blue: #2563eb;
+  --accent-indigo: #4f46e5;
+  --accent-purple: #7c3aed;
+  --accent-cyan: #0284c7;
   --accent-emerald: #059669;
 
-  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-hover-bg: rgba(255, 255, 255, 0.92);
-  --glass-hover-border: rgba(0, 0, 0, 0.18);
-  --glass-hover-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 0 15px -3px rgba(0, 0, 0, 0.04);
+  --glass-hover-bg: rgba(255, 255, 255, 0.98);
+  --glass-hover-border: rgba(0, 0, 0, 0.16);
+  --glass-hover-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.07), 0 0 15px -3px rgba(0, 0, 0, 0.03);
 
-  --text-gradient-start: #0f172a;
-  --text-gradient-mid: #334155;
-  --text-gradient-end: #64748b;
+  --text-gradient-start: #09090b;
+  --text-gradient-mid: #27272a;
+  --text-gradient-end: #52525b;
 
-  --shine-from: #475569;
-  --shine-via: #0f172a;
-  --shine-to: #1e293b;
+  --shine-from: #52525b;
+  --shine-via: #18181b;
+  --shine-to: #27272a;
 
-  --grid-line-color: rgba(0, 0, 0, 0.05);
-  --scrollbar-track: #f1f5f9;
-  --scrollbar-thumb: #cbd5e1;
-  --scrollbar-thumb-hover: #94a3b8;
+  --grid-line-color: rgba(0, 0, 0, 0.04);
+  --scrollbar-track: #f4f4f5;
+  --scrollbar-thumb: #d4d4d8;
+  --scrollbar-thumb-hover: #a1a1aa;
 
-  --orb-bg-primary: rgba(15, 23, 42, 0.05);
-  --orb-bg-secondary: rgba(15, 23, 42, 0.03);
+  --orb-bg-primary: rgba(79, 70, 229, 0.04);
+  --orb-bg-secondary: rgba(59, 130, 246, 0.03);
 }
 
 /* Smooth site-wide theme color transitions */
@@ -263,6 +265,9 @@ body {
   font-family: var(--font-outfit), sans-serif;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
 /* Glassmorphism utility helpers */
