@@ -200,7 +200,7 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-24 relative overflow-hidden scroll-mt-16">
       {/* Background radial glow */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[var(--orb-bg-secondary)] rounded-full blur-[100px] pointer-events-none" />
 
@@ -218,7 +218,7 @@ export function About() {
         {/* Stack Layout */}
         <div className="flex flex-col gap-16">
           {/* Technical Skillset and Tools Showcase */}
-          <div id="skills" className="w-full scroll-mt-28">
+          <div className="w-full">
             <Card animate={false} className="p-6 md:p-8 relative overflow-hidden">
               {/* Header Title & View All button matching reference image */}
               <div className="mb-6 flex items-center justify-between">

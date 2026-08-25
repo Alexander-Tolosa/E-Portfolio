@@ -63,16 +63,19 @@ export function Navbar() {
     setIsOpen(false);
     if (pathname === "/") {
       e.preventDefault();
+
+      // For "Home" / hero, always scroll to the very top
+      if (id === "hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
       const element = document.getElementById(id);
       if (element) {
         const offset = 90; // height of floating dynamic island + margin
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
-
+        const absoluteTop = window.scrollY + element.getBoundingClientRect().top;
         window.scrollTo({
-          top: Math.max(0, offsetPosition),
+          top: Math.max(0, absoluteTop - offset),
           behavior: "smooth",
         });
       }

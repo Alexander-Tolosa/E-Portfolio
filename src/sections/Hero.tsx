@@ -128,13 +128,15 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Main Title / Role Headline matching reference image format */}
-          <motion.h2
-            variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground/90 mb-6 leading-tight"
-          >
-            Front-End Developer — <span className="text-brand-text-muted font-normal">React, Next.js & UI/UX</span>
-          </motion.h2>
+          {/* Main Title / Role Headline & Bio (About section anchor) */}
+          <div id="about" className="scroll-mt-28 w-full">
+            <motion.h2
+              variants={itemVariants}
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground/90 mb-6 leading-tight"
+            >
+              Front-End Developer — <span className="text-brand-text-muted font-normal">React, Next.js & UI/UX</span>
+            </motion.h2>
+          </div>
 
           {/* Lead Bio Paragraph with Inline Tech Badges matching reference image */}
           <motion.p
