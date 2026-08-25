@@ -69,17 +69,25 @@ export function Projects() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12">
-          <span className="text-[#5b52f9] font-bold text-xs tracking-widest uppercase mb-2 inline-block">
+          <span
+            className={`font-semibold text-xs tracking-widest uppercase mb-2 inline-block ${
+              isDark ? "text-white/80" : "text-neutral-500"
+            }`}
+          >
             MY WORK
           </span>
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mt-1 ${
-            isDark ? "text-white" : "text-neutral-900"
-          }`}>
-            Featured <span className="text-[#4f75ff]">Projects</span>
+          <h2
+            className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mt-1 ${
+              isDark ? "text-white" : "text-neutral-900"
+            }`}
+          >
+            Featured Projects
           </h2>
-          <p className={`text-sm sm:text-base max-w-2xl mx-auto mt-3.5 leading-relaxed ${
-            isDark ? "text-neutral-400" : "text-neutral-600"
-          }`}>
+          <p
+            className={`text-sm sm:text-base max-w-2xl mx-auto mt-3.5 leading-relaxed ${
+              isDark ? "text-neutral-400" : "text-neutral-600"
+            }`}
+          >
             Explore my portfolio of successful projects that showcase my expertise in building digital solutions that make an impact.
           </p>
         </div>
