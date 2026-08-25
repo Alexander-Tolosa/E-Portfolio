@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 import { content } from "@/data/content";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 
@@ -15,6 +16,8 @@ const filterCategories = [
 ];
 
 export function Projects() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredProjects = content.projects.filter((project) => {
@@ -59,7 +62,9 @@ export function Projects() {
   return (
     <section id="projects" className="py-24 sm:py-28 relative overflow-hidden select-text">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full blur-[140px] pointer-events-none ${
+        isDark ? "bg-indigo-500/10" : "bg-indigo-500/5"
+      }`} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -67,10 +72,14 @@ export function Projects() {
           <span className="text-[#5b52f9] font-bold text-xs tracking-widest uppercase mb-2 inline-block">
             MY WORK
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white mt-1">
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mt-1 ${
+            isDark ? "text-white" : "text-neutral-900"
+          }`}>
             Featured <span className="text-[#4f75ff]">Projects</span>
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto mt-3.5 leading-relaxed">
+          <p className={`text-sm sm:text-base max-w-2xl mx-auto mt-3.5 leading-relaxed ${
+            isDark ? "text-neutral-400" : "text-neutral-600"
+          }`}>
             Explore my portfolio of successful projects that showcase my expertise in building digital solutions that make an impact.
           </p>
         </div>
@@ -86,7 +95,9 @@ export function Projects() {
                 className={`relative px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-[#5b52f9] text-white shadow-[0_0_18px_rgba(91,82,249,0.45)]"
-                    : "border border-neutral-200/90 dark:border-white/10 bg-white/80 dark:bg-white/5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/10 shadow-2xs backdrop-blur-xs"
+                    : isDark
+                      ? "border border-white/10 bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10"
+                      : "border border-neutral-200/90 bg-white/80 text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100 shadow-2xs backdrop-blur-xs"
                 }`}
               >
                 {category}
@@ -108,7 +119,7 @@ export function Projects() {
         </motion.div>
 
         {filteredProjects.length === 0 && (
-          <div className="text-center py-16 text-neutral-500 dark:text-neutral-400 text-sm">
+          <div className={`text-center py-16 text-sm ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>
             No projects found in this category. Select &quot;All&quot; to view all work.
           </div>
         )}

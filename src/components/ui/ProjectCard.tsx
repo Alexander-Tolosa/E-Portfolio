@@ -50,10 +50,18 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="rounded-2xl bg-white dark:bg-[#0d0d0d] border border-neutral-200/90 dark:border-white/10 hover:border-neutral-300 dark:hover:border-white/20 transition-all duration-300 overflow-hidden group h-full shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.09)] dark:shadow-xl dark:hover:shadow-2xl flex flex-col justify-between select-text"
+        className={`rounded-2xl border transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between select-text ${
+          isDark
+            ? "bg-[#0d0d0d] border-white/10 hover:border-white/20 shadow-xl hover:shadow-2xl"
+            : "bg-white border-neutral-200/90 hover:border-neutral-300 shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.09)]"
+        }`}
       >
         {/* Top Mock Browser Chrome Bar */}
-        <div className="bg-[#f8f9fa] dark:bg-[#14151a] px-4 py-2.5 flex items-center justify-between border-b border-neutral-200/80 dark:border-white/5 select-none">
+        <div
+          className={`px-4 py-2.5 flex items-center justify-between border-b select-none ${
+            isDark ? "bg-[#14151a] border-white/5" : "bg-[#f8f9fa] border-neutral-200/80"
+          }`}
+        >
           {/* Traffic Light Dots */}
           <div className="flex items-center gap-1.5 w-14">
             <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block shadow-xs" />
@@ -62,7 +70,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
 
           {/* Centered Pill Address Bar */}
-          <div className="bg-white dark:bg-[#1d1e24] border border-neutral-200/80 dark:border-white/5 rounded-md px-3.5 py-0.5 text-[11.5px] text-neutral-500 dark:text-neutral-400 font-mono tracking-tight flex items-center justify-center max-w-[210px] truncate shadow-2xs">
+          <div
+            className={`border rounded-md px-3.5 py-0.5 text-[11.5px] font-mono tracking-tight flex items-center justify-center max-w-[210px] truncate ${
+              isDark
+                ? "bg-[#1d1e24] border-white/5 text-neutral-400"
+                : "bg-white border-neutral-200/80 text-neutral-500 shadow-2xs"
+            }`}
+          >
             <span className="truncate">{domainName}</span>
           </div>
 
@@ -73,7 +87,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Slideshow Image Viewport (envember.com style) */}
         <Link
           href={`/projects/${project.id}`}
-          className="relative w-full aspect-[2.1/1] overflow-hidden bg-[#0a0c10] block cursor-pointer border-b border-neutral-200/60 dark:border-white/5"
+          className={`relative w-full aspect-[2.1/1] overflow-hidden block cursor-pointer border-b ${
+            isDark ? "bg-[#08090d] border-white/5" : "bg-[#0a0c10] border-neutral-200/60"
+          }`}
         >
           <AnimatePresence mode="wait">
             <motion.img
@@ -90,9 +106,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
           {/* Center Hover Action Icon */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className={`w-11 h-11 rounded-full backdrop-blur-md border flex items-center justify-center scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl ${
-              isDark ? "bg-black/60 border-white/20 text-white" : "bg-white/85 border-neutral-200/80 text-neutral-900"
-            }`}>
+            <div
+              className={`w-11 h-11 rounded-full backdrop-blur-md border flex items-center justify-center scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl ${
+                isDark
+                  ? "bg-black/60 border-white/20 text-white"
+                  : "bg-white/85 border-neutral-200/80 text-neutral-900"
+              }`}
+            >
               <ArrowUpRight size={18} />
             </div>
           </div>
@@ -126,12 +146,18 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Project Title and Muted Description */}
         <Link
           href={`/projects/${project.id}`}
-          className="p-6 bg-white dark:bg-[#0d0d0d] block cursor-pointer flex-grow"
+          className={`p-6 block cursor-pointer flex-grow ${isDark ? "bg-[#0d0d0d]" : "bg-white"}`}
         >
-          <h3 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white mb-2 group-hover:text-[#4f75ff] dark:group-hover:text-indigo-300 transition-colors">
+          <h3
+            className={`text-lg sm:text-xl font-bold mb-2 transition-colors ${
+              isDark
+                ? "text-white group-hover:text-indigo-300"
+                : "text-neutral-900 group-hover:text-[#4f75ff]"
+            }`}
+          >
             {project.title}
           </h3>
-          <p className="text-sm text-neutral-600 dark:text-gray-400 leading-relaxed line-clamp-3">
+          <p className={`text-sm leading-relaxed line-clamp-3 ${isDark ? "text-gray-400" : "text-neutral-600"}`}>
             {project.shortDescription}
           </p>
         </Link>
