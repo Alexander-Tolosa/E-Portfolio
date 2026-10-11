@@ -237,9 +237,9 @@ export function About() {
 
               {/* Multi-Row Infinite Marquee Tracks matching reference image */}
               <div className="marquee-mask relative w-full overflow-hidden flex flex-col gap-3 py-2 select-none">
-                {/* Row 1: Left Scroll */}
+                {/* Row 1: Left Scroll (Frontend) */}
                 <div className="flex w-max gap-3 animate-marquee">
-                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "Shadcn UI", "JavaScript", "Framer Motion", "GSAP", "Vite", "HTML5", "CSS3"].map((name, idx) => (
+                  {(content.skills.find((c) => c.name === "Frontend")?.skills.map((s) => s.name) || []).map((name, idx) => (
                     <div
                       key={`r1-1-${name}-${idx}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
@@ -248,7 +248,7 @@ export function About() {
                     </div>
                   ))}
                   {/* Duplicate Row 1 */}
-                  {["React", "TypeScript", "Next.js", "Tailwind CSS", "Shadcn UI", "JavaScript", "Framer Motion", "GSAP", "Vite", "HTML5", "CSS3"].map((name, idx) => (
+                  {(content.skills.find((c) => c.name === "Frontend")?.skills.map((s) => s.name) || []).map((name, idx) => (
                     <div
                       key={`r1-2-${name}-${idx}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
@@ -258,30 +258,36 @@ export function About() {
                   ))}
                 </div>
 
-                {/* Row 2: Right Scroll (Reverse) */}
+                {/* Row 2: Right Scroll (Reverse) (Backend, Cloud, AI & CMS) */}
                 <div className="flex w-max gap-3 animate-marquee-reverse">
-                  {["Python", "Java", "Spring Boot", "PostgreSQL", "MySQL", "Supabase", "GitHub Actions", "IndexedDB", "Redis"].map((name, idx) => (
-                    <div
-                      key={`r2-1-${name}-${idx}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
-                    >
-                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
-                    </div>
-                  ))}
+                  {content.skills
+                    .filter((c) => ["Backend", "Devops & Cloud", "AI & Machine Learning", "CMS & No-Code"].includes(c.name))
+                    .flatMap((c) => c.skills.map((s) => s.name))
+                    .map((name, idx) => (
+                      <div
+                        key={`r2-1-${name}-${idx}`}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                      >
+                        <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                      </div>
+                    ))}
                   {/* Duplicate Row 2 */}
-                  {["Python", "Java", "Spring Boot", "PostgreSQL", "MySQL", "Supabase", "GitHub Actions", "IndexedDB", "Redis"].map((name, idx) => (
-                    <div
-                      key={`r2-2-${name}-${idx}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
-                    >
-                      <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
-                    </div>
-                  ))}
+                  {content.skills
+                    .filter((c) => ["Backend", "Devops & Cloud", "AI & Machine Learning", "CMS & No-Code"].includes(c.name))
+                    .flatMap((c) => c.skills.map((s) => s.name))
+                    .map((name, idx) => (
+                      <div
+                        key={`r2-2-${name}-${idx}`}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+                      >
+                        <TechBadge name={name} className="!border-0 !bg-transparent !p-0 !m-0" />
+                      </div>
+                    ))}
                 </div>
 
-                {/* Row 3: Left Scroll */}
+                {/* Row 3: Left Scroll (Developer Tools) */}
                 <div className="flex w-max gap-3 animate-marquee">
-                  {["WordPress", "Git", "GitHub", "Anthropic", "VS Code", "Canva", "Antigravity", "Discord", "Teams", "Vercel"].map((name, idx) => (
+                  {(content.skills.find((c) => c.name === "Developer Tools")?.skills.map((s) => s.name) || []).map((name, idx) => (
                     <div
                       key={`r3-1-${name}-${idx}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
@@ -290,7 +296,7 @@ export function About() {
                     </div>
                   ))}
                   {/* Duplicate Row 3 */}
-                  {["WordPress", "Git", "GitHub", "Anthropic", "VS Code", "Canva", "Antigravity", "Discord", "Teams", "Vercel"].map((name, idx) => (
+                  {(content.skills.find((c) => c.name === "Developer Tools")?.skills.map((s) => s.name) || []).map((name, idx) => (
                     <div
                       key={`r3-2-${name}-${idx}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-brand-border/80 hover:border-foreground/40 hover:scale-105 transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
