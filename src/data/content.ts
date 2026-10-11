@@ -103,6 +103,7 @@ export const content: PortfolioContent = {
         { name: "TypeScript", level: 100, icon: "" },
         { name: "React", level: 100, icon: "" },
         { name: "Framer Motion", level: 100, icon: "" },
+        { name: "GSAP", level: 100, icon: "" },
         { name: "Next.js", level: 100, icon: "" },
         { name: "Tailwind CSS", level: 100, icon: "" },
         { name: "Shadcn UI", level: 100, icon: "" },
