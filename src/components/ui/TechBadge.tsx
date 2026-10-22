@@ -40,6 +40,22 @@ export function TechBadge({ name, className = "", showIcon = true }: TechBadgePr
       );
     }
 
+    if (key.includes("html")) {
+      return (
+        <svg className="w-3.5 h-3.5 text-[#E34F26] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059-.001.23-2.624-12.91.001.693 8.061h9.32l-.375 4.313-3.418.969-3.419-.969-.224-2.5h-2.61l.434 4.875 5.819 1.625 5.818-1.625.828-9.406H8.531z" />
+        </svg>
+      );
+    }
+
+    if (key.includes("css") && !key.includes("tailwind")) {
+      return (
+        <svg className="w-3.5 h-3.5 text-[#1572B6] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75h7.242l-.242 2.75-3.554.969-3.554-.969-.168-1.875H5.644l.328 3.75 5.981 1.656 5.98-1.656.844-9.531H5.856l.242-2.75h12.352l.242-2.75H3.633l.922 10.406h4z" />
+        </svg>
+      );
+    }
+
     if (key.includes("javascript") || key === "js") {
       return (
         <svg className="w-3.5 h-3.5 text-[#F7DF1E] shrink-0" viewBox="0 0 24 24" fill="currentColor">

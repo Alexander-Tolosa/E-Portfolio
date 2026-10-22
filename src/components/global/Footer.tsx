@@ -140,12 +140,13 @@ export function Footer() {
     }
   };
 
-  const navLinks = [
+  const navLinks: { name: string; id?: string; href?: string }[] = [
     { name: "Home", id: "hero" },
     { name: "About", id: "about" },
     { name: "Skills", id: "skills" },
     { name: "Experience", id: "experience" },
     { name: "Project", id: "projects" },
+    { name: "Affiliations", href: "/affiliations" },
     { name: "Contact", id: "contact" },
   ];
 
@@ -236,13 +237,22 @@ export function Footer() {
               <ul className="space-y-3.5 text-left">
                 {navLinks.map((item, idx) => (
                   <li key={idx}>
-                    <a
-                      href={`/#${item.id}`}
-                      onClick={(e) => handleNavClick(e, item.id)}
-                      className="text-sm font-medium text-white hover:text-white/75 transition-colors duration-150 inline-block hover:translate-x-0.5 transform"
-                    >
-                      {item.name}
-                    </a>
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        className="text-sm font-medium text-white hover:text-white/75 transition-colors duration-150 inline-block hover:translate-x-0.5 transform"
+                      >
+                        {item.name}
+                      </Link>
+                    ) : (
+                      <a
+                        href={`/#${item.id}`}
+                        onClick={(e) => handleNavClick(e, item.id!)}
+                        className="text-sm font-medium text-white hover:text-white/75 transition-colors duration-150 inline-block hover:translate-x-0.5 transform"
+                      >
+                        {item.name}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

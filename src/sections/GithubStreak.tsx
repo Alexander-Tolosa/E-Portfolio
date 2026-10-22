@@ -147,24 +147,22 @@ export function GithubStreak() {
 
   if (loading) {
     return (
-      <section className="py-16 relative overflow-hidden">
-        <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
-          <div
-            className={`p-6 sm:p-8 rounded-2xl border transition-colors ${
-              isLight
-                ? "bg-white border-slate-200 shadow-lg"
-                : "bg-[#0d1117] border-[#30363d] shadow-2xl"
-            }`}
-          >
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-slate-700/20">
-              <div className="h-4 w-28 bg-slate-700/30 rounded animate-pulse" />
-              <div className="h-4 w-36 bg-slate-700/30 rounded animate-pulse" />
-            </div>
-            <div className="h-40 w-full bg-slate-700/20 rounded-xl animate-pulse mb-6" />
-            <div className="h-4 w-64 bg-slate-700/30 rounded animate-pulse" />
+      <div className="w-full relative">
+        <div
+          className={`p-6 sm:p-8 rounded-2xl border transition-colors ${
+            isLight
+              ? "bg-white border-slate-200 shadow-lg"
+              : "bg-[#0d1117] border-[#30363d] shadow-2xl"
+          }`}
+        >
+          <div className="flex justify-between items-center mb-8 pb-4 border-b border-slate-700/20">
+            <div className="h-4 w-28 bg-slate-700/30 rounded animate-pulse" />
+            <div className="h-4 w-36 bg-slate-700/30 rounded animate-pulse" />
           </div>
+          <div className="h-40 w-full bg-slate-700/20 rounded-xl animate-pulse mb-6" />
+          <div className="h-4 w-64 bg-slate-700/30 rounded animate-pulse" />
         </div>
-      </section>
+      </div>
     );
   }
 
@@ -176,8 +174,7 @@ export function GithubStreak() {
   const dayRowLabels = ["", "Mon", "", "Wed", "", "Fri", ""];
 
   return (
-    <section className="py-16 relative overflow-hidden">
-      <div className="max-w-3xl sm:max-w-4xl mx-auto px-4 sm:px-6">
+    <div className="w-full relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -417,7 +414,6 @@ export function GithubStreak() {
             </div>
           </div>
         </motion.div>
-      </div>
-    </section>
+    </div>
   );
 }

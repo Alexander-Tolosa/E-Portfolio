@@ -31,6 +31,7 @@ export interface Experience {
   location: string;
   period: string;
   description: string[];
+  logo?: string;
 }
 
 export interface Education {
@@ -40,6 +41,7 @@ export interface Education {
   location: string;
   period: string;
   description: string[];
+  logo?: string;
 }
 
 export interface Certification {
@@ -50,6 +52,17 @@ export interface Certification {
   credentialUrl?: string;
   logo?: string;
   description: string[];
+}
+
+export interface Affiliation {
+  id: string;
+  name: string;
+  role: string;
+  category: string;
+  logo: string;
+  url?: string;
+  period?: string;
+  location?: string;
 }
 
 export interface PortfolioContent {
@@ -75,6 +88,7 @@ export interface PortfolioContent {
   experiences: Experience[];
   education: Education[];
   certifications: Certification[];
+  affiliations: Affiliation[];
 }
 
 export const content: PortfolioContent = {
@@ -103,6 +117,8 @@ export const content: PortfolioContent = {
         { name: "TypeScript", level: 100, icon: "" },
         { name: "Next.js", level: 100, icon: "" },
         { name: "Tailwind CSS", level: 100, icon: "" },
+        { name: "HTML5", level: 100, icon: "" },
+        { name: "CSS3", level: 100, icon: "" },
         { name: "Shadcn UI", level: 100, icon: "" },
         { name: "JavaScript", level: 100, icon: "" },
         { name: "Framer Motion", level: 100, icon: "" },
@@ -174,10 +190,10 @@ export const content: PortfolioContent = {
       challenges: "Ensuring scanning facilitators can record student check-ins at venues with poor network connectivity without losing original scan timestamps or producing double check-in states.",
       solutions: "Implemented an offline-first scanning mechanism that queues scan data in IndexedDB when the server is unreachable and auto-syncs on reconnect, retaining actual check-in timestamps. Designed a responsive dashboard for managing event rules.",
       results: "Eliminated manual roll-call overhead, automated email alerts for absence, and generated accurate Excel/PDF reports, successfully serving the department's student body.",
-      image: "/assets/images/pharmatrack_landing.png",
+      image: "/assets/images/pharmatrack_dashboard.jpg",
       images: [
-        "/assets/images/pharmatrack_landing.png",
-        "/assets/images/pharmatrack_dashboard.jpg"
+        "/assets/images/pharmatrack_dashboard.jpg",
+        "/assets/images/pharmatrack_landing.png"
       ],
       githubUrl: "https://github.com/JustineSalinas/pharmatrack",
     },
@@ -195,11 +211,11 @@ export const content: PortfolioContent = {
       challenges: "Integrating a conversational chatbot helper that updates users dynamically on open and close hours, store location, menu items and third party app.",
       solutions: "I Created this app to ensure the customers able to find out their business and a API connected to enable third party app directly into a foodapp delivery.",
       results: "Because the café is located at the end of a quiet street away from high foot traffic, the website acts as its digital storefront.",
-      image: "/assets/images/silim_cafe_hero.png",
+      image: "/assets/images/silim_cafe_menu.png",
       images: [
+        "/assets/images/silim_cafe_menu.png",
         "/assets/images/silim_cafe_hero.png",
-        "/assets/images/silim_cafe_releases.png",
-        "/assets/images/silim_cafe_menu.png"
+        "/assets/images/silim_cafe_releases.png"
       ],
       githubUrl: "https://github.com/Alexander-Tolosa/Silim-Cafe",
       liveUrl: "#",
@@ -212,19 +228,55 @@ export const content: PortfolioContent = {
       company: "Cascade Development Group (CDG)",
       location: "Iloilo City, Philippines",
       period: "2026 – Present",
+      logo: "/assets/images/cdg_emblem.png",
       description: [
-        "IT solutions startup delivering web development, database architecture, and technical consulting to clients across the Visayas collaborating with a team across the full business lifecycle from scoping to deployment."
+        "IT solutions startup delivering web development, database architecture, and technical consulting to clients across the Visayas, collaborating with a team across the full business lifecycle from scoping to deployment.",
+        "Designed and built clean, modular front-end architectures using React, Next.js, and TypeScript, delivering accessible and high-performance web interfaces."
       ],
     },
     {
       id: "exp-2",
       role: "Front-End Developer & UI/UX Design",
-      company: "PharmaTrack — University of San Agustin, Pharmacy Department",
+      company: "PharmaTrack — University of San Agustin",
       location: "Iloilo City, Philippines",
       period: "2026",
+      logo: "/assets/images/usa_logo.png",
       description: [
-        "Designed some user experience from scratch, mapping out intuitive dashboard layouts, and translated those high-fidelity designs into a responsive frontend.",
-        "Focused on state management and building clean, accessible UI components for fast-paced clinical environments."
+        "Designed the user experience from scratch, mapping out intuitive dashboard layouts, and translated those high-fidelity designs into a responsive frontend for pharmacy student attendance monitoring.",
+        "Focused on state management and building clean, accessible UI components with offline-first check-in capabilities."
+      ],
+    },
+    {
+      id: "exp-itsa",
+      role: "Front-End Developer",
+      company: "Information Technology Student Association (ITSA)",
+      location: "Iloilo City, Philippines",
+      period: "2026 – 2027",
+      logo: "/assets/images/itsa_emblem.png",
+      description: [
+        "The official academic association cultivates technical excellence, software craft, and a vibrant student developer network ready to lead."
+      ],
+    },
+    {
+      id: "exp-ads",
+      role: "Developer",
+      company: "Augustinian Developers Society (ADS)",
+      location: "Iloilo City, Philippines",
+      period: "2026 – 2027",
+      logo: "/assets/images/ads_emblem.png",
+      description: [
+        "Founded in 2021 as a Google Developer Student Club, we have evolved into an independent, award-winning movement. The Augustinian Developer Society unites diverse minds to build real-world solutions, drive grassroots tech outreach, and create technology that truly matter."
+      ],
+    },
+    {
+      id: "exp-3",
+      role: "Graphic Designer",
+      company: "CAS (College of Arts & Sciences Organization)",
+      location: "Iloilo City, Philippines",
+      period: "2024 – Present",
+      logo: "/assets/images/usa_logo.png",
+      description: [
+        "Designed promotional graphic media, digital branding, and organizational layouts for student activities and departmental announcements."
       ],
     }
   ],
@@ -235,6 +287,7 @@ export const content: PortfolioContent = {
       institution: "University of San Agustin",
       location: "Iloilo, Philippines",
       period: "2024 - Present",
+      logo: "/assets/images/usa_logo.png",
       description: [
         "College - Third Year",
         "Graphic Designer — CAS (College of Arts & Sciences Organization)"
@@ -246,6 +299,7 @@ export const content: PortfolioContent = {
       institution: "University of San Agustin Main",
       location: "Iloilo, Philippines",
       period: "Sept 2023 - May 2024",
+      logo: "/assets/images/usa_logo.png",
       description: [
         "SHS Grade 11 - Grade 12"
       ],
@@ -256,6 +310,7 @@ export const content: PortfolioContent = {
       institution: "BED University of San Agustin",
       location: "Iloilo, Philippines",
       period: "Sept 2019 - May 2022",
+      logo: "/assets/images/usa_logo.png",
       description: [
         "Grade 8 - Grade 10"
       ],
@@ -334,5 +389,37 @@ export const content: PortfolioContent = {
       logo: "/assets/images/anthropic_logo.png",
       description: []
     }
-  ]
+  ],
+  affiliations: [
+    {
+      id: "cdg",
+      name: "Cascade Development Group (CDG)",
+      role: "Front-End Developer",
+      category: "IT solutions startup",
+      period: "2026 – Present",
+      location: "Iloilo City, Philippines",
+      logo: "/assets/images/cdg_emblem.png",
+      url: "https://cdg-official.vercel.app",
+    },
+    {
+      id: "itsa",
+      name: "ITSA",
+      role: "Member & Web Developer",
+      category: "IT School Organization, University of San Agustin",
+      period: "2024 – Present",
+      location: "Iloilo City, Philippines",
+      logo: "/assets/images/itsa_emblem.png",
+      url: "https://itsa-website-psi.vercel.app",
+    },
+    {
+      id: "ads",
+      name: "Augustinian Developer Society (ADS)",
+      role: "Developer",
+      category: "University-wide school organization, University of San Agustin",
+      period: "2024 – Present",
+      location: "Iloilo City, Philippines",
+      logo: "/assets/images/ads_emblem.png",
+      url: "/affiliations",
+    },
+  ],
 };

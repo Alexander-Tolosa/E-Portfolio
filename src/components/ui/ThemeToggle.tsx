@@ -47,8 +47,8 @@ export function ThemeToggle({ className = "", size = "md" }: ThemeToggleProps) {
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
             transition={{
-              duration: 0.22,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 0.35,
+              ease: [0.16, 1, 0.3, 1],
             }}
             className="text-amber-400 flex items-center justify-center relative z-10"
           >
@@ -61,8 +61,8 @@ export function ThemeToggle({ className = "", size = "md" }: ThemeToggleProps) {
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
             transition={{
-              duration: 0.22,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 0.35,
+              ease: [0.16, 1, 0.3, 1],
             }}
             className="text-indigo-600 dark:text-indigo-400 flex items-center justify-center relative z-10"
           >

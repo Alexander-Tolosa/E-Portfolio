@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/global/Navbar";
-import { Footer } from "@/components/global/Footer";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { MobileHeader } from "@/components/layout/MobileHeader";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SoundProvider } from "@/context/SoundContext";
 import { HoverSoundProvider } from "@/components/providers/HoverSoundProvider";
@@ -13,7 +13,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Alexander Tolosa | Front-End Developer Portfolio",
+  title: "Alexander Tolosa | Front-End Developer",
   description:
     "Explore Alexander Tolosa's developer portfolio showcasing premium full-stack web applications, robust backends, and responsive user experiences.",
   keywords: [
@@ -69,13 +69,13 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="bg-brand-dark text-foreground min-h-screen flex flex-col justify-between selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
+      <body className="bg-brand-dark text-foreground min-h-screen selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
         <ThemeProvider>
           <SoundProvider>
             <HoverSoundProvider>
-              <Navbar />
-              <main className="flex-grow">{children}</main>
-              <Footer />
+              <Sidebar />
+              <MobileHeader />
+              <main className="relative min-h-screen lg:pl-[260px]">{children}</main>
             </HoverSoundProvider>
           </SoundProvider>
         </ThemeProvider>

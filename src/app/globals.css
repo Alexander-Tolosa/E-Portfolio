@@ -153,32 +153,20 @@ html.light,
   --orb-bg-secondary: rgba(59, 130, 246, 0.03);
 }
 
-/* Smooth site-wide theme color transitions */
+/* Smooth site-wide theme color transitions for layout containers */
 body,
 header,
 footer,
 main,
 section,
 nav,
-div,
-p,
-h1, h2, h3, h4, h5, h6,
-span,
-a,
-button,
-input,
-textarea,
-svg,
-path,
-.glass,
-.glass-hover,
-.border-brand-border {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow, opacity;
-  transition-duration: 0.35s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+aside {
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Disable individual element transitions during View Transitions so clip-path snapshot is crisp */
+/* Disable individual element transitions during View Transitions so clip-path snapshot is crisp & instantaneous */
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
@@ -186,14 +174,17 @@ html.theme-transitioning *::after {
   transition: none !important;
 }
 
-/* Disable default view transition fade so custom clip-path takes over */
+/* View Transitions styling for ultra-smooth circular reveal */
+::view-transition-group(root) {
+  animation-duration: 0.55s;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-/* Force dark/light mode screenshot layer to appear on top during expansion */
 ::view-transition-new(root) {
   z-index: 9999;
 }

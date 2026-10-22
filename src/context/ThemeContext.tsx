@@ -1,94 +1,135 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 
-type Theme = "dark" | "light";
+export type Theme = "dark" | "light";
+export type ThemeMode = "system" | "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
-  toggleTheme: (e?: React.MouseEvent) => void;
+  themeMode: ThemeMode;
+  setTheme: (theme: Theme, e?: React.MouseEvent<any> | MouseEvent) => void;
+  setThemeMode: (mode: ThemeMode, e?: React.MouseEvent<any> | MouseEvent) => void;
+  toggleTheme: (e?: React.MouseEvent<any> | MouseEvent) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
+  const [themeMode, setThemeModeState] = useState<ThemeMode>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check initial theme from localStorage or system preference or default to dark
+    const storedMode = localStorage.getItem("theme-mode") as ThemeMode | null;
     const storedTheme = localStorage.getItem("theme") as Theme | null;
-    let initialTheme: Theme = "dark";
 
-    if (storedTheme === "light" || storedTheme === "dark") {
-      initialTheme = storedTheme;
-    } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      initialTheme = "light";
+    let initialMode: ThemeMode = "dark";
+    if (storedMode === "system" || storedMode === "light" || storedMode === "dark") {
+      initialMode = storedMode;
+    } else if (storedTheme === "light" || storedTheme === "dark") {
+      initialMode = storedTheme;
     }
 
-    setThemeState(initialTheme);
+    setThemeModeState(initialMode);
+
+    let activeTheme: Theme = "dark";
+    if (initialMode === "system") {
+      activeTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    } else {
+      activeTheme = initialMode;
+    }
+
+    setThemeState(activeTheme);
     document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(initialTheme);
+    document.documentElement.classList.add(activeTheme);
     setMounted(true);
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      const currentMode = localStorage.getItem("theme-mode");
+      if (currentMode === "system") {
+        const sysTheme: Theme = e.matches ? "light" : "dark";
+        setThemeState(sysTheme);
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(sysTheme);
+      }
+    };
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  const applyTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(newTheme);
-  };
+  const applyThemeTransition = (
+    nextTheme: Theme,
+    nextMode: ThemeMode,
+    e?: React.MouseEvent<any> | MouseEvent
+  ) => {
+    const updateDOM = () => {
+      setThemeModeState(nextMode);
+      localStorage.setItem("theme-mode", nextMode);
 
-  const setTheme = (newTheme: Theme) => {
-    applyTheme(newTheme);
-  };
+      if (nextMode === "system") {
+        localStorage.removeItem("theme");
+      } else {
+        localStorage.setItem("theme", nextMode);
+      }
 
-  const toggleTheme = (e?: React.MouseEvent) => {
-    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+      setThemeState(nextTheme);
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(nextTheme);
+    };
 
-    // 1. Fallback for browsers without View Transitions API or users with reduced motion
+    // If the active rendered theme is already what's requested, update preference without screen wave
+    if (nextTheme === theme && mounted) {
+      updateDOM();
+      return;
+    }
+
+    // Fallback for browsers without View Transitions API or users with reduced motion
     if (
       typeof document === "undefined" ||
       !document.startViewTransition ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
-      applyTheme(nextTheme);
+      updateDOM();
       return;
     }
 
-    // 2. Get click/tap coordinates without layout thrashing
+    // Prioritize center of clicked button element for radial ripple origin
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
 
-    if (e && typeof e.clientX === "number" && typeof e.clientY === "number" && (e.clientX !== 0 || e.clientY !== 0)) {
-      x = e.clientX;
-      y = e.clientY;
-    } else if (e && e.currentTarget) {
+    if (e && "currentTarget" in e && e.currentTarget) {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       x = rect.left + rect.width / 2;
       y = rect.top + rect.height / 2;
+    } else if (e && typeof e.clientX === "number" && typeof e.clientY === "number" && (e.clientX !== 0 || e.clientY !== 0)) {
+      x = e.clientX;
+      y = e.clientY;
     }
 
-    // 3. Calculate distance to furthest corner
+    // Calculate distance to furthest screen corner
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
     );
 
-    // 4. Suppress CSS element transitions temporarily for 60fps performance
+    // Suppress CSS element transitions so the view transition snapshot is sharp and instantaneous
     document.documentElement.classList.add("theme-transitioning");
 
-    // 5. Start View Transition without blocking React main thread
+    // Force React to synchronously commit DOM changes before the new snapshot is captured
     const transition = document.startViewTransition(() => {
-      applyTheme(nextTheme);
+      flushSync(() => {
+        updateDOM();
+      });
     });
 
     const cleanup = () => {
       document.documentElement.classList.remove("theme-transitioning");
     };
 
-    // 6. Animate circular clip-path on new layer once ready
+    // Silky-smooth radial circular reveal with fluid deceleration
     transition.ready
       .then(() => {
         const isMobile = window.innerWidth <= 768;
@@ -100,8 +141,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             ],
           },
           {
-            duration: isMobile ? 320 : 400,
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            duration: isMobile ? 420 : 520,
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
             pseudoElement: "::view-transition-new(root)",
           }
         );
@@ -113,8 +154,27 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     transition.finished.then(cleanup).catch(cleanup);
   };
 
+  const setThemeMode = (mode: ThemeMode, e?: React.MouseEvent<any> | MouseEvent) => {
+    let resolvedTheme: Theme = "dark";
+    if (mode === "system") {
+      resolvedTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    } else {
+      resolvedTheme = mode;
+    }
+    applyThemeTransition(resolvedTheme, mode, e);
+  };
+
+  const setTheme = (newTheme: Theme, e?: React.MouseEvent<any> | MouseEvent) => {
+    setThemeMode(newTheme, e);
+  };
+
+  const toggleTheme = (e?: React.MouseEvent<any> | MouseEvent) => {
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+    applyThemeTransition(nextTheme, nextTheme, e);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme: mounted ? theme : "dark", setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: mounted ? theme : "dark", themeMode: mounted ? themeMode : "dark", setTheme, setThemeMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
