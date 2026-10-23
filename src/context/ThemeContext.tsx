@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 
 export type Theme = "dark" | "light";
@@ -9,80 +9,97 @@ export type ThemeMode = "system" | "light" | "dark";
 interface ThemeContextType {
   theme: Theme;
   themeMode: ThemeMode;
-  setTheme: (theme: Theme, e?: React.MouseEvent<any> | MouseEvent) => void;
-  setThemeMode: (mode: ThemeMode, e?: React.MouseEvent<any> | MouseEvent) => void;
-  toggleTheme: (e?: React.MouseEvent<any> | MouseEvent) => void;
+  setTheme: (theme: Theme, e?: React.MouseEvent<HTMLElement> | MouseEvent) => void;
+  setThemeMode: (mode: ThemeMode, e?: React.MouseEvent<HTMLElement> | MouseEvent) => void;
+  toggleTheme: (e?: React.MouseEvent<HTMLElement> | MouseEvent) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function subscribeTheme(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("theme-change", callback);
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
+  mediaQuery.addEventListener("change", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("theme-change", callback);
+    mediaQuery.removeEventListener("change", callback);
+  };
+}
+
+function getThemeModeSnapshot(): ThemeMode {
+  if (typeof window === "undefined") return "dark";
+  const storedMode = localStorage.getItem("theme-mode") as ThemeMode | null;
+  const storedTheme = localStorage.getItem("theme") as Theme | null;
+
+  if (storedMode === "system" || storedMode === "light" || storedMode === "dark") {
+    return storedMode;
+  }
+  if (storedTheme === "light" || storedTheme === "dark") {
+    return storedTheme;
+  }
+  return "dark";
+}
+
+function getThemeSnapshot(): Theme {
+  if (typeof window === "undefined") return "dark";
+  const mode = getThemeModeSnapshot();
+  if (mode === "system") {
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  }
+  return mode;
+}
+
+function getServerThemeSnapshot(): Theme {
+  return "dark";
+}
+
+function getServerThemeModeSnapshot(): ThemeMode {
+  return "dark";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
-  const [themeMode, setThemeModeState] = useState<ThemeMode>("dark");
-  const [mounted, setMounted] = useState(false);
+  const themeMode = useSyncExternalStore(
+    subscribeTheme,
+    getThemeModeSnapshot,
+    getServerThemeModeSnapshot
+  );
+
+  const theme = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot
+  );
 
   useEffect(() => {
-    const storedMode = localStorage.getItem("theme-mode") as ThemeMode | null;
-    const storedTheme = localStorage.getItem("theme") as Theme | null;
-
-    let initialMode: ThemeMode = "dark";
-    if (storedMode === "system" || storedMode === "light" || storedMode === "dark") {
-      initialMode = storedMode;
-    } else if (storedTheme === "light" || storedTheme === "dark") {
-      initialMode = storedTheme;
-    }
-
-    setThemeModeState(initialMode);
-
-    let activeTheme: Theme = "dark";
-    if (initialMode === "system") {
-      activeTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-    } else {
-      activeTheme = initialMode;
-    }
-
-    setThemeState(activeTheme);
+    const active = getThemeSnapshot();
     document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(activeTheme);
-    setMounted(true);
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
-    const handleChange = (e: MediaQueryListEvent) => {
-      const currentMode = localStorage.getItem("theme-mode");
-      if (currentMode === "system") {
-        const sysTheme: Theme = e.matches ? "light" : "dark";
-        setThemeState(sysTheme);
-        document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(sysTheme);
-      }
-    };
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    document.documentElement.classList.add(active);
   }, []);
+
+  const updateDOM = (nextTheme: Theme, nextMode: ThemeMode) => {
+    localStorage.setItem("theme-mode", nextMode);
+
+    if (nextMode === "system") {
+      localStorage.removeItem("theme");
+    } else {
+      localStorage.setItem("theme", nextMode);
+    }
+
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(nextTheme);
+    window.dispatchEvent(new Event("theme-change"));
+  };
 
   const applyThemeTransition = (
     nextTheme: Theme,
     nextMode: ThemeMode,
-    e?: React.MouseEvent<any> | MouseEvent
+    e?: React.MouseEvent<HTMLElement> | MouseEvent
   ) => {
-    const updateDOM = () => {
-      setThemeModeState(nextMode);
-      localStorage.setItem("theme-mode", nextMode);
-
-      if (nextMode === "system") {
-        localStorage.removeItem("theme");
-      } else {
-        localStorage.setItem("theme", nextMode);
-      }
-
-      setThemeState(nextTheme);
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(nextTheme);
-    };
-
     // If the active rendered theme is already what's requested, update preference without screen wave
-    if (nextTheme === theme && mounted) {
-      updateDOM();
+    if (nextTheme === theme) {
+      updateDOM(nextTheme, nextMode);
       return;
     }
 
@@ -92,7 +109,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       !document.startViewTransition ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
-      updateDOM();
+      updateDOM(nextTheme, nextMode);
       return;
     }
 
@@ -121,7 +138,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Force React to synchronously commit DOM changes before the new snapshot is captured
     const transition = document.startViewTransition(() => {
       flushSync(() => {
-        updateDOM();
+        updateDOM(nextTheme, nextMode);
       });
     });
 
@@ -154,7 +171,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     transition.finished.then(cleanup).catch(cleanup);
   };
 
-  const setThemeMode = (mode: ThemeMode, e?: React.MouseEvent<any> | MouseEvent) => {
+  const setThemeMode = (mode: ThemeMode, e?: React.MouseEvent<HTMLElement> | MouseEvent) => {
     let resolvedTheme: Theme = "dark";
     if (mode === "system") {
       resolvedTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
@@ -164,17 +181,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyThemeTransition(resolvedTheme, mode, e);
   };
 
-  const setTheme = (newTheme: Theme, e?: React.MouseEvent<any> | MouseEvent) => {
+  const setTheme = (newTheme: Theme, e?: React.MouseEvent<HTMLElement> | MouseEvent) => {
     setThemeMode(newTheme, e);
   };
 
-  const toggleTheme = (e?: React.MouseEvent<any> | MouseEvent) => {
+  const toggleTheme = (e?: React.MouseEvent<HTMLElement> | MouseEvent) => {
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
     applyThemeTransition(nextTheme, nextTheme, e);
   };
 
   return (
-    <ThemeContext.Provider value={{ theme: mounted ? theme : "dark", themeMode: mounted ? themeMode : "dark", setTheme, setThemeMode, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, themeMode, setTheme, setThemeMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

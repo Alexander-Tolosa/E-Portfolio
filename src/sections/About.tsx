@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
-import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Maximize2, X, Check, LayoutGrid, ChevronRight } from "lucide-react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { Briefcase, MapPin, Calendar, CheckCircle, GraduationCap, Award, ExternalLink, ArrowRight, Check, LayoutGrid, ChevronRight } from "lucide-react";
 import { content } from "@/data/content";
 import { Card } from "@/components/ui/Card";
-import { DirectionalTilt } from "@/components/ui/DirectionalTilt";
 import { CertificatesModal } from "@/components/ui/CertificatesModal";
 import { TechBadge } from "@/components/ui/TechBadge";
 import { SkillsModal } from "@/components/ui/SkillsModal";
@@ -13,7 +12,6 @@ import { SkillsModal } from "@/components/ui/SkillsModal";
 function TimelineCard({
   item,
   type,
-  index,
 }: {
   item: {
     id: string;
@@ -26,7 +24,6 @@ function TimelineCard({
     description: string[];
   };
   type: "experience" | "education";
-  index: number;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -172,8 +169,6 @@ function TimelineCard({
 }
 
 export function About() {
-  const visibleCategories = content.skills.filter((cat) => cat.skills.length > 0);
-  const [activeTab, setActiveTab] = useState(0);
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
   const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
 
@@ -182,14 +177,6 @@ export function About() {
     target: timelineRef,
     offset: ["start 60%", "end 60%"],
   });
-
-  const getShortName = (name: string) => {
-    if (name === "Devops & Cloud") return "DevOps";
-    if (name === "AI & Machine Learning") return "AI / ML";
-    if (name === "CMS & No-Code") return "CMS";
-    if (name === "Developer Tools") return "Tools";
-    return name;
-  };
 
   const timelineItems = [
     { ...content.experiences[0], type: "experience" as const },
@@ -329,8 +316,8 @@ export function About() {
 
 
               {/* Render Interleaved Timeline Cards */}
-              {timelineItems.map((item, idx) => (
-                <TimelineCard key={item.id} item={item} type={item.type} index={idx} />
+              {timelineItems.map((item) => (
+                <TimelineCard key={item.id} item={item} type={item.type} />
               ))}
             </div>
           </div>

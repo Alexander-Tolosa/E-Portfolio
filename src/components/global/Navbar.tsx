@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,7 +16,6 @@ export function Navbar() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -23,15 +23,6 @@ export function Navbar() {
 
   const sectionIds = ["hero", "about", "skills", "experience", "projects", "contact"];
   const activeSection = useScrollSpy(sectionIds, 130);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Close mobile island when clicking outside
   useEffect(() => {
@@ -124,9 +115,11 @@ export function Navbar() {
             <div className={`relative w-9 h-9 rounded-full overflow-hidden border shadow-xs flex-shrink-0 group-hover:scale-105 transition-transform duration-200 ${
               isDark ? "border-white/25 bg-neutral-900" : "border-neutral-200/80 bg-neutral-100"
             }`}>
-              <img
+              <Image
                 src="/icon.png"
                 alt={content.personalInfo.name}
+                width={36}
+                height={36}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -199,7 +192,7 @@ export function Navbar() {
             </div>
 
             {/* CTA Button "Book a Call" */}
-            <a
+            <Link
               href="/#contact"
               onClick={handleCtaClick}
               style={{ backgroundColor: "#5b52f9" }}
@@ -209,7 +202,7 @@ export function Navbar() {
                 Book a Call
                 <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </span>
-            </a>
+            </Link>
 
             {/* Mobile Actions */}
             <div className="flex items-center gap-1.5 lg:hidden">
@@ -300,7 +293,7 @@ export function Navbar() {
                     <span className={`text-xs font-medium ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>Sound Effects</span>
                   </div>
 
-                  <a
+                  <Link
                     href="/#contact"
                     onClick={handleCtaClick}
                     style={{ backgroundColor: "#5b52f9" }}
@@ -308,7 +301,7 @@ export function Navbar() {
                   >
                     <span>Book a Call</span>
                     <ArrowUpRight size={14} />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>

@@ -128,12 +128,13 @@ export async function POST(request: Request) {
       message: "Subscribed successfully! Welcome email sent.",
       email: trimmedEmail,
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Newsletter API error:", err);
+    const message = err instanceof Error ? err.message : "An unexpected error occurred. Please try again.";
     return NextResponse.json(
       {
         success: false,
-        message: err?.message || "An unexpected error occurred. Please try again.",
+        message,
       },
       { status: 500 }
     );

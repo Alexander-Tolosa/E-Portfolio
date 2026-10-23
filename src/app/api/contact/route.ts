@@ -104,10 +104,11 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true, data });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Contact API route error:", err);
+    const message = err instanceof Error ? err.message : "An internal error occurred while processing your request.";
     return NextResponse.json(
-      { success: false, message: err?.message || "An internal error occurred while processing your request." },
+      { success: false, message },
       { status: 500 }
     );
   }

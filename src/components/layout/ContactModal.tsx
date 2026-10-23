@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { X, Mail, Send, Check, Copy } from "lucide-react";
-import { content } from "@/data/content";
 
 interface ContactModalProps {
   isOpen: boolean;

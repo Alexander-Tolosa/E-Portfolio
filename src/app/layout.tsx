@@ -61,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} scroll-smooth dark`} suppressHydrationWarning>
+    <html lang="en" className={`${outfit.variable} scroll-smooth dark`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
@@ -69,7 +69,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="bg-brand-dark text-foreground min-h-screen selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300">
+      <body className="bg-brand-dark text-foreground min-h-screen selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider>
           <SoundProvider>
             <HoverSoundProvider>

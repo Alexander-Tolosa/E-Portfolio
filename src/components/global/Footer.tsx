@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { content } from "@/data/content";
 import { X, Shield, FileText, Check } from "lucide-react";
@@ -167,9 +168,11 @@ export function Footer() {
                   className="inline-flex items-center gap-3 group mb-5 cursor-pointer select-none"
                 >
                   <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/20 bg-neutral-900 shadow-md group-hover:scale-105 transition-transform duration-200">
-                    <img
+                    <Image
                       src={content.personalInfo.avatarUrl || "/icon.png"}
                       alt={content.personalInfo.name}
+                      width={40}
+                      height={40}
                       className="w-full h-full object-cover"
                     />
                   </div>
