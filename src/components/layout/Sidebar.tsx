@@ -21,7 +21,7 @@ import { useSound } from "@/context/SoundContext";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { ContactModal } from "./ContactModal";
 
-type NavItem = {
+export type NavItem = {
   label: string;
   href: string;
   count?: string;
@@ -30,7 +30,7 @@ type NavItem = {
 
 type NavGroup = { title: string; items: NavItem[] };
 
-const groups: NavGroup[] = [
+export const groups: NavGroup[] = [
   {
     title: "Explore",
     items: [
@@ -53,16 +53,16 @@ const groups: NavGroup[] = [
   },
 ];
 
-const themeOptions = [
+export const themeOptions = [
   { mode: "system", label: "System theme", Icon: Monitor },
   { mode: "light", label: "Light theme", Icon: Sun },
   { mode: "dark", label: "Dark theme", Icon: Moon },
 ] as const;
 
 // Page order of the sections the sidebar links to.
-const spyIds = ["experience", "projects", "stack", "certifications"];
+export const spyIds = ["experience", "projects", "stack", "certifications"];
 
-function useManilaClock() {
+export function useManilaClock() {
   const [time, setTime] = useState("");
   useEffect(() => {
     const fmt = new Intl.DateTimeFormat("en-US", {
