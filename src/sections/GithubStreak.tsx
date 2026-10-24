@@ -5,13 +5,21 @@ import { ExternalLink, Flame, Award } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
 
+interface GithubDay {
+  date: string;
+  level: number;
+  count: number;
+}
+
 interface GithubData {
   username: string;
   totalContributions: number;
   currentStreak: number;
   maxStreak: number;
-  days: { date: string; level: number; count: number }[];
+  days: GithubDay[];
 }
+
+const MOBILE_WEEKS = 22;
 
 export function GithubStreak() {
   const { theme } = useTheme();
@@ -20,6 +28,7 @@ export function GithubStreak() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState<GithubDay | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -112,6 +121,29 @@ export function GithubStreak() {
     return { weeks: weeksArr, monthLabels: monthLabelsArr };
   }, [data]);
 
+  // Mobile: fit the most recent weeks to the card width (no horizontal scroll)
+  const { mobileWeeks, mobileMonths } = useMemo(() => {
+    const slice = weeks.slice(-MOBILE_WEEKS);
+    const months: { name: string; colIndex: number }[] = [];
+    let lastMonth = -1;
+    slice.forEach((week, colIdx) => {
+      const day = week.find((d) => d !== null);
+      if (!day) return;
+      const [y, m] = day.date.split("-").map((n) => parseInt(n, 10));
+      if (m - 1 !== lastMonth) {
+        lastMonth = m - 1;
+        const last = months[months.length - 1];
+        if (!last || colIdx - last.colIndex >= 3) {
+          months.push({
+            name: new Date(y, m - 1, 1).toLocaleString("en-US", { month: "short" }),
+            colIndex: colIdx,
+          });
+        }
+      }
+    });
+    return { mobileWeeks: slice, mobileMonths: months };
+  }, [weeks]);
+
   // Tile styles (Square shape with subtle rounded corners & glowing green intensity)
   const getSquareStyles = (level: number) => {
     if (isLight) {
@@ -180,7 +212,7 @@ export function GithubStreak() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className={`p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 relative overflow-hidden font-mono ${
+          className={`p-4 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 relative overflow-hidden font-mono ${
             isLight
               ? "bg-white border-slate-200/90 shadow-xl shadow-slate-200/50"
               : "bg-[#0d1117] border-[#30363d] shadow-2xl shadow-black/60"
@@ -217,10 +249,100 @@ export function GithubStreak() {
             </a>
           </div>
 
-          {/* Main Contribution Graph Area */}
+          {/* Mobile: stat tiles + fit-to-width heatmap with tap readout */}
+          <div className="sm:hidden relative z-10 mb-4">
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              {[
+                { label: "Last year", value: data.totalContributions.toLocaleString(), icon: null },
+                { label: "Streak", value: `${data.currentStreak}d`, icon: <Flame size={12} className="text-orange-500 fill-orange-500/20" /> },
+                { label: "Longest", value: `${data.maxStreak}d`, icon: <Award size={12} className="text-amber-500 fill-amber-500/20" /> },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className={`rounded-xl border px-3 py-2.5 ${
+                    isLight ? "border-slate-200 bg-slate-50" : "border-[#30363d] bg-[#161b22]"
+                  }`}
+                >
+                  <div className={`flex items-center gap-1 text-[10px] uppercase tracking-wider ${isLight ? "text-slate-500" : "text-[#8b949e]"}`}>
+                    {stat.icon}
+                    {stat.label}
+                  </div>
+                  <div className={`mt-0.5 text-lg font-bold leading-tight ${isLight ? "text-slate-900" : "text-white"}`}>
+                    {stat.value}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Month labels */}
+            <div className={`relative h-4 mb-1 text-[10px] ${isLight ? "text-slate-500" : "text-[#8b949e]"}`}>
+              {mobileMonths.map((m) => (
+                <span
+                  key={`${m.name}-${m.colIndex}`}
+                  className="absolute"
+                  style={{ left: `${(m.colIndex / mobileWeeks.length) * 100}%` }}
+                >
+                  {m.name}
+                </span>
+              ))}
+            </div>
+
+            <div
+              className="grid grid-flow-col grid-rows-7 gap-[3px]"
+              style={{ gridTemplateColumns: `repeat(${mobileWeeks.length}, minmax(0, 1fr))` }}
+            >
+              {mobileWeeks.map((week, wIdx) =>
+                week.map((day, dIdx) =>
+                  day ? (
+                    <button
+                      key={day.date}
+                      type="button"
+                      aria-label={`${day.count} contributions on ${day.date}`}
+                      onClick={() => setSelected(selected?.date === day.date ? null : day)}
+                      className={`aspect-square w-full touch-manipulation ${getSquareStyles(day.level)} ${
+                        selected?.date === day.date
+                          ? isLight
+                            ? "ring-2 ring-slate-900 ring-offset-1 ring-offset-white"
+                            : "ring-2 ring-white ring-offset-1 ring-offset-[#0d1117]"
+                          : ""
+                      }`}
+                    />
+                  ) : (
+                    <div key={`m-empty-${wIdx}-${dIdx}`} className="aspect-square w-full" />
+                  )
+                )
+              )}
+            </div>
+
+            {/* Tap readout (replaces hover tooltip) */}
+            <div
+              aria-live="polite"
+              className={`mt-3 min-h-[2.25rem] rounded-lg border px-3 py-2 text-xs ${
+                isLight ? "border-slate-200 text-slate-700" : "border-[#30363d] text-[#c9d1d9]"
+              }`}
+            >
+              {selected ? (
+                <>
+                  <span className="font-bold text-[#39d353]">{selected.count}</span>{" "}
+                  {selected.count === 1 ? "contribution" : "contributions"} on{" "}
+                  {new Date(selected.date + "T00:00:00").toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </>
+              ) : (
+                <span className={isLight ? "text-slate-500" : "text-[#8b949e]"}>
+                  Tap a day to see its activity
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop: Main Contribution Graph Area */}
           <div
             ref={scrollRef}
-            className="w-full overflow-x-auto py-2 mb-6 no-scrollbar scroll-smooth relative z-10"
+            className="hidden sm:block w-full overflow-x-auto py-2 mb-6 no-scrollbar scroll-smooth relative z-10"
           >
             <div className="inline-block min-w-[780px] select-none">
               {/* Horizontal Axis: Month Labels */}
@@ -318,7 +440,7 @@ export function GithubStreak() {
 
           {/* Integrated Stats Line */}
           <div
-            className={`pt-4 pb-4 border-t font-mono text-xs tracking-wider flex flex-wrap items-center justify-between gap-y-2 relative z-10 ${
+            className={`hidden sm:flex pt-4 pb-4 border-t font-mono text-xs tracking-wider flex-wrap items-center justify-between gap-y-2 relative z-10 ${
               isLight
                 ? "border-slate-200 text-slate-700"
                 : "border-[#30363d] text-[#c9d1d9]"
