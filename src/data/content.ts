@@ -65,6 +65,25 @@ export interface Affiliation {
   location?: string;
 }
 
+export interface Hackathon {
+  id: string;
+  event: string;
+  dates: string;
+  year: string;
+  location?: string;
+  team: string;
+  result: string;
+  note?: string;
+  project: {
+    name: string;
+    summary: string;
+    highlights: string[];
+    features: string[];
+    repo?: string;
+  };
+  photos: { src: string; alt: string; caption: string; width: number; height: number }[];
+}
+
 export interface PortfolioContent {
   personalInfo: {
     name: string;
@@ -89,6 +108,7 @@ export interface PortfolioContent {
   education: Education[];
   certifications: Certification[];
   affiliations: Affiliation[];
+  hackathons: Hackathon[];
 }
 
 export const content: PortfolioContent = {
@@ -318,6 +338,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-9",
+      title: "Certificate of Completion: Claude Code 101",
+      issuer: "Anthropic",
+      date: "Oct 2026",
+      credentialUrl: "https://verify.skilljar.com/c/pf2mhxq23egn",
+      logo: "/assets/images/anthropic_logo.png",
+      description: []
+    },
+    {
       id: "cert-8",
       title: "Getting Started with Cisco Packet Tracer",
       issuer: "Cisco Networking Academy",
@@ -420,6 +449,53 @@ export const content: PortfolioContent = {
       location: "Iloilo City, Philippines",
       logo: "/assets/images/ads_emblem.png",
       url: "/affiliations",
+    },
+  ],
+  hackathons: [
+    {
+      id: "hackiloilo-2026",
+      event: "HackIloilo 2026",
+      dates: "Oct 14–16",
+      year: "2026",
+      location: "Iloilo City, Philippines",
+      team: "KasCoders",
+      result: "Top 8 Finalist",
+      note: "First hackathon",
+      project: {
+        name: "Gilayon",
+        summary:
+          "A clinic system that keeps one patient record from check-in to prescription, even offline.",
+        highlights: ["Verified check-in", "Priority queue", "E-signed prescriptions", "Offline mode"],
+        features: [
+          "Verified check-in",
+          "Priority queue",
+          "Patient registry",
+          "Append-only consultations",
+          "E-signed prescriptions & medical certificates",
+          "Void and reissue",
+          "Daily report",
+          "Audit trail",
+          "Old paper folder scans (local OCR, checked by a person before saving)",
+          "Offline mode",
+        ],
+        repo: "https://github.com/Alexander-Tolosa/Gilayon",
+      },
+      photos: [
+        {
+          src: "/assets/hackathons/hackiloilo-2026-team.png",
+          alt: "Team KasCoders holding their finalist certificate with organizers at HackIloilo 2026",
+          caption: "Team KasCoders with the finalist certificate",
+          width: 2048,
+          height: 1540,
+        },
+        {
+          src: "/assets/hackathons/gilayon-pitch.png",
+          alt: "The Gilayon pitch deck open on a laptop in the hackathon venue at night",
+          caption: "Final pitch deck, 4:58 AM",
+          width: 1152,
+          height: 2048,
+        },
+      ],
     },
   ],
 };

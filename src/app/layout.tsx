@@ -40,17 +40,15 @@ export const metadata: Metadata = {
 const themeScript = `
   (function() {
     try {
-      var storedTheme = localStorage.getItem('theme');
-      var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (storedTheme === 'dark' || (!storedTheme && supportDarkMode)) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-      } else if (storedTheme === 'light') {
-        document.documentElement.classList.add('light');
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
+      var mode = localStorage.getItem('theme-mode') || localStorage.getItem('theme');
+      var active = 'dark';
+      if (mode === 'light') {
+        active = 'light';
+      } else if (mode === 'system') {
+        active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       }
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(active);
     } catch (e) {}
   })();
 `;

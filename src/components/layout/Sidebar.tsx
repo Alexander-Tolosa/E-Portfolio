@@ -35,6 +35,7 @@ export const groups: NavGroup[] = [
     title: "Explore",
     items: [
       { label: "Affiliations", href: "/affiliations", count: "03" },
+      { label: "Hackathons", href: "/hackathons", count: "01" },
       { label: "Links", href: "/#contact", count: "05" },
     ],
   },
@@ -48,7 +49,7 @@ export const groups: NavGroup[] = [
       { label: "More about me", href: "#", locked: true },
       { label: "Projects", href: "/#projects", count: "02" },
       { label: "Stack", href: "/#stack", count: "20" },
-      { label: "Certifications", href: "/#certifications", count: "08" },
+      { label: "Certifications", href: "/#certifications", count: "09" },
     ],
   },
 ];
