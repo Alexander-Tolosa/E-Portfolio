@@ -1,14 +1,25 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const name = String(body.name ?? "").trim();
+    const email = String(body.email ?? "").trim();
+    const subject = String(body.subject ?? "").trim() || "New message from your portfolio";
+    const message = String(body.message ?? "").trim();
 
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { success: false, message: "All fields (name, email, subject, message) are required." },
+        { success: false, message: "Name, email and message are required." },
         { status: 400 }
       );
     }
@@ -24,6 +35,11 @@ export async function POST(request: Request) {
       );
     }
 
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeSubject = escapeHtml(subject);
+    const safeMessage = escapeHtml(message);
+
     const resend = new Resend(apiKey);
     const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "alexandertolosa45@gmail.com";
 
@@ -31,7 +47,7 @@ export async function POST(request: Request) {
       from: "Portfolio Contact Form <onboarding@resend.dev>",
       to: [recipientEmail],
       replyTo: email,
-      subject: `[Portfolio Contact] ${subject}`,
+      subject: `[Portfolio Contact] ${subject.replace(/[\r\n]+/g, " ")}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -64,17 +80,17 @@ export async function POST(request: Request) {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                   <div class="field-group">
                     <div class="label">Sender Name</div>
-                    <div class="value">${name}</div>
+                    <div class="value">${safeName}</div>
                   </div>
                   <div class="field-group">
                     <div class="label">Email Address</div>
-                    <div class="value"><a href="mailto:${email}">${email}</a></div>
+                    <div class="value"><a href="mailto:${safeEmail}">${safeEmail}</a></div>
                   </div>
                 </div>
 
                 <div class="field-group" style="margin-top: 8px;">
                   <div class="label">Subject</div>
-                  <div class="value">${subject}</div>
+                  <div class="value">${safeSubject}</div>
                 </div>
 
                 <div class="divider"></div>
@@ -82,12 +98,12 @@ export async function POST(request: Request) {
                 <div class="field-group">
                   <div class="label">Message</div>
                   <div class="message-box">
-                    <p class="message-text">${message}</p>
+                    <p class="message-text">${safeMessage}</p>
                   </div>
                 </div>
               </div>
               <div class="footer">
-                Tip: You can hit <strong>Reply</strong> directly in your email client to respond to ${name} (${email}).
+                Tip: You can hit <strong>Reply</strong> directly in your email client to respond to ${safeName} (${safeEmail}).
               </div>
             </div>
           </body>
