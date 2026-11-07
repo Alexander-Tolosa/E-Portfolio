@@ -208,7 +208,7 @@ export const content: PortfolioContent = {
       client: "University of San Agustin, Pharmacy Department",
       techStack: ["Next.js", "Supabase", "TypeScript", "Zod", "Vitest", "Nodemailer", "Redis", "Tailwind CSS", "IndexedDB"],
       challenges: "Ensuring scanning facilitators can record student check-ins at venues with poor network connectivity without losing original scan timestamps or producing double check-in states.",
-      solutions: "I built the facilitator dashboard. Facilitators use it to create events and set the time windows that decide whether a student counts as present, follow scan metrics as check-ins come in, and export attendance as Excel or PDF reports. I also designed the UI/UX for the whole system, from the student check-in flow to the scanner and the dashboard, and made each screen responsive so it works on both phones and desktops. For venues with poor connectivity, scans are queued in IndexedDB and synced on reconnect, so the original check-in timestamps are kept.",
+      solutions: "I built the facilitator dashboard. Facilitators use it to create events and set the time windows that decide whether a student counts as present, follow scan metrics as check-ins come in, and export attendance as Excel or PDF reports. I also designed the UI/UX for the whole system, from the student check-in flow to the scanner and the dashboard, and made each screen responsive so it works on both phones and desktops.",
       results: "Eliminated manual roll-call overhead, automated email alerts for absence, and generated accurate Excel/PDF reports, successfully serving the department's student body.",
       image: "/assets/images/pharmatrack_dashboard.jpg",
       images: [
