@@ -338,6 +338,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-10",
+      title: "Certificate of Completion: Introduction to Claude Cowork",
+      issuer: "Anthropic",
+      date: "Nov 2026",
+      credentialUrl: "https://verify.skilljar.com/c/u6787o2r2kui",
+      logo: "/assets/images/anthropic_logo.png",
+      description: []
+    },
+    {
       id: "cert-9",
       title: "Certificate of Completion: Claude Code 101",
       issuer: "Anthropic",
