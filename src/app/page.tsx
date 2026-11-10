@@ -155,7 +155,7 @@ export default function Home() {
         <span className="text-[14px] text-brand-text-muted">Current focus</span>
         <span className="flex h-8 items-center gap-2 rounded-full border border-brand-border bg-brand-card px-3.5 text-[14px] font-medium text-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Front-End Engineering
+          Full-Stack Engineering
         </span>
         <span className="flex h-8 items-center gap-2 rounded-full border border-brand-border bg-brand-card px-3.5 text-[14px] font-medium text-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
