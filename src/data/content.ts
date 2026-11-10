@@ -338,6 +338,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-11",
+      title: "Backlog Management + Agile Product Backlog + Backlog Refinement",
+      issuer: "Udemy",
+      date: "Nov 2026",
+      credentialUrl: "https://udemy-certificate.s3.amazonaws.com/image/UC-f0d9a1a1-f371-4a5f-a0b4-10aa31577dff.jpg",
+      logo: "/assets/images/udemy_logo.png",
+      description: []
+    },
+    {
       id: "cert-10",
       title: "Certificate of Completion: Introduction to Claude Cowork",
       issuer: "Anthropic",
@@ -508,3 +517,10 @@ export const content: PortfolioContent = {
     },
   ],
 };
+
+// Newest certification first. Dates are "Mon YYYY"; ties keep the order written above.
+const certTime = (date: string) => {
+  const t = Date.parse(`1 ${date}`);
+  return Number.isNaN(t) ? 0 : t;
+};
+content.certifications.sort((a, b) => certTime(b.date) - certTime(a.date));
