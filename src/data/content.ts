@@ -71,14 +71,19 @@ export interface Hackathon {
   dates: string;
   year: string;
   location?: string;
-  team: string;
-  result: string;
+  organizer?: string;
+  format?: string;
+  team?: string;
+  result?: string;
   note?: string;
   project: {
     name: string;
-    summary: string;
-    highlights: string[];
-    features: string[];
+    summary?: string;
+    problem?: string;
+    solution?: string;
+    stack?: string[];
+    highlights?: string[];
+    features?: string[];
     repo?: string;
   };
   photos: { src: string; alt: string; caption: string; width: number; height: number }[];
@@ -471,6 +476,48 @@ export const content: PortfolioContent = {
   ],
   hackathons: [
     {
+      id: "meta-global-ai-2026",
+      event: "Meta Global AI Developer Hackathon",
+      dates: "Oct 27 – Nov 5",
+      year: "2026",
+      organizer: "Meta & Cerebral Valley",
+      format: "Global online",
+      project: {
+        name: "Basa (Meta Model Integrations)",
+        summary:
+          "A mobile web app that turns a photographed paper chart into a digital record. Two independent Meta models read it, and a person confirms every value they disagree on.",
+        problem:
+          "Many clinics still keep charts on paper, and typing them in is slow. Plain OCR can misread a smudged 7.2 as 1.2 without any sign it is unsure. In a medical record, a confident wrong number is worse than a blank.",
+        solution:
+          "Basa is a mobile web app. Staff photograph a paper chart, and two independent Meta models (Muse Spark and Muse Spark Open) each read every region of it. Where the two readings disagree, a person looks at the original handwriting beside both readings and confirms the value. Nothing is preselected for a flagged field. It also works offline, since photos save on the device and sync later. Every value stays traceable to its source region, and a cited summary and a printed patient copy come out at the end.",
+        stack: [
+          "Muse Spark",
+          "Muse Spark Open",
+          "Meta AI",
+          "SAM",
+          "Baseten",
+          "Next.js 16",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "GSAP",
+          "Supabase",
+          "Zod",
+          "IndexedDB",
+        ],
+        repo: "https://github.com/Tways-study/Basa",
+      },
+      photos: [
+        {
+          src: "/assets/hackathons/basa-app.png",
+          alt: "Basa's photograph-a-chart screen beside a sample chart with numbered regions the two readers checked",
+          caption: "Basa: photograph a chart, then confirm every flagged value",
+          width: 1901,
+          height: 899,
+        },
+      ],
+    },
+    {
       id: "hackiloilo-2026",
       event: "HackIloilo 2026",
       dates: "Oct 14–16",
@@ -483,6 +530,11 @@ export const content: PortfolioContent = {
         name: "Gilayon",
         summary:
           "A clinic system that keeps one patient record from check-in to prescription, even offline.",
+        problem:
+          "HMO clinics lose time every day to misfiled paper folders, buried allergy histories, handwritten prescriptions, and manual end-of-day tallies.",
+        solution:
+          "One visit connects the receptionist, nurse and doctor. Notes, prescriptions and scans save locally before syncing to the clinic server, local AI digitizes old paper folders offline, and wrong entries are corrected or voided, never deleted.",
+        stack: ["Tesseract OCR", "Qwen2.5-VL 3B"],
         highlights: ["Verified check-in", "Priority queue", "E-signed prescriptions", "Offline mode"],
         features: [
           "Verified check-in",
