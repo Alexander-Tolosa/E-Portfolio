@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Check, Mail } from "lucide-react";
 import { content } from "@/data/content";
 import { TechBadge } from "@/components/ui/TechBadge";
-import { InteractiveAvatar } from "@/components/ui/InteractiveAvatar";
+import { ProfilePhoto } from "@/components/ui/ProfilePhoto";
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg
@@ -70,13 +70,13 @@ export function Hero() {
           animate="visible"
           className="flex flex-col items-start text-left"
         >
-          {/* Top Row: Circular Avatar + Name + Verified Badge + Social Icons */}
+          {/* Top Row: Profile Photo + Name + Verified Badge + Social Icons */}
           <motion.div variants={itemVariants} className="flex items-center gap-5 sm:gap-6 mb-8">
-            {/* Interactive Profile Avatar (Anime -> Formal on hover with shine effect) */}
+            {/* Profile photo */}
             <div data-no-sound="true" className="no-sound shrink-0">
-              <InteractiveAvatar
-                animeSrc={content.personalInfo.animeAvatarUrl}
-                formalSrc={content.personalInfo.formalAvatarUrl}
+              <ProfilePhoto
+                src={content.personalInfo.formalAvatarUrl ?? content.personalInfo.avatarUrl}
+                hoverSrc={content.personalInfo.hoverAvatarUrl}
                 alt={content.personalInfo.name}
               />
             </div>

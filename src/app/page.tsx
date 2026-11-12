@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { content } from "@/data/content";
 import { TechBadge } from "@/components/ui/TechBadge";
-import { InteractiveAvatar } from "@/components/ui/InteractiveAvatar";
+import { ProfilePhoto } from "@/components/ui/ProfilePhoto";
 import { SkillsModal } from "@/components/ui/SkillsModal";
 import { CertificatesModal } from "@/components/ui/CertificatesModal";
 import { Projects } from "@/sections/Projects";
@@ -63,11 +63,10 @@ export default function Home() {
       {/* 1. TOP ROW: AVATAR + NAME + VERIFIED BADGE + SOCIAL ICONS */}
       <div id="top" className="flex items-center gap-5 sm:gap-6 mb-7">
         <div data-no-sound="true" className="shrink-0">
-          <InteractiveAvatar
-            animeSrc={content.personalInfo.animeAvatarUrl}
-            formalSrc={content.personalInfo.formalAvatarUrl}
+          <ProfilePhoto
+            src={content.personalInfo.formalAvatarUrl ?? content.personalInfo.avatarUrl}
+            hoverSrc={content.personalInfo.hoverAvatarUrl}
             alt={content.personalInfo.name}
-            className="w-20 h-20 sm:w-24 sm:h-24"
           />
         </div>
 
@@ -159,7 +158,7 @@ export default function Home() {
         </span>
         <span className="flex h-8 items-center gap-2 rounded-full border border-brand-border bg-brand-card px-3.5 text-[14px] font-medium text-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          UI/UX &amp; Design Systems
+          Project Management
         </span>
       </div>
       <div className="mt-8 border-t border-brand-border" />

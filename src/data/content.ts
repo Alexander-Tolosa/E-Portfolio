@@ -96,8 +96,8 @@ export interface PortfolioContent {
     subTitle: string;
     bio: string;
     avatarUrl: string;
-    animeAvatarUrl?: string;
     formalAvatarUrl?: string;
+    hoverAvatarUrl?: string;
     resumeUrl: string;
     socials: {
       github: string;
@@ -123,8 +123,8 @@ export const content: PortfolioContent = {
     subTitle: "Crafting Premium Digital Experiences & Robust Backends",
     bio: "A highly dedicated and detail-oriented Software Engineer specializing in building full-stack web applications. I turn complex logic and requirements into clean, elegant, and performant code, with an emphasis on fluid animations and responsive layout design.",
     avatarUrl: "/assets/images/formal_avatar.png",
-    animeAvatarUrl: "/assets/images/anime_avatar.png",
     formalAvatarUrl: "/assets/images/formal_avatar.png",
+    hoverAvatarUrl: "/assets/images/hover_avatar.png",
     resumeUrl: "/resume.pdf",
     socials: {
       github: "https://github.com/Alexander-Tolosa",
