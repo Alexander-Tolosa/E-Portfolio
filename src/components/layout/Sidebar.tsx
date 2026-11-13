@@ -47,7 +47,7 @@ export const groups: NavGroup[] = [
     title: "Portfolio",
     items: [
       { label: "More about me", href: "#", locked: true },
-      { label: "Projects", href: "/#projects", count: "02" },
+      { label: "Projects", href: "/#projects", count: "05" },
       { label: "Stack", href: "/#stack", count: "20" },
       { label: "Certifications", href: "/#certifications", count: "11" },
     ],

@@ -156,7 +156,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-foreground flex items-center gap-2.5">
                 <Code2 className="text-foreground" size={20} />
-                My Role
+                {project.solutionsHeading ?? "My Role"}
               </h3>
               <p className="text-brand-text-muted text-sm leading-relaxed">
                 {project.solutions}

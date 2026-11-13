@@ -11,6 +11,7 @@ export interface Project {
   techStack: string[];
   challenges: string;
   solutions: string;
+  solutionsHeading?: string;
   results: string;
   image: string; // URL or placeholder path
   secondaryImage?: string;
@@ -201,6 +202,63 @@ export const content: PortfolioContent = {
     },
   ],
   projects: [
+    {
+      id: "basa",
+      title: "Basa",
+      domain: "github.com/Tways-study/Basa",
+      category: "AI Document Digitization",
+      shortDescription: "A mobile web app that turns a photographed paper chart into a digital record. Two independent Meta models read it, and a person confirms every value they disagree on.",
+      description: "Basa is a mobile web app for clinics that still keep charts on paper. Staff photograph a chart, and two independent Meta models (Muse Spark and Muse Spark Open) each read every region of it. Every value stays traceable to its source region, and a cited summary and a printed patient copy come out at the end. Built for the Meta Global AI Developer Hackathon.",
+      role: "Full-Stack Developer",
+      timeline: "2026",
+      client: "Meta Global AI Developer Hackathon (Meta & Cerebral Valley)",
+      techStack: ["Muse Spark", "Muse Spark Open", "Meta AI", "SAM", "Baseten", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "GSAP", "Supabase", "Zod", "IndexedDB"],
+      challenges: "Many clinics still keep charts on paper, and typing them in is slow. Plain OCR can misread a smudged 7.2 as 1.2 without any sign it is unsure. In a medical record, a confident wrong number is worse than a blank.",
+      solutions: "Where the two readings disagree, a person looks at the original handwriting beside both readings and confirms the value. Nothing is preselected for a flagged field. It also works offline, since photos save on the device and sync later.",
+      solutionsHeading: "What We Built",
+      results: "Two independent readers check every region of a chart, a person settles each disagreement, and every value traces back to its source region. The app produces a cited summary and a printed patient copy, and keeps working without a connection.",
+      image: "/assets/hackathons/basa-app.png",
+      images: ["/assets/hackathons/basa-app.png"],
+      githubUrl: "https://github.com/Tways-study/Basa",
+    },
+    {
+      id: "gilayon",
+      title: "Gilayon",
+      domain: "github.com/Alexander-Tolosa/Gilayon",
+      category: "Clinic Management System",
+      shortDescription: "A clinic system that keeps one patient record from check-in to prescription, even offline.",
+      description: "Gilayon covers the HMO-clinic flow from the concept document: verified check-in, priority queue, patient registry, append-only consultations, e-signed prescriptions and medical certificates, void and reissue, a daily report, an audit trail, scans of old paper folders (photographed forms read by local OCR, checked by a person before saving), and offline mode.",
+      role: "Full-Stack Developer",
+      timeline: "2026",
+      client: "HackIloilo 2026 (Team KasCoders)",
+      techStack: ["Tesseract OCR", "Qwen2.5-VL 3B"],
+      challenges: "HMO clinics lose time every day to misfiled paper folders, buried allergy histories, handwritten prescriptions, and manual end-of-day tallies.",
+      solutions: "One visit connects the receptionist, nurse and doctor. Notes, prescriptions and scans save locally before syncing to the clinic server, local AI digitizes old paper folders offline, and wrong entries are corrected or voided, never deleted.",
+      solutionsHeading: "What We Built",
+      results: "Top 8 Finalist at HackIloilo 2026, my first hackathon.",
+      image: "/assets/images/gilayon_screen.png",
+      images: ["/assets/images/gilayon_screen.png"],
+      githubUrl: "https://github.com/Alexander-Tolosa/Gilayon",
+    },
+    {
+      id: "itsa-website",
+      title: "ITSA Website",
+      domain: "itsa-website-psi.vercel.app",
+      category: "Organization Website",
+      shortDescription: "The official website of the Information Technology Student Association at the University of San Agustin, with news, events, officers and community FAQs.",
+      description: "The public website of the Information Technology Student Association (ITSA) at the University of San Agustin. It introduces the association and its mission, and brings its news, upcoming events, officer profiles, student projects and membership questions into one place.",
+      role: "Web Developer",
+      timeline: "2026",
+      client: "Information Technology Student Association, University of San Agustin",
+      techStack: ["Next.js", "Vercel"],
+      challenges: "A student organization needs one public place for its news, events, officers and membership questions, so students and partners do not have to piece it together from social media posts.",
+      solutions: "The site has a home page with the association's mission, partners and a Project of the Month link, plus pages for news, events, officers, projects and a community FAQ with a call to join.",
+      solutionsHeading: "What the Site Covers",
+      results: "The site is live and gives ITSA a public home for its news, events, officers and community questions.",
+      image: "/assets/images/itsa_website.png",
+      images: ["/assets/images/itsa_website.png"],
+      liveUrl: "https://itsa-website-psi.vercel.app",
+    },
     {
       id: "pharmatrack",
       title: "PharmaTrack",
