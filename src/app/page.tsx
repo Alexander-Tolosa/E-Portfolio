@@ -411,37 +411,43 @@ export default function Home() {
           <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
             <p className="text-[14px] text-brand-text-muted">Frontend</p>
             <p className="text-[15px] text-foreground">
-              React, TypeScript, Next.js, Tailwind CSS, HTML5, CSS3, Shadcn UI, JavaScript, Framer Motion, GSAP, Vite
+              TypeScript, JavaScript, HTML5, CSS3, React, Next.js, Vite, Tailwind CSS, Shadcn UI
             </p>
           </div>
           <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
             <p className="text-[14px] text-brand-text-muted">Backend</p>
             <p className="text-[15px] text-foreground">
-              Python, Java, Spring Boot, PostgreSQL, MySQL
+              Node.js, Spring Boot, Python, Java, PostgreSQL, MySQL, Supabase
             </p>
           </div>
           <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
             <p className="text-[14px] text-brand-text-muted">Devops &amp; Cloud</p>
             <p className="text-[15px] text-foreground">
-              GitHub Actions, Vercel
+              Vercel, GitHub Actions
             </p>
           </div>
           <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
-            <p className="text-[14px] text-brand-text-muted">AI &amp; Automation</p>
+            <p className="text-[14px] text-brand-text-muted">AI &amp; Machine Learning</p>
             <p className="text-[15px] text-foreground">
-              Anthropic Claude API, Prompt Engineering, AI Fluency
+              Claude Code, Meta Model, Antigravity
+            </p>
+          </div>
+          <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
+            <p className="text-[14px] text-brand-text-muted">Security &amp; Identity</p>
+            <p className="text-[15px] text-foreground">
+              Supabase Auth, JWT, OAuth
             </p>
           </div>
           <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
             <p className="text-[14px] text-brand-text-muted">CMS &amp; No-Code</p>
             <p className="text-[15px] text-foreground">
-              WordPress
+              Canva, WordPress, Figma
             </p>
           </div>
           <div className="grid grid-cols-[130px_1fr] sm:grid-cols-[160px_1fr] gap-6 py-4">
             <p className="text-[14px] text-brand-text-muted">Developer Tools</p>
             <p className="text-[15px] text-foreground">
-              Git, GitHub, VS Code, Supabase, Vercel, Canva, Antigravity, Discord, Teams, Viber
+              VS Code, Git, GitHub, Cursor, Cisco Packet Tracer, Discord, Teams, Viber
             </p>
           </div>
         </div>

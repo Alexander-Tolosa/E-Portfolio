@@ -33,7 +33,7 @@ export function SkillsModal({ isOpen, onClose, skillCategories }: SkillsModalPro
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 15 }}
           transition={{ type: "spring", damping: 25, stiffness: 320 }}
-          className="relative w-full max-w-3xl max-h-[85vh] rounded-3xl glass border border-brand-border shadow-2xl z-10 flex flex-col p-6 sm:p-8 overflow-hidden select-text"
+          className="relative w-full max-w-4xl max-h-[94dvh] rounded-3xl glass border border-brand-border shadow-2xl z-10 flex flex-col p-5 sm:p-6 overflow-hidden select-text"
         >
           {/* Close Button */}
           <button
@@ -45,8 +45,8 @@ export function SkillsModal({ isOpen, onClose, skillCategories }: SkillsModalPro
           </button>
 
           {/* Modal Header */}
-          <div className="mb-6 pr-8 select-text">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="mb-4 pr-8 select-text">
+            <div className="flex items-center gap-2 mb-1.5">
               <LayoutGrid size={20} className="text-foreground/80 shrink-0" />
               <h3 className="text-2xl font-bold tracking-tight text-foreground font-mono select-text cursor-text">
                 Skillset and Tools
@@ -58,20 +58,20 @@ export function SkillsModal({ isOpen, onClose, skillCategories }: SkillsModalPro
           </div>
 
           {/* Categorized Skills Grid */}
-          <div className="flex-1 overflow-y-auto pr-2 space-y-7 no-scrollbar select-text">
+          <div className="flex-1 overflow-y-auto divide-y divide-brand-border/60 no-scrollbar select-text">
             {skillCategories.map((category) => {
               if (!category.skills || category.skills.length === 0) return null;
 
               return (
-                <div key={category.name} className="space-y-3 select-text">
-                  <h4 className="text-[11px] font-mono font-bold uppercase tracking-widest text-brand-text-muted/80 select-text cursor-text">
+                <div key={category.name} className="grid grid-cols-1 gap-2 py-3 first:pt-0 last:pb-0 sm:grid-cols-[150px_1fr] sm:gap-4 select-text">
+                  <h4 className="pt-1.5 text-[11px] font-mono font-bold uppercase tracking-widest text-brand-text-muted/80 select-text cursor-text">
                     {category.name}
                   </h4>
-                  <div className="flex flex-wrap gap-2 select-text">
+                  <div className="flex flex-wrap gap-1.5 select-text">
                     {category.skills.map((skill) => (
                       <div
                         key={skill.name}
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg glass border border-brand-border/80 hover:border-foreground/40 transition-all text-xs font-mono font-medium text-foreground select-text cursor-text"
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-lg glass border border-brand-border/80 hover:border-foreground/40 transition-all text-xs font-mono font-medium text-foreground select-text cursor-text"
                       >
                         <TechBadge name={skill.name} showIcon={true} className="!border-0 !bg-transparent !p-0 !m-0 select-text cursor-text" />
                       </div>

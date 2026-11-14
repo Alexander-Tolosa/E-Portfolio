@@ -10,7 +10,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { useSound } from "@/context/SoundContext";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { ContactModal } from "./ContactModal";
-import { groups, themeOptions, spyIds, useManilaClock, type NavItem } from "./Sidebar";
+import { groups, goToSection, themeOptions, spyIds, useManilaClock, type NavItem } from "./Sidebar";
 
 export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -195,7 +195,10 @@ export function MobileHeader() {
                             ) : (
                               <Link
                                 href={item.href}
-                                onClick={close}
+                                onClick={(e) => {
+                                  goToSection(e, item.href, pathname);
+                                  close();
+                                }}
                                 aria-current={active ? "page" : undefined}
                                 className={`${row} active:bg-white/[0.06] ${
                                   active ? "text-foreground font-semibold" : "text-foreground/85"
