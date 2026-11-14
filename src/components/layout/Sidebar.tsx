@@ -48,11 +48,32 @@ export const groups: NavGroup[] = [
     items: [
       { label: "More about me", href: "#", locked: true },
       { label: "Projects", href: "/#projects", count: "05" },
-      { label: "Stack", href: "/#stack", count: "20" },
+      { label: "Stack", href: "/#stack", count: "35" },
       { label: "Certifications", href: "/#certifications", count: "11" },
     ],
   },
 ];
+
+/**
+ * Same-page section links ("/#id"): scroll to the section and keep the URL at
+ * exactly "/#id", so repeated clicks never stack fragments like "/#stack#certifications".
+ * Returns true when it handled the click.
+ */
+export function goToSection(
+  e: React.MouseEvent<HTMLElement>,
+  href: string,
+  pathname: string
+) {
+  if (!href.startsWith("/#") || pathname !== "/") return false;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return false;
+  const id = href.slice(2);
+  const el = document.getElementById(id);
+  if (!el) return false;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.history.replaceState(null, "", `/#${id}`);
+  return true;
+}
 
 export const themeOptions = [
   { mode: "system", label: "System theme", Icon: Monitor },
@@ -232,6 +253,7 @@ export function Sidebar() {
                       ) : (
                         <Link
                           href={item.href}
+                          onClick={(e) => goToSection(e, item.href, pathname)}
                           aria-current={active ? "page" : undefined}
                           className={`${rowBase} hover:translate-x-0.5 ${
                             active
