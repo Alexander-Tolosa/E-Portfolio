@@ -407,6 +407,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-12",
+      title: "Leadership for Successful Project Management and Delivery",
+      issuer: "Udemy",
+      date: "Nov 2026",
+      credentialUrl: "https://udemy-certificate.s3.amazonaws.com/image/UC-d3c7f833-a2e4-4cc6-9cff-4629c4a0f81d.jpg",
+      logo: "/assets/images/udemy_logo.png",
+      description: []
+    },
+    {
       id: "cert-11",
       title: "Backlog Management + Agile Product Backlog + Backlog Refinement",
       issuer: "Udemy",
