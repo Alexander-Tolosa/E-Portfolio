@@ -49,7 +49,7 @@ export const groups: NavGroup[] = [
       { label: "More about me", href: "#", locked: true },
       { label: "Projects", href: "/#projects", count: "05" },
       { label: "Stack", href: "/#stack", count: "35" },
-      { label: "Certifications", href: "/#certifications", count: "12" },
+      { label: "Certifications", href: "/#certifications", count: "13" },
     ],
   },
 ];
