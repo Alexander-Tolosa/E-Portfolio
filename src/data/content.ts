@@ -407,6 +407,15 @@ export const content: PortfolioContent = {
   ],
   certifications: [
     {
+      id: "cert-13",
+      title: "Generative AI Foundational Certificate Course",
+      issuer: "Udemy",
+      date: "Nov 2026",
+      credentialUrl: "https://udemy-certificate.s3.amazonaws.com/image/UC-2fe2782d-892e-46e9-bee2-9d9f482cb24a.jpg",
+      logo: "/assets/images/udemy_logo.png",
+      description: []
+    },
+    {
       id: "cert-12",
       title: "Leadership for Successful Project Management and Delivery",
       issuer: "Udemy",

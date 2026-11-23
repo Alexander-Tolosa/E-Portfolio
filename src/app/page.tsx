@@ -464,7 +464,7 @@ export default function Home() {
             onClick={() => setIsCertsModalOpen(true)}
             className="text-[14px] font-medium text-brand-text-muted hover:text-foreground cursor-pointer transition-colors"
           >
-            View all (12)
+            View all (13)
           </button>
         </div>
 
